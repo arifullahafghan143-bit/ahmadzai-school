@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="ps" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ډشبورډ | احمدزي ښوونځی</title>
+
+<style>
+:root {
+    --primary: #123b67;
+    --secondary: #2563eb;
+    --bg: #f1f5f9;
+    --white: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    background: var(--primary);
+    color: white;
+    padding: 24px 14px;
+}
+
+.brand {
+    text-align: center;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #ffffff30;
+}
+
+.logo {
+    width: 65px;
+    height: 65px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 12px;
+    border-radius: 20px;
+    background: #ffffff20;
+    font-size: 32px;
+}
+
+.brand h2 {
+    margin: 0 0 7px;
+    font-size: 21px;
+}
+
+.brand p {
+    margin: 0;
+    font-size: 12px;
+    color: #cbd5e1;
+}
+
+.nav-title {
+    font-size: 12px;
+    color: #bfdbfe;
+    margin: 24px 10px 10px;
+}
+
+.nav {
+    display: grid;
+    gap: 7px;
+}
+
+.nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    text-decoration: none;
+    padding: 13px 12px;
+    border-radius: 9px;
+    font-size: 14px;
+    transition: .2s;
+}
+
+.nav a:hover,
+.nav a.active {
+    background: #ffffff20;
+}
+
+.nav .icon {
+    width: 25px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.main {
+    flex: 1;
+    min-width: 0;
+}
+
+.topbar {
+    background: white;
+    min-height: 80px;
+    padding: 18px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    border-bottom: 1px solid var(--border);
+}
+
+.topbar h1 {
+    font-size: 22px;
+    margin: 0 0 5px;
+}
+
+.topbar p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.admin {
+    background: #eff6ff;
+    color: var(--primary);
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.content {
+    padding: 24px;
+    max-width: 1500px;
+    margin: auto;
+}
+
+.welcome {
+    padding: 25px;
+    border-radius: 16px;
+    background: linear-gradient(120deg, #123b67, #2563eb);
+    color: white;
+    margin-bottom: 24px;
+}
+
+.welcome h2 {
+    margin: 0 0 10px;
+    font-size: 25px;
+}
+
+.welcome p {
+    margin: 0;
+    line-height: 1.9;
+    font-size: 14px;
+    color: #dbeafe;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.stat {
+    background: white;
+    padding: 20px;
+    border-radius: 13px;
+    border: 1px solid var(--border);
+    box-shadow: 0 3px 10px #00000005;
+}
+
+.stat-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.stat-icon {
+    width: 43px;
+    height: 43px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #eff6ff;
+    font-size: 23px;
+}
+
+.stat strong {
+    display: block;
+    font-size: 30px;
+    margin-top: 15px;
+    color: var(--primary);
+    overflow-wrap: anywhere;
+}
+
+.stat small {
+    display: block;
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin: 25px 0 15px;
+}
+
+.section-title h2 {
+    font-size: 19px;
+    margin: 0;
+}
+
+.section-title span {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.quick-links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.quick-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    background: white;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 12px;
+    transition: .2s;
+}
+
+.quick-card:hover {
+    border-color: var(--secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px #00000008;
+}
+
+.quick-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #eff6ff;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.quick-card h3 {
+    font-size: 15px;
+    margin: 0 0 7px;
+}
+
+.quick-card p {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.7;
+}
+
+.status-card {
+    background: white;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-top: 25px;
+}
+
+.status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+
+.status-row:last-child {
+    border-bottom: none;
+}
+
+.status-pill {
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 12px;
+}
+
+.status-pill.ok {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-pill.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.refresh {
+    border: none;
+    background: var(--primary);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.refresh:disabled {
+    opacity: .6;
+    cursor: wait;
+}
+
+.footer {
+    text-align: center;
+    padding: 25px 10px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+@media (max-width: 1050px) {
+    .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .quick-links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .layout {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 14px;
+    }
+
+    .brand {
+        padding-bottom: 13px;
+    }
+
+    .logo {
+        width: 48px;
+        height: 48px;
+        font-size: 25px;
+        margin-bottom: 8px;
+    }
+
+    .brand h2 {
+        font-size: 18px;
+    }
+
+    .nav-title {
+        margin-top: 14px;
+    }
+
+    .nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .nav a {
+        padding: 11px 8px;
+        font-size: 12px;
+    }
+
+    .topbar {
+        padding: 16px;
+    }
+
+    .topbar h1 {
+        font-size: 19px;
+    }
+
+    .admin {
+        font-size: 11px;
+        padding: 9px;
+    }
+
+    .content {
+        padding: 14px;
+    }
+
+    .welcome {
+        padding: 20px;
+    }
+
+    .welcome h2 {
+        font-size: 21px;
+    }
+
+    .stats {
+        gap: 10px;
+    }
+
+    .stat {
+        padding: 14px;
+    }
+
+    .stat strong {
+        font-size: 25px;
+    }
+
+    .quick-links {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 360px) {
+    .stats {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="logo">🏫</div>
+            <h2>احمدزي ښوونځی</h2>
+            <p>د ښوونځي د مدیریت سیستم</p>
+        </div>
+
+        <div class="nav-title">اصلي مېنو</div>
+
+        <nav class="nav">
+            <a class="active" href="dashboard.html">
+                <span class="icon">🏠</span>
+                ډشبورډ
+            </a>
+
+            <a href="students.html">
+                <span class="icon">👨‍🎓</span>
+                زده‌کوونکي
+            </a>
+
+            <a href="teachers.html">
+                <span class="icon">👨‍🏫</span>
+                ښوونکي
+            </a>
+
+            <a href="attendance.html">
+                <span class="icon">📋</span>
+                حاضري
+            </a>
+
+            <a href="results-new.html">
+                <span class="icon">📝</span>
+                د نمرو ثبت
+            </a>
+
+            <a href="results-report.html">
+                <span class="icon">📊</span>
+                د پایلو راپور
+            </a>
+
+            <a href="fees.html">
+                <span class="icon">💰</span>
+                د فیسونو مدیریت
+            </a>
+
+            <a href="reports.html">
+                <span class="icon">📑</span>
+                د حاضري راپور
+            </a>
+        </nav>
+
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <h1>د مدیریت ډشبورډ</h1>
+                <p id="todayDate">د ښوونځي د چارو عمومي کتنه</p>
+            </div>
+
+            <div class="admin">👤 مدیر</div>
+        </header>
+
+        <div class="content">
+
+            <section class="welcome">
+                <h2>ښه راغلاست! 👋</h2>
+                <p>
+                    د احمدزي ښوونځي د مدیریت مرکز ته ښه راغلاست.
+                    دلته د زده‌کوونکو، ښوونکو، حاضري، نمرو او فیسونو
+                    مهم معلومات په یوه ځای کې لیدلی شئ.
+                </p>
+            </section>
+
+            <div class="section-title">
+                <h2>د ښوونځي احصائیه</h2>
+
+                <button class="refresh" id="refreshBtn"
+                        onclick="loadDashboard()">
+                    ↻ معلومات تازه کړه
+                </button>
+            </div>
+
+            <section class="stats">
+
+                <div class="stat">
+                    <div class="stat-top">
+                        <span class="stat-label">ټول زده‌کوونکي</span>
+                        <span class="stat-icon">👨‍🎓</span>
+                    </div>
+                    <strong id="studentsCount">—</strong>
+                    <small>ثبت شوي زده‌کوونکي</small>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-top">
+                        <span class="stat-label">ټول ښوونکي</span>
+                        <span class="stat-icon">👨‍🏫</span>
+                    </div>
+                    <strong id="teachersCount">—</strong>
+                    <small>ثبت شوي ښوونکي</small>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-top">
+                        <span class="stat-label">ټول ټولګي</span>
+                        <span class="stat-icon">🏫</span>
+                    </div>
+                    <strong id="classesCount">—</strong>
+                    <small>ثبت شوي ټولګي</small>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-top">
+                        <span class="stat-label">ټول مضامین</span>
+                        <span class="stat-icon">📚</span>
+                    </div>
+                    <strong id="subjectsCount">—</strong>
+                    <small>ثبت شوي مضامین</small>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-top">
+                        <span class="stat-label">ټول ثبت شوي فیسونه</span>
+                        <span class="stat-icon">💰</span>
+                    </div>
+                    <strong id="feesCount">—</strong>
+                    <small>د فیسونو ثبتونه</small>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-top">
+                        <span class="stat-label">ټولې ورکړل شوې پیسې</span>
+                        <span class="stat-icon">💵</span>
+                    </div>
+                    <strong id="paidAmount">—</strong>
+                    <small>د ثبت شویو فیسونو مجموعه</small>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-top">
+                        <span class="stat-label">پاتې فیس</span>
+                        <span class="stat-icon">🧾</span>
+                    </div>
+                    <strong id="dueAmount">—</strong>
+                    <small>د ثبت شویو فیسونو پاتې پیسې</small>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-top">
+                        <span class="stat-label">ثبت شوې پایلې</span>
+                        <span class="stat-icon">📊</span>
+                    </div>
+                    <strong id="resultsCount">—</strong>
+                    <small>د ازموینو ثبتونه</small>
+                </div>
+
+            </section>
+
+            <div class="section-title">
+                <h2>چټک لاسرسی</h2>
+                <span>د اړتیا وړ برخه انتخاب کړه</span>
+            </div>
+
+            <section class="quick-links">
+
+                <a class="quick-card" href="students.html">
+                    <div class="quick-icon">👨‍🎓</div>
+                    <div>
+                        <h3>د زده‌کوونکو مدیریت</h3>
+                        <p>نوي زده‌کوونکي ثبت او معلومات اصلاح کړه.</p>
+                    </div>
+                </a>
+
+                <a class="quick-card" href="teachers.html">
+                    <div class="quick-icon">👨‍🏫</div>
+                    <div>
+                        <h3>د ښوونکو مدیریت</h3>
+                        <p>د ښوونکو معلومات ثبت او اداره کړه.</p>
+                    </div>
+                </a>
+
+                <a class="quick-card" href="attendance.html">
+                    <div class="quick-icon">📋</div>
+                    <div>
+                        <h3>د حاضري سیستم</h3>
+                        <p>د زده‌کوونکو ورځنۍ حاضري ثبت کړه.</p>
+                    </div>
+                </a>
+
+                <a class="quick-card" href="results-new.html">
+                    <div class="quick-icon">📝</div>
+                    <div>
+                        <h3>د نمرو ثبت</h3>
+                        <p>د ازموینو نمرې ثبت او اصلاح کړه.</p>
+                    </div>
+                </a>
+
+                <a class="quick-card" href="results-report.html">
+                    <div class="quick-icon">📊</div>
+                    <div>
+                        <h3>د پایلو راپور</h3>
+                        <p>د زده‌کوونکو د پایلو راپور وګوره.</p>
+                    </div>
+                </a>
+
+                <a class="quick-card" href="fees.html">
+                    <div class="quick-icon">💰</div>
+                    <div>
+                        <h3>د فیسونو مدیریت</h3>
+                        <p>فیسونه، ورکړل شوې پیسې او پاتې حسابونه وګوره.</p>
+                    </div>
+                </a>
+
+                <a class="quick-card" href="reports.html">
+                    <div class="quick-icon">📑</div>
+                    <div>
+                        <h3>د حاضري راپورونه</h3>
+                        <p>د زده‌کوونکو د حاضري راپورونه چاپ کړه.</p>
+                    </div>
+                </a>
+
+            </section>
+
+            <section class="status-card">
+                <div class="section-title" style="margin-top:0">
+                    <h2>د سیستم حالت</h2>
+                </div>
+
+                <div class="status-row">
+                    <span>د ډیټابېس اتصال</span>
+                    <span class="status-pill" id="connectionStatus">
+                        د کتنې په حال کې...
+                    </span>
+                </div>
+
+                <div class="status-row">
+                    <span>وروستی تازه کول</span>
+                    <span id="lastUpdated">—</span>
+                </div>
+
+                <div class="status-row">
+                    <span>د ډشبورډ نسخه</span>
+                    <span>2.0</span>
+                </div>
+            </section>
+
+        </div>
+
+        <footer class="footer">
+            © احمدزي ښوونځی — د ښوونځي د مدیریت سیستم
+        </footer>
+
+    </main>
+
+</div>
+
+<script>
+const SUPABASE_URL =
+    "https://oaxmnfnaqhdvnykawvyh.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
+
+const $ = id => document.getElementById(id);
+
+function setCount(id, value) {
+    $(id).textContent = Number(value).toLocaleString("en-US");
+}
+
+function setConnection(text, type) {
+    const el = $("connectionStatus");
+    el.textContent = text;
+    el.className = "status-pill " + (type || "");
+}
+
+async function getCount(table) {
+    const response = await fetch(
+        `${SUPABASE_URL}/rest/v1/${table}?select=*`,
+        {
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`,
+                "Range": "0-0",
+                "Prefer": "count=exact"
+            }
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error(`${table}: ${await response.text()}`);
+    }
+
+    const range = response.headers.get("content-range");
+
+    if (range && range.includes("/")) {
+        const count = Number(range.split("/").pop());
+
+        if (Number.isFinite(count)) return count;
+    }
+
+    const data = await response.json();
+
+    return data.length;
+}
+
+async function getRows(table, select) {
+    const response = await fetch(
+        `${SUPABASE_URL}/rest/v1/${table}?select=${encodeURIComponent(select)}`,
+        {
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`
+            }
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error(`${table}: ${await response.text()}`);
+    }
+
+    return await response.json();
+}
+
+function formatMoney(value) {
+    return Number(value).toLocaleString("en-US", {
+        maximumFractionDigits: 2
+    });
+}
+
+async function loadDashboard() {
+    const button = $("refreshBtn");
+    button.disabled = true;
+    button.textContent = "معلومات تازه کېږي...";
+
+    setConnection("د اتصال په حال کې...", "");
+
+    try {
+        const counts = await Promise.all([
+            getCount("students"),
+            getCount("teachers"),
+            getCount("classes"),
+            getCount("subjects"),
+            getCount("fees"),
+            getCount("results")
+        ]);
+
+        setCount("studentsCount", counts[0]);
+        setCount("teachersCount", counts[1]);
+        setCount("classesCount", counts[2]);
+        setCount("subjectsCount", counts[3]);
+        setCount("feesCount", counts[4]);
+        setCount("resultsCount", counts[5]);
+
+        let fees = [];
+
+        if (counts[4] > 0) {
+            fees = await getRows(
+                "fees",
+                "total_amount,paid_amount"
+            );
+        }
+
+        const paid = fees.reduce(
+            (sum, fee) => sum + Math.max(0, Number(fee.paid_amount) || 0),
+            0
+        );
+
+        const due = fees.reduce((sum, fee) => {
+            const total = Math.max(0, Number(fee.total_amount) || 0);
+            const paidAmount = Math.max(0, Number(fee.paid_amount) || 0);
+
+            return sum + Math.max(0, total - paidAmount);
+        }, 0);
+
+        $("paidAmount").textContent = formatMoney(paid) + " AFN";
+        $("dueAmount").textContent = formatMoney(due) + " AFN";
+
+        setConnection("وصل دی ✓", "ok");
+
+        $("lastUpdated").textContent =
+            new Date().toLocaleString();
+
+    } catch (error) {
+        console.error(error);
+
+        setConnection("د اتصال ستونزه", "error");
+
+        $("lastUpdated").textContent = error.message;
+
+    } finally {
+        button.disabled = false;
+        button.textContent = "↻ معلومات تازه کړه";
+    }
+}
+
+$("todayDate").textContent =
+    new Date().toLocaleDateString() +
+    " | د ښوونځي د چارو عمومي کتنه";
+
+loadDashboard();
+</script>
+
+</body>
+  </html>
