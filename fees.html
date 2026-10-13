@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ps" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>د فیسونو مدیریت - احمدزي ښوونځی</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#1e293b}
+header{background:#123b67;color:white;padding:20px 12px;text-align:center}
+header h1{margin:0 0 8px}
+header p{margin:0}
+.container{max-width:1200px;margin:20px auto;padding:0 12px}
+.card{background:white;border-radius:12px;padding:18px;margin-bottom:18px;box-shadow:0 3px 12px #0000000b}
+h2{color:#123b67;font-size:19px;margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:13px}
+label{display:block;font-size:14px;font-weight:bold;margin-bottom:6px}
+input,select,textarea,button{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:7px;font-size:14px}
+button{cursor:pointer;font-weight:bold;border:0}
+.primary{background:#123b67;color:white}
+.green{background:#15803d;color:white}
+.red{background:#b91c1c;color:white}
+.gray{background:#e2e8f0;color:#1e293b}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.actions button{width:auto;min-width:110px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:12px}
+.stat{background:#eff6ff;border-radius:10px;padding:15px 8px;text-align:center;border-bottom:3px solid #2563eb}
+.stat span{display:block;font-size:13px}
+.stat strong{display:block;color:#123b67;font-size:21px;margin-top:8px;overflow-wrap:anywhere}
+.table-wrap{overflow-x:auto}
+table{width:100%;min-width:1050px;border-collapse:collapse}
+th,td{border:1px solid #e2e8f0;padding:9px;text-align:center;font-size:13px}
+th{background:#123b67;color:white}
+tbody tr:nth-child(even){background:#f8fafc}
+.badge{display:inline-block;padding:5px 8px;border-radius:20px;font-weight:bold}
+.paid{background:#dcfce7;color:#166534}
+.unpaid{background:#fee2e2;color:#991b1b}
+.partial{background:#fef3c7;color:#92400e}
+.small-btn{padding:7px 9px;margin:2px;width:auto}
+#message{display:none;padding:12px;border-radius:8px;margin-bottom:15px;overflow-wrap:anywhere}
+#message.ok{display:block;background:#dcfce7;color:#166534}
+#message.error{display:block;background:#fee2e2;color:#991b1b}
+.muted{color:#64748b;font-size:13px}
+footer{text-align:center;padding:20px;color:#64748b}
+@media print{
+.no-print,#message,footer,.edit-col{display:none!important}
+body{background:white}
+header{background:white;color:black;border-bottom:2px solid black}
+.container{max-width:none;padding:0}
+.card{box-shadow:none;border:1px solid #ddd}
+table{min-width:0}
+th,td{font-size:10px;padding:5px}
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>احمدزي ښوونځی</h1>
+<p>د زده‌کوونکو د فیسونو مدیریت سیستم</p>
+</header>
+
+<div class="container">
+<div id="message"></div>
+
+<div class="card no-print">
+<h2 id="formTitle">د زده‌کوونکي فیس ثبتول</h2>
+<form id="feeForm">
+<div class="grid">
+<div>
+<label for="studentId">زده‌کوونکی *</label>
+<select id="studentId" required>
+<option value="">زده‌کوونکي بارېږي...</option>
+</select>
+</div>
+<div>
+<label>د زده‌کوونکي ټولګی</label>
+<input id="studentClass" readonly placeholder="د ټولګي نوم">
+</div>
+<div>
+<label>د زده‌کوونکي کوډ</label>
+<input id="studentCode" readonly placeholder="د زده‌کوونکي کوډ">
+</div>
+<div>
+<label for="feeMonth">د فیس میاشت *</label>
+<input type="month" id="feeMonth" required>
+</div>
+<div>
+<label for="totalAmount">ټول فیس (افغانۍ) *</label>
+<input type="number" id="totalAmount" min="0" step="0.01" required>
+</div>
+<div>
+<label for="paidAmount">ورکړل شوې پیسې *</label>
+<input type="number" id="paidAmount" min="0" step="0.01" value="0" required>
+</div>
+<div>
+<label for="dueDate">د فیس وروستۍ نېټه</label>
+<input type="date" id="dueDate">
+</div>
+<div>
+<label for="paymentDate">د پیسو د ورکړې نېټه</label>
+<input type="date" id="paymentDate">
+</div>
+</div>
+
+<div style="margin-top:13px">
+<label for="note">یادښت</label>
+<textarea id="note" placeholder="اختیاري معلومات"></textarea>
+</div>
+
+<div class="card" style="background:#f8fafc;margin-top:15px">
+<div class="grid">
+<div>
+<label>پاتې فیس</label>
+<strong id="remainingPreview">0</strong> افغانۍ
+</div>
+<div>
+<label>د فیس حالت</label>
+<strong id="statusPreview">نه دی ورکړل شوی</strong>
+</div>
+</div>
+</div>
+
+<div class="actions">
+<button class="primary" type="submit" id="saveButton">فیس ثبت کړه</button>
+<button class="gray" type="button" id="resetButton">فورمه پاکه کړه</button>
+</div>
+</form>
+</div>
+
+<div class="card">
+<h2>د فیسونو عمومي حساب</h2>
+<div class="stats">
+<div class="stat"><span>د فیس ثبتونه</span><strong id="totalRecords">0</strong></div>
+<div class="stat"><span>ټول فیسونه</span><strong id="totalFees">0</strong></div>
+<div class="stat"><span>ورکړل شوې پیسې</span><strong id="totalPaid">0</strong></div>
+<div class="stat"><span>پاتې پیسې</span><strong id="totalDue">0</strong></div>
+<div class="stat"><span>بشپړ تادیه شوي</span><strong id="paidCount">0</strong></div>
+<div class="stat"><span>لا پاتې فیسونه</span><strong id="unpaidCount">0</strong></div>
+</div>
+</div>
+
+<div class="card">
+<h2>د فیسونو ثبتونه</h2>
+<div class="grid no-print">
+<div><label for="search">د زده‌کوونکي لټون</label><input id="search" placeholder="نوم یا کوډ ولیکه"></div>
+<div><label for="filterClass">ټولګی</label><select id="filterClass"><option value="">ټول ټولګي</option></select></div>
+<div><label for="filterMonth">میاشت</label><input type="month" id="filterMonth"></div>
+<div>
+<label for="filterStatus">د تادیې حالت</label>
+<select id="filterStatus">
+<option value="">ټول حالتونه</option>
+<option value="paid">بشپړ تادیه شوی</option>
+<option value="partial">یوه برخه تادیه شوې</option>
+<option value="unpaid">نه دی تادیه شوی</option>
+</select>
+</div>
+</div>
+<div class="actions no-print">
+<button class="green" id="refreshButton" type="button">معلومات تازه کړه</button>
+<button class="primary" type="button" onclick="window.print()">چاپ / PDF</button>
+</div>
+<p class="muted">د فیس حالت د ټول فیس او ورکړل شویو پیسو له مخې محاسبه کېږي.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>شمېره</th><th>د زده‌کوونکي نوم</th><th>کوډ</th><th>ټولګی</th>
+<th>میاشت</th><th>ټول فیس</th><th>ورکړل شوې پیسې</th>
+<th>پاتې پیسې</th><th>وروستۍ نېټه</th><th>د ورکړې نېټه</th>
+<th>حالت</th><th class="edit-col">عملیات</th>
+</tr>
+</thead>
+<tbody id="feesBody"><tr><td colspan="12">معلومات بارېږي...</td></tr></tbody>
+</table>
+</div>
+</div>
+</div>
+
+<footer>احمدزي ښوونځی | د فیسونو مدیریت</footer>
+
+<script>
+"use strict";
+
+const SUPABASE_URL = "https://oaxmnfnaqhdvnykawvyh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
+
+let students = [];
+let fees = [];
+let editingId = null;
+let busy = false;
+
+const $ = id => document.getElementById(id);
+
+async function api(table, query = "", options = {}) {
+    const headers = {
+        apikey: SUPABASE_KEY,
+        Authorization: "Bearer " + SUPABASE_KEY,
+        ...options.headers
+    };
+
+    if (options.body !== undefined) headers["Content-Type"] = "application/json";
+
+    const response = await fetch(
+        `${SUPABASE_URL}/rest/v1/${table}${query ? "?" + query : ""}`,
+        {
+            method: options.method || "GET",
+            headers,
+            body: options.body === undefined ? undefined : JSON.stringify(options.body)
+        }
+    );
+
+    const text = await response.text();
+
+    if (!response.ok) {
+        let message = text || `HTTP ${response.status}`;
+        try {
+            const parsed = JSON.parse(text);
+            message = parsed.message || parsed.details || parsed.hint || message;
+        } catch {}
+        throw new Error(message);
+    }
+
+    if (!text) return [];
+    try { return JSON.parse(text); }
+    catch { return text; }
+}
+
+function showMessage(message, type = "ok") {
+    const box = $("message");
+    box.textContent = message;
+    box.className = type;
+    box.style.display = "block";
+}
+
+function hideMessage() {
+    $("message").style.display = "none";
+}
+
+function esc(value) {
+    return String(value ?? "").replace(/[&<>"']/g, ch => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+    })[ch]);
+}
+
+function num(value) {
+    const n = Number(value);
+    return Number.isFinite(n) ? n : 0;
+}
+
+function money(value) {
+    return num(value).toLocaleString("en-US", {maximumFractionDigits:2});
+}
+
+function studentById(id) {
+    return students.find(s => String(s.id) === String(id));
+}
+
+function getStatus(total, paid) {
+    if (num(paid) <= 0) return "unpaid";
+    if (num(paid) >= num(total)) return "paid";
+    return "partial";
+}
+
+function statusText(status) {
+    if (status === "paid") return "بشپړ تادیه شوی";
+    if (status === "partial") return "یوه برخه تادیه شوې";
+    return "نه دی ورکړل شوی";
+}
+
+function statusBadge(status) {
+    return `<span class="badge ${status}">${statusText(status)}</span>`;
+}
+
+function updatePreview() {
+    const total = num($("totalAmount").value);
+    const paid = num($("paidAmount").value);
+    $("remainingPreview").textContent = money(Math.max(0, total - paid));
+    $("statusPreview").textContent = statusText(getStatus(total, paid));
+}
+
+function fillStudentDropdown() {
+    const select = $("studentId");
+    const previous = select.value;
+    select.innerHTML = '<option value="">زده‌کوونکی انتخاب کړه</option>';
+
+    students.forEach(student => {
+        const option = document.createElement("option");
+        option.value = String(student.id);
+        option.textContent =
+            `${student.name || "بې نومه"} — ${student.class || "ټولګی نشته"} — ${student.code || student.id}`;
+        select.appendChild(option);
+    });
+
+    if (students.some(s => String(s.id) === previous)) select.value = previous;
+
+    const classes = [...new Set(students.map(s => s.class).filter(Boolean))];
+    const filter = $("filterClass");
+    const oldClass = filter.value;
+    filter.innerHTML = '<option value="">ټول ټولګي</option>';
+
+    classes.forEach(className => {
+        const option = document.createElement("option");
+        option.value = className;
+        option.textContent = className;
+        filter.appendChild(option);
+    });
+
+    if (classes.includes(oldClass)) filter.value = oldClass;
+    updateStudentDetails();
+}
+
+function updateStudentDetails() {
+    const student = studentById($("studentId").value);
+    $("studentClass").value = student?.class || "";
+    $("studentCode").value = student?.code || "";
+}
+
+async function loadStudents() {
+    $("studentId").innerHTML = '<option value="">زده‌کوونکي بارېږي...</option>';
+
+    // د جدول د اصلي کوچنیو تورو لرونکي کالمونه کارول کېږي.
+    const data = await api("students", "select=id,name,father,class,code&order=id.asc");
+    students = Array.isArray(data) ? data : [];
+    fillStudentDropdown();
+
+    if (!students.length) {
+        $("studentId").innerHTML = '<option value="">زده‌کوونکي ونه موندل شول</option>';
+        showMessage("د زده‌کوونکو جدول خالي دی، یا د لوستلو اجازه نشته.", "error");
+    }
+}
+
+async function loadFees() {
+    try {
+        const data = await api("fees", "select=*&order=created_at.desc");
+        fees = Array.isArray(data) ? data : [];
+        renderFees();
+    } catch (error) {
+        $("feesBody").innerHTML = `<tr><td colspan="12">د فیسونو لوستل ناکام شول: ${esc(error.message)}</td></tr>`;
+        throw error;
+    }
+}
+
+function getFilteredFees() {
+    const search = $("search").value.trim().toLowerCase();
+    const className = $("filterClass").value;
+    const month = $("filterMonth").value;
+    const status = $("filterStatus").value;
+
+    return fees.filter(fee => {
+        const student = studentById(fee.student_id);
+        const name = String(student?.name || fee.student_name || "").toLowerCase();
+        const code = String(student?.code || "").toLowerCase();
+        const currentStatus = getStatus(fee.total_amount, fee.paid_amount);
+
+        if (search && !name.includes(search) && !code.includes(search)) return false;
+        if (className && String(fee.class || student?.class || "") !== className) return false;
+        if (month && fee.fee_month !== month) return false;
+        if (status && currentStatus !== status) return false;
+        return true;
+    });
+}
+
+function renderFees() {
+    const list = getFilteredFees();
+    const body = $("feesBody");
+
+    let totalFees = 0, totalPaid = 0, totalDue = 0, paidCount = 0, unpaidCount = 0;
+
+    list.forEach(fee => {
+        const total = num(fee.total_amount);
+        const paid = num(fee.paid_amount);
+        totalFees += total;
+        totalPaid += paid;
+        totalDue += Math.max(0, total - paid);
+        if (getStatus(total, paid) === "paid") paidCount++;
+        else unpaidCount++;
+    });
+
+    $("totalRecords").textContent = list.length;
+    $("totalFees").textContent = money(totalFees);
+    $("totalPaid").textContent = money(totalPaid);
+    $("totalDue").textContent = money(totalDue);
+    $("paidCount").textContent = paidCount;
+    $("unpaidCount").textContent = unpaidCount;
+
+    if (!list.length) {
+        body.innerHTML = '<tr><td colspan="12">د فیس ثبتونه ونه موندل شول.</td></tr>';
+        return;
+    }
+
+    body.innerHTML = list.map((fee, index) => {
+        const student = studentById(fee.student_id);
+        const name = student?.name || fee.student_name || "نامعلوم";
+        const code = student?.code || "-";
+        const className = fee.class || student?.class || "-";
+        const total = num(fee.total_amount);
+        const paid = num(fee.paid_amount);
+        const due = Math.max(0, total - paid);
+        const status = getStatus(total, paid);
+
+        return `<tr>
+            <td>${index + 1}</td>
+            <td>${esc(name)}</td>
+            <td>${esc(code)}</td>
+            <td>${esc(className)}</td>
+            <td>${esc(fee.fee_month || "-")}</td>
+            <td>${money(total)}</td>
+            <td>${money(paid)}</td>
+            <td>${money(due)}</td>
+            <td>${esc(fee.due_date || "-")}</td>
+            <td>${esc(fee.payment_date || "-")}</td>
+            <td>${statusBadge(status)}</td>
+            <td class="edit-col">
+                <button class="small-btn primary" onclick="editFee('${esc(fee.id)}')">اصلاح</button>
+                <button class="small-btn red" onclick="deleteFee('${esc(fee.id)}')">حذف</button>
+            </td>
+        </tr>`;
+    }).join("");
+}
+
+function resetForm() {
+    $("feeForm").reset();
+    editingId = null;
+    $("paidAmount").value = "0";
+    $("formTitle").textContent = "د زده‌کوونکي فیس ثبتول";
+    $("saveButton").textContent = "فیس ثبت کړه";
+    $("saveButton").disabled = false;
+    $("studentClass").value = "";
+    $("studentCode").value = "";
+    updatePreview();
+    hideMessage();
+}
+
+async function editFee(id) {
+    const fee = fees.find(f => String(f.id) === String(id));
+    if (!fee) return showMessage("د فیس ثبت ونه موندل شو.", "error");
+
+    if (!students.some(s => String(s.id) === String(fee.student_id))) {
+        try {
+            await loadStudents();
+        } catch (error) {
+            return showMessage("د زده‌کوونکو معلومات ونه لوستل شول: " + error.message, "error");
+        }
+    }
+
+    $("studentId").value = String(fee.student_id);
+    updateStudentDetails();
+
+    $("feeMonth").value = fee.fee_month || "";
+    $("totalAmount").value = fee.total_amount ?? 0;
+    $("paidAmount").value = fee.paid_amount ?? 0;
+    $("dueDate").value = fee.due_date || "";
+    $("paymentDate").value = fee.payment_date || "";
+    $("note").value = fee.note || "";
+
+    editingId = fee.id;
+    $("formTitle").textContent = "د فیس ثبت اصلاح کول";
+    $("saveButton").textContent = "بدلونونه ثبت کړه";
+    updatePreview();
+    window.scrollTo({top:0, behavior:"smooth"});
+}
+
+async function deleteFee(id) {
+    const fee = fees.find(f => String(f.id) === String(id));
+    if (!fee) return;
+
+    if (!confirm("ایا غواړې دا د فیس ثبت حذف کړې؟")) return;
+
+    try {
+        await api("fees", `id=eq.${encodeURIComponent(id)}`, {
+            method:"DELETE",
+            headers:{"Prefer":"return=minimal"}
+        });
+        showMessage("د فیس ثبت حذف شو.", "ok");
+        await loadFees();
+    } catch (error) {
+        showMessage("حذف ناکام شو: " + error.message, "error");
+    }
+}
+
+$("feeForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    if (busy) return;
+
+    hideMessage();
+
+    const student = studentById($("studentId").value);
+    const month = $("feeMonth").value;
+    const total = Number($("totalAmount").value);
+    const paid = Number($("paidAmount").value);
+
+    if (!student) return showMessage("مهرباني وکړه زده‌کوونکی انتخاب کړه.", "error");
+    if (!month) return showMessage("د فیس میاشت انتخاب کړه.", "error");
+    if (!Number.isFinite(total) || !Number.isFinite(paid) || total < 0 || paid < 0) {
+        return showMessage("د پیسو اندازه سمه نه ده.", "error");
+    }
+    if (paid > total) return showMessage("ورکړل شوې پیسې له ټول فیس څخه زیاتې دي.", "error");
+    if (paid > 0 && !$("paymentDate").value) {
+        return showMessage("د پیسو د ورکړې نېټه هم انتخاب کړه.", "error");
+    }
+
+    const duplicate = fees.find(f =>
+        String(f.student_id) === String(student.id) &&
+        f.fee_month === month &&
+        String(f.id) !== String(editingId)
+    );
+
+    if (duplicate) {
+        return showMessage("د دې زده‌کوونکي د همدې میاشتې فیس مخکې ثبت شوی. پخوانی ثبت اصلاح کړه.", "error");
+    }
+
+    const payload = {
+        student_id:Number(student.id),
+        student_name:student.name || "",
+        class:student.class || "",
+        fee_month:month,
+        total_amount:total,
+        paid_amount:paid,
+        due_date:$("dueDate").value || null,
+        payment_date:paid > 0 ? $("paymentDate").value : null,
+        status:getStatus(total, paid),
+        note:$("note").value.trim() || null
+    };
+
+    busy = true;
+    $("saveButton").disabled = true;
+    $("saveButton").textContent = "ثبت کېږي...";
+
+    try {
+        if (editingId !== null) {
+            await api("fees", `id=eq.${encodeURIComponent(editingId)}`, {
+                method:"PATCH",
+                headers:{"Prefer":"return=minimal"},
+                body:payload
+            });
+            showMessage("د فیس معلومات اصلاح شول.", "ok");
+        } else {
+            await api("fees", "", {
+                method:"POST",
+                headers:{"Prefer":"return=minimal"},
+                body:payload
+            });
+            showMessage("د زده‌کوونکي فیس په بریالیتوب ثبت شو.", "ok");
+        }
+
+        resetForm();
+        await loadFees();
+    } catch (error) {
+        showMessage("د فیس ثبت ناکام شو: " + error.message, "error");
+    } finally {
+        busy = false;
+        $("saveButton").disabled = false;
+        $("saveButton").textContent = editingId !== null ? "بدلونونه ثبت کړه" : "فیس ثبت کړه";
+    }
+});
+
+$("studentId").addEventListener("change", updateStudentDetails);
+$("totalAmount").addEventListener("input", updatePreview);
+$("paidAmount").addEventListener("input", updatePreview);
+$("resetButton").addEventListener("click", resetForm);
+$("refreshButton").addEventListener("click", async () => {
+    hideMessage();
+    try {
+        await loadStudents();
+        await loadFees();
+        showMessage("د زده‌کوونکو او فیسونو معلومات تازه شول.", "ok");
+    } catch (error) {
+        showMessage("معلومات تازه نه شول: " + error.message, "error");
+    }
+});
+$("search").addEventListener("input", renderFees);
+$("filterClass").addEventListener("change", renderFees);
+$("filterMonth").addEventListener("change", renderFees);
+$("filterStatus").addEventListener("change", renderFees);
+
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        await loadStudents();
+        await loadFees();
+        updatePreview();
+
+        if (students.length) {
+            showMessage("د زده‌کوونکو او فیسونو معلومات بار شول.", "ok");
+        }
+    } catch (error) {
+        console.error(error);
+        showMessage("د معلوماتو د بارولو ستونزه: " + error.message, "error");
+    }
+});
+</script>
+</body>
+</html>
