@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ps" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>د زده‌کوونکو مدیریت | احمدزي ښوونځی</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f1f5f9;
+    color:#1e293b
+}
+
+header{
+    background:#123b66;
+    color:white;
+    padding:20px;
+    text-align:center
+}
+
+header h2{margin:0 0 10px}
+
+header a{
+    color:white;
+    text-decoration:none
+}
+
+.container{
+    max-width:1100px;
+    margin:20px auto;
+    padding:12px
+}
+
+.card{
+    background:white;
+    padding:18px;
+    margin-bottom:18px;
+    border-radius:12px;
+    box-shadow:0 3px 12px #0000000c
+}
+
+h3{color:#123b66;margin-top:0}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:14px
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px
+}
+
+input,select,button{
+    width:100%;
+    padding:12px;
+    border:1px solid #cbd5e1;
+    border-radius:7px;
+    font-size:15px
+}
+
+button{
+    background:#123b66;
+    color:white;
+    border:none;
+    cursor:pointer;
+    font-weight:bold
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed
+}
+
+.save{background:#087f5b;margin-top:16px}
+
+.cancel{
+    background:#64748b;
+    margin-top:10px
+}
+
+.delete{background:#dc2626}
+
+.edit{background:#d97706}
+
+.search{margin-bottom:14px}
+
+.table-wrap{overflow-x:auto}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:850px
+}
+
+th,td{
+    padding:11px 8px;
+    border-bottom:1px solid #e2e8f0;
+    text-align:center
+}
+
+th{background:#eaf1f8}
+
+.actions{
+    display:flex;
+    gap:6px
+}
+
+.actions button{
+    padding:8px;
+    min-width:65px
+}
+
+.message{
+    display:none;
+    padding:13px;
+    border-radius:8px;
+    margin-bottom:15px;
+    overflow-wrap:anywhere
+}
+
+.success{display:block;background:#dcfce7;color:#166534}
+.error{display:block;background:#fee2e2;color:#991b1b}
+.info{display:block;background:#dbeafe;color:#1e40af}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:12px;
+    margin-bottom:18px
+}
+
+.stat{
+    background:white;
+    padding:18px;
+    border-radius:10px;
+    text-align:center
+}
+
+.stat strong{
+    display:block;
+    font-size:25px;
+    color:#123b66;
+    margin-top:8px
+}
+
+@media(max-width:600px){
+    .container{padding:8px}
+    .card{padding:13px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>🏫 احمدزي ښوونځی</h2>
+    <div>د زده‌کوونکو د مدیریت سیستم</div>
+    <p><a href="dashboard.html">← ډشبورډ ته بېرته تلل</a></p>
+</header>
+
+<main class="container">
+
+    <div id="message" class="message"></div>
+
+    <div class="stats">
+        <div class="stat">
+            ټول زده‌کوونکي
+            <strong id="totalStudents">0</strong>
+        </div>
+
+        <div class="stat">
+            هلکان
+            <strong id="boysCount">0</strong>
+        </div>
+
+        <div class="stat">
+            نجونې
+            <strong id="girlsCount">0</strong>
+        </div>
+    </div>
+
+    <section class="card">
+        <h3 id="formTitle">➕ نوی زده‌کوونکی ثبت کړئ</h3>
+
+        <form id="studentForm">
+
+            <input type="hidden" id="studentId">
+
+            <div class="grid">
+
+                <div>
+                    <label for="code">د زده‌کوونکي کوډ</label>
+                    <input id="code" required
+                           placeholder="لکه ST-003">
+                </div>
+
+                <div>
+                    <label for="name">د زده‌کوونکي نوم</label>
+                    <input id="name" required
+                           placeholder="بشپړ نوم">
+                </div>
+
+                <div>
+                    <label for="father">د پلار نوم</label>
+                    <input id="father" required
+                           placeholder="د پلار نوم">
+                </div>
+
+                <div>
+                    <label for="className">صنف</label>
+                    <input id="className" list="classOptions"
+                           required placeholder="صنف انتخاب یا ولیکئ">
+
+                    <datalist id="classOptions"></datalist>
+                </div>
+
+                <div>
+                    <label for="gender">جنسیت</label>
+                    <select id="gender" required>
+                        <option value="">انتخاب کړئ</option>
+                        <option value="هلک">هلک</option>
+                        <option value="نجلۍ">نجلۍ</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="phone">د ټیلیفون شمېره</label>
+                    <input id="phone" type="tel"
+                           placeholder="د اړیکې شمېره">
+                </div>
+
+                <div>
+                    <label for="address">پته</label>
+                    <input id="address"
+                           placeholder="د اوسېدو ځای">
+                </div>
+
+            </div>
+
+            <button class="save" id="saveButton" type="submit">
+                زده‌کوونکی ثبت کړئ
+            </button>
+
+            <button class="cancel" id="cancelButton"
+                    type="button" hidden>
+                اصلاح لغوه کړئ
+            </button>
+
+        </form>
+    </section>
+
+    <section class="card">
+        <h3>📋 د زده‌کوونکو لېست</h3>
+
+        <input id="searchInput" class="search"
+               placeholder="د نوم، کوډ یا صنف له مخې لټون...">
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>شمېره</th>
+                        <th>کوډ</th>
+                        <th>نوم</th>
+                        <th>د پلار نوم</th>
+                        <th>صنف</th>
+                        <th>جنسیت</th>
+                        <th>ټیلیفون</th>
+                        <th>پته</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+
+                <tbody id="studentsBody">
+                    <tr>
+                        <td colspan="9">معلومات لوستل کېږي...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</main>
+
+<script>
+"use strict";
+
+// د Supabase اتصال
+const SUPABASE_URL =
+    "https://oaxmnfnaqhdvnykawvyh.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
+
+const form = document.getElementById("studentForm");
+const studentsBody = document.getElementById("studentsBody");
+const messageBox = document.getElementById("message");
+const searchInput = document.getElementById("searchInput");
+const saveButton = document.getElementById("saveButton");
+const cancelButton = document.getElementById("cancelButton");
+
+let students = [];
+let classes = [];
+
+function showMessage(text,type="info"){
+    messageBox.textContent=text;
+    messageBox.className="message "+type;
+    window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function clearMessage(){
+    messageBox.textContent="";
+    messageBox.className="message";
+}
+
+async function apiRequest(path,options={}){
+    const response=await fetch(
+        SUPABASE_URL+"/rest/v1/"+path,
+        {
+            method:options.method||"GET",
+            headers:{
+                "apikey":SUPABASE_KEY,
+                "Authorization":"Bearer "+SUPABASE_KEY,
+                "Content-Type":"application/json",
+                "Accept":"application/json",
+                "Prefer":"return=representation"
+            },
+            body:options.body===undefined
+                ?undefined
+                :JSON.stringify(options.body)
+        }
+    );
+
+    const text=await response.text();
+
+    let data;
+
+    try{
+        data=text?JSON.parse(text):null;
+    }catch{
+        data=text;
+    }
+
+    if(!response.ok){
+        const detail=data&&typeof data==="object"
+            ?(data.message||data.details||data.hint||JSON.stringify(data))
+            :String(data||response.statusText);
+
+        throw new Error(
+            "Supabase "+response.status+": "+detail
+        );
+    }
+
+    return data;
+}
+
+function valueOf(id){
+    return document.getElementById(id).value.trim();
+}
+
+function safeValue(value){
+    return value==null?"":String(value);
+}
+
+async function loadClasses(){
+    try{
+        const data=await apiRequest(
+            "classes?select=*&order=code.asc"
+        );
+
+        classes=Array.isArray(data)?data:[];
+
+        const datalist=document.getElementById("classOptions");
+        datalist.innerHTML="";
+
+        classes.forEach(item=>{
+            const name=safeValue(item.name||item.Name);
+
+            if(name){
+                const option=document.createElement("option");
+                option.value=name;
+                datalist.appendChild(option);
+            }
+        });
+    }catch(error){
+        console.error("د صنفونو د لوستلو ستونزه:",error);
+    }
+}
+
+async function loadStudents(){
+    studentsBody.innerHTML=
+        '<tr><td colspan="9">معلومات لوستل کېږي...</td></tr>';
+
+    try{
+        const data=await apiRequest(
+            "students?select=*&order=id.desc"
+        );
+
+        students=Array.isArray(data)?data:[];
+        renderStudents();
+
+    }catch(error){
+        studentsBody.innerHTML=
+            '<tr><td colspan="9">معلومات ونه لوستل شول.</td></tr>';
+
+        showMessage(
+            "د زده‌کوونکو د لوستلو ستونزه: "+error.message,
+            "error"
+        );
+    }
+}
+
+function renderStudents(){
+    const search=searchInput.value.trim().toLowerCase();
+
+    const filtered=students.filter(student=>{
+        const text=[
+            student.code,
+            student.name,
+            student.father,
+            student.class,
+            student.phone,
+            student.gender,
+            student.address
+        ].map(safeValue).join(" ").toLowerCase();
+
+        return text.includes(search);
+    });
+
+    studentsBody.innerHTML="";
+
+    document.getElementById("totalStudents").textContent=
+        students.length;
+
+    document.getElementById("boysCount").textContent=
+        students.filter(s=>s.gender==="هلک").length;
+
+    document.getElementById("girlsCount").textContent=
+        students.filter(s=>
+            s.gender==="نجلۍ"||s.gender==="نجلۍ"
+        ).length;
+
+    if(filtered.length===0){
+        studentsBody.innerHTML=
+            '<tr><td colspan="9">زده‌کوونکي ونه موندل شول.</td></tr>';
+        return;
+    }
+
+    filtered.forEach((student,index)=>{
+        const row=document.createElement("tr");
+
+        const fields=[
+            index+1,
+            student.code,
+            student.name,
+            student.father,
+            student.class,
+            student.gender,
+            student.phone,
+            student.address
+        ];
+
+        fields.forEach(value=>{
+            const cell=document.createElement("td");
+            cell.textContent=safeValue(value)||"—";
+            row.appendChild(cell);
+        });
+
+        const actionCell=document.createElement("td");
+        const actions=document.createElement("div");
+        actions.className="actions";
+
+        const editButton=document.createElement("button");
+        editButton.textContent="اصلاح";
+        editButton.className="edit";
+        editButton.type="button";
+        editButton.addEventListener("click",()=>{
+            editStudent(student.id);
+        });
+
+        const deleteButton=document.createElement("button");
+        deleteButton.textContent="حذف";
+        deleteButton.className="delete";
+        deleteButton.type="button";
+        deleteButton.addEventListener("click",()=>{
+            deleteStudent(student.id);
+        });
+
+        actions.append(editButton,deleteButton);
+        actionCell.appendChild(actions);
+        row.appendChild(actionCell);
+
+        studentsBody.appendChild(row);
+    });
+}
+
+form.addEventListener("submit",async function(event){
+    event.preventDefault();
+    clearMessage();
+
+    const id=valueOf("studentId");
+
+    const record={
+        code:valueOf("code"),
+        name:valueOf("name"),
+        father:valueOf("father"),
+        class:valueOf("className"),
+        gender:valueOf("gender"),
+        phone:valueOf("phone"),
+        address:valueOf("address")
+    };
+
+    if(!record.code||!record.name||
+       !record.father||!record.class||!record.gender){
+        showMessage(
+            "کوډ، نوم، د پلار نوم، صنف او جنسیت ضروري دي.",
+            "error"
+        );
+        return;
+    }
+
+    saveButton.disabled=true;
+    saveButton.textContent="معلومات ثبتېږي...";
+
+    try{
+        if(id){
+            await apiRequest(
+                "students?id=eq."+encodeURIComponent(id),
+                {
+                    method:"PATCH",
+                    body:record
+                }
+            );
+
+            showMessage(
+                "د زده‌کوونکي معلومات اصلاح شول.",
+                "success"
+            );
+        }else{
+            await apiRequest("students",{
+                method:"POST",
+                body:record
+            });
+
+            showMessage(
+                "نوی زده‌کوونکی په بریالیتوب ثبت شو.",
+                "success"
+            );
+        }
+
+        resetForm();
+        await loadStudents();
+
+    }catch(error){
+        showMessage(
+            "معلومات ثبت نه شول: "+error.message,
+            "error"
+        );
+    }finally{
+        saveButton.disabled=false;
+        saveButton.textContent="زده‌کوونکی ثبت کړئ";
+    }
+});
+
+function editStudent(id){
+    const student=students.find(
+        item=>String(item.id)===String(id)
+    );
+
+    if(!student){
+        showMessage("زده‌کوونکی ونه موندل شو.","error");
+        return;
+    }
+
+    document.getElementById("studentId").value=student.id;
+    document.getElementById("code").value=safeValue(student.code);
+    document.getElementById("name").value=safeValue(student.name);
+    document.getElementById("father").value=safeValue(student.father);
+    document.getElementById("className").value=safeValue(student.class);
+    document.getElementById("gender").value=safeValue(student.gender);
+    document.getElementById("phone").value=safeValue(student.phone);
+    document.getElementById("address").value=safeValue(student.address);
+
+    document.getElementById("formTitle").textContent=
+        "✏️ د زده‌کوونکي معلومات اصلاح کړئ";
+
+    saveButton.textContent="اصلاحات ثبت کړئ";
+    cancelButton.hidden=false;
+
+    window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function deleteStudent(id){
+    const student=students.find(
+        item=>String(item.id)===String(id)
+    );
+
+    if(!student)return;
+
+    const confirmed=confirm(
+        "ایا غواړئ د «"+safeValue(student.name)+"» معلومات حذف کړئ؟"
+    );
+
+    if(!confirmed)return;
+
+    try{
+        await apiRequest(
+            "students?id=eq."+encodeURIComponent(id),
+            {method:"DELETE"}
+        );
+
+        showMessage(
+            "د زده‌کوونکي معلومات حذف شول.",
+            "success"
+        );
+
+        await loadStudents();
+
+    }catch(error){
+        showMessage(
+            "حذف ترسره نه شو: "+error.message,
+            "error"
+        );
+    }
+}
+
+function resetForm(){
+    form.reset();
+    document.getElementById("studentId").value="";
+
+    document.getElementById("formTitle").textContent=
+        "➕ نوی زده‌کوونکی ثبت کړئ";
+
+    saveButton.textContent="زده‌کوونکی ثبت کړئ";
+    cancelButton.hidden=true;
+}
+
+cancelButton.addEventListener("click",function(){
+    resetForm();
+    clearMessage();
+});
+
+searchInput.addEventListener("input",renderStudents);
+
+async function startSystem(){
+    showMessage(
+        "د ډیټابېس سره اړیکه ټینګېږي...",
+        "info"
+    );
+
+    await loadClasses();
+    await loadStudents();
+}
+
+startSystem();
+</script>
+
+</body>
+                      </html>
