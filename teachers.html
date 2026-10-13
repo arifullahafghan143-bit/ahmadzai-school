@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="ps" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>د ښوونکو مدیریت</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Tahoma,Arial,sans-serif;
+    background:#f4f7fb;
+    color:#172033;
+}
+
+.header{
+    background:linear-gradient(135deg,#4f46e5,#3730a3);
+    color:white;
+    padding:22px 18px;
+    box-shadow:0 4px 15px #0002;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+.header h1{
+    margin:0;
+    font-size:24px;
+}
+
+.header p{
+    margin:7px 0 0;
+    opacity:.9;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+}
+
+.status{
+    display:inline-block;
+    padding:8px 14px;
+    border-radius:20px;
+    background:white;
+    box-shadow:0 2px 8px #0001;
+    font-size:14px;
+}
+
+.online{color:#087f5b}
+.offline{color:#c92a2a}
+
+.add-btn{
+    background:#4f46e5;
+    color:white;
+    border:0;
+    border-radius:10px;
+    padding:11px 16px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:14px;
+}
+
+.search{
+    width:100%;
+    padding:13px;
+    border:1px solid #d8dee9;
+    border-radius:10px;
+    margin-bottom:18px;
+    font-family:inherit;
+    font-size:15px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.stat{
+    background:white;
+    padding:18px;
+    border-radius:14px;
+    box-shadow:0 3px 12px #0000000d;
+    text-align:center;
+}
+
+.stat strong{
+    display:block;
+    font-size:26px;
+    margin-top:5px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    box-shadow:0 3px 15px #0000000d;
+    overflow:hidden;
+}
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:700px;
+}
+
+th,td{
+    padding:13px 10px;
+    border-bottom:1px solid #edf0f4;
+    text-align:right;
+}
+
+th{
+    background:#f8fafc;
+}
+
+.actions button{
+    margin-left:5px;
+    padding:7px 10px;
+    border:0;
+    border-radius:8px;
+    cursor:pointer;
+    font-family:inherit;
+}
+
+.edit{
+    background:#e7f5ff;
+    color:#1971c2;
+}
+
+.delete{
+    background:#fff0f0;
+    color:#c92a2a;
+}
+
+.empty{
+    text-align:center;
+    padding:35px;
+    color:#777;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#0008;
+    z-index:1000;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+}
+
+.modal-box{
+    background:white;
+    width:100%;
+    max-width:520px;
+    border-radius:16px;
+    padding:22px;
+    max-height:90vh;
+    overflow:auto;
+}
+
+.modal-box h2{
+    margin-top:0;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:6px 0 12px;
+    border:1px solid #d8dee9;
+    border-radius:9px;
+    font-family:inherit;
+    font-size:15px;
+}
+
+label{
+    font-size:14px;
+    font-weight:bold;
+}
+
+.form-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:8px;
+}
+
+.save{
+    background:#4f46e5;
+    color:white;
+    flex:1;
+}
+
+.cancel{
+    background:#e9ecef;
+    color:#333;
+    flex:1;
+}
+
+.error{
+    display:none;
+    background:#fff5f5;
+    color:#c92a2a;
+    border:1px solid #ffc9c9;
+    padding:12px;
+    border-radius:10px;
+    margin-top:10px;
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+@media(max-width:700px){
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .header h1{
+        font-size:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="container">
+        <h1>احمدزي ښوونځی</h1>
+        <p>د ښوونکو مدیریت سیستم</p>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="topbar">
+
+        <div>
+            <h2>د ښوونکو مدیریت</h2>
+            <div id="status" class="status">
+                ډیټابیس چک کېږي...
+            </div>
+        </div>
+
+        <button class="add-btn" onclick="openModal()">
+            ＋ نوی ښوونکی
+        </button>
+
+    </div>
+
+    <input
+        id="search"
+        class="search"
+        type="text"
+        placeholder="د ښوونکي نوم، کوډ یا مضمون ولټوئ..."
+        oninput="render()"
+    >
+
+    <div class="stats">
+
+        <div class="stat">
+            ټول ښوونکي
+            <strong id="total">0</strong>
+        </div>
+
+        <div class="stat">
+            ثبت شوي
+            <strong id="registered">0</strong>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>کوډ</th>
+                        <th>نوم</th>
+                        <th>د پلار نوم</th>
+                        <th>موبایل</th>
+                        <th>مضمون</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+
+                <tbody id="teacherList">
+
+                    <tr>
+                        <td colspan="6" class="empty">
+                            ښوونکي لوډ کېږي...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Modal -->
+
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <h2 id="modalTitle">
+            نوی ښوونکی
+        </h2>
+
+        <input
+            type="hidden"
+            id="teacherId"
+        >
+
+        <label>د ښوونکي کوډ</label>
+
+        <input
+            id="code"
+            placeholder="لکه T-001"
+        >
+
+        <label>نوم</label>
+
+        <input
+            id="name"
+            placeholder="د ښوونکي نوم"
+        >
+
+        <label>د پلار نوم</label>
+
+        <input
+            id="father"
+            placeholder="د پلار نوم"
+        >
+
+        <label>موبایل</label>
+
+        <input
+            id="phone"
+            placeholder="07xxxxxxxx"
+        >
+
+        <label>مضمون</label>
+
+        <input
+            id="subject"
+            placeholder="لکه ریاضي"
+        >
+
+        <div
+            id="errorBox"
+            class="error">
+        </div>
+
+        <div class="form-buttons">
+
+            <button
+                class="save"
+                onclick="saveTeacher()">
+                ذخیره کول
+            </button>
+
+            <button
+                class="cancel"
+                onclick="closeModal()">
+                لغوه
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://oaxmnfnaqhdvnykawvyh.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
+
+const API =
+SUPABASE_URL + "/rest/v1/teachers";
+
+const headers = {
+
+    "apikey": SUPABASE_KEY,
+
+    "Authorization":
+        "Bearer " + SUPABASE_KEY,
+
+    "Content-Type":
+        "application/json"
+};
+
+let teachers = [];
+
+
+/* =========================
+   DATABASE TEST
+========================= */
+
+async function testDatabase(){
+
+    const status =
+        document.getElementById("status");
+
+    try{
+
+        const res =
+            await fetch(
+                API + "?select=id&limit=1",
+                {
+                    method:"GET",
+                    headers:headers
+                }
+            );
+
+        if(!res.ok){
+
+            const errorText =
+                await res.text();
+
+            console.log(
+                "SUPABASE ERROR:",
+                errorText
+            );
+
+            status.textContent =
+                "آفلاین";
+
+            status.className =
+                "status offline";
+
+            return false;
+        }
+
+        status.textContent =
+            "آنلاین";
+
+        status.className =
+            "status online";
+
+        return true;
+
+    }catch(error){
+
+        console.log(error);
+
+        status.textContent =
+            "آفلاین";
+
+        status.className =
+            "status offline";
+
+        return false;
+    }
+}
+
+
+/* =========================
+   LOAD
+========================= */
+
+async function loadTeachers(){
+
+    try{
+
+        const res =
+            await fetch(
+                API + "?select=*&order=id.desc",
+                {
+                    method:"GET",
+                    headers:headers
+                }
+            );
+
+        const responseText =
+            await res.text();
+
+        if(!res.ok){
+
+            console.log(
+                "LOAD ERROR:",
+                responseText
+            );
+
+            teachers =
+                JSON.parse(
+                    localStorage.getItem(
+                        "ahmadzai_teachers"
+                    ) || "[]"
+                );
+
+            render();
+
+            return;
+        }
+
+        teachers =
+            JSON.parse(responseText);
+
+        localStorage.setItem(
+            "ahmadzai_teachers",
+            JSON.stringify(teachers)
+        );
+
+        render();
+
+    }catch(error){
+
+        console.log(
+            "LOAD ERROR:",
+            error
+        );
+
+        teachers =
+            JSON.parse(
+                localStorage.getItem(
+                    "ahmadzai_teachers"
+                ) || "[]"
+            );
+
+        render();
+    }
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function render(){
+
+    const list =
+        document.getElementById(
+            "teacherList"
+        );
+
+    const search =
+        document.getElementById(
+            "search"
+        ).value
+        .trim()
+        .toLowerCase();
+
+    const filtered =
+        teachers.filter(t => {
+
+            return (
+
+                String(
+                    t.code || ""
+                ).toLowerCase()
+                .includes(search)
+
+                ||
+
+                String(
+                    t.name || ""
+                ).toLowerCase()
+                .includes(search)
+
+                ||
+
+                String(
+                    t.subject || ""
+                ).toLowerCase()
+                .includes(search)
+
+            );
+
+        });
+
+
+    document.getElementById(
+        "total"
+    ).textContent =
+        teachers.length;
+
+
+    document.getElementById(
+        "registered"
+    ).textContent =
+        teachers.length;
+
+
+    if(filtered.length === 0){
+
+        list.innerHTML = `
+            <tr>
+                <td colspan="6" class="empty">
+                    هېڅ ښوونکی پیدا نه شو
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    list.innerHTML =
+        filtered.map(t => `
+
+        <tr>
+
+            <td>
+                ${escapeHTML(t.code)}
+            </td>
+
+            <td>
+                ${escapeHTML(t.name)}
+            </td>
+
+            <td>
+                ${escapeHTML(t.father)}
+            </td>
+
+            <td>
+                ${escapeHTML(t.phone)}
+            </td>
+
+            <td>
+                ${escapeHTML(t.subject)}
+            </td>
+
+            <td class="actions">
+
+                <button
+                    class="edit"
+                    onclick="editTeacher(${t.id})">
+                    سمون
+                </button>
+
+                <button
+                    class="delete"
+                    onclick="deleteTeacher(${t.id})">
+                    حذف
+                </button>
+
+            </td>
+
+        </tr>
+
+    `).join("");
+}
+
+
+/* =========================
+   OPEN
+========================= */
+
+function openModal(){
+
+    document.getElementById(
+        "modal"
+    ).style.display = "flex";
+
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "نوی ښوونکی";
+
+
+    document.getElementById(
+        "teacherId"
+    ).value = "";
+
+
+    document.getElementById(
+        "code"
+    ).value = "";
+
+
+    document.getElementById(
+        "name"
+    ).value = "";
+
+
+    document.getElementById(
+        "father"
+    ).value = "";
+
+
+    document.getElementById(
+        "phone"
+    ).value = "";
+
+
+    document.getElementById(
+        "subject"
+    ).value = "";
+
+
+    hideError();
+}
+
+
+/* =========================
+   CLOSE
+========================= */
+
+function closeModal(){
+
+    document.getElementById(
+        "modal"
+    ).style.display = "none";
+
+    hideError();
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+async function saveTeacher(){
+
+    hideError();
+
+
+    const id =
+        document.getElementById(
+            "teacherId"
+        ).value;
+
+
+    const data = {
+
+        code:
+            document.getElementById(
+                "code"
+            ).value.trim(),
+
+        name:
+            document.getElementById(
+                "name"
+            ).value.trim(),
+
+        father:
+            document.getElementById(
+                "father"
+            ).value.trim(),
+
+        phone:
+            document.getElementById(
+                "phone"
+            ).value.trim(),
+
+        subject:
+            document.getElementById(
+                "subject"
+            ).value.trim()
+    };
+
+
+    if(!data.code || !data.name){
+
+        showError(
+            "مهرباني وکړئ د ښوونکي کوډ او نوم ولیکئ."
+        );
+
+        return;
+    }
+
+
+    try{
+
+        let res;
+
+
+        if(id){
+
+            res =
+                await fetch(
+                    API +
+                    "?id=eq." +
+                    encodeURIComponent(id),
+
+                    {
+                        method:"PATCH",
+
+                        headers:{
+                            ...headers,
+
+                            "Prefer":
+                                "return=representation"
+                        },
+
+                        body:
+                            JSON.stringify(data)
+                    }
+                );
+
+        }else{
+
+            res =
+                await fetch(
+                    API,
+
+                    {
+                        method:"POST",
+
+                        headers:{
+                            ...headers,
+
+                            "Prefer":
+                                "return=representation"
+                        },
+
+                        body:
+                            JSON.stringify(data)
+                    }
+                );
+        }
+
+
+        const responseText =
+            await res.text();
+
+
+        if(!res.ok){
+
+            console.log(
+                "SUPABASE SAVE ERROR:",
+                responseText
+            );
+
+
+            showError(
+                "ذخیره کول ناکام شو.\n\n" +
+                "Supabase خطا:\n" +
+                responseText
+            );
+
+            return;
+        }
+
+
+        alert(
+            id
+            ? "ښوونکی بریالی سم شو."
+            : "ښوونکی بریالی ثبت شو."
+        );
+
+
+        closeModal();
+
+        await loadTeachers();
+
+    }catch(error){
+
+        showError(
+            "د انټرنېټ یا Supabase ستونزه:\n" +
+            error.message
+        );
+    }
+}
+
+
+/* =========================
+   EDIT
+========================= */
+
+function editTeacher(id){
+
+    const t =
+        teachers.find(
+            x =>
+            String(x.id) ===
+            String(id)
+        );
+
+
+    if(!t) return;
+
+
+    document.getElementById(
+        "modal"
+    ).style.display = "flex";
+
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "د ښوونکي سمون";
+
+
+    document.getElementById(
+        "teacherId"
+    ).value =
+        t.id;
+
+
+    document.getElementById(
+        "code"
+    ).value =
+        t.code || "";
+
+
+    document.getElementById(
+        "name"
+    ).value =
+        t.name || "";
+
+
+    document.getElementById(
+        "father"
+    ).value =
+        t.father || "";
+
+
+    document.getElementById(
+        "phone"
+    ).value =
+        t.phone || "";
+
+
+    document.getElementById(
+        "subject"
+    ).value =
+        t.subject || "";
+
+
+    hideError();
+}
+
+
+/* =========================
+   DELETE
+========================= */
+
+async function deleteTeacher(id){
+
+    if(
+        !confirm(
+            "ایا دا ښوونکی حذف کول غواړئ؟"
+        )
+    ){
+        return;
+    }
+
+
+    try{
+
+        const res =
+            await fetch(
+                API +
+                "?id=eq." +
+                encodeURIComponent(id),
+
+                {
+                    method:"DELETE",
+                    headers:headers
+                }
+            );
+
+
+        const responseText =
+            await res.text();
+
+
+        if(!res.ok){
+
+            alert(
+                "حذف ناکام شو:\n" +
+                responseText
+            );
+
+            return;
+        }
+
+
+        alert(
+            "ښوونکی حذف شو."
+        );
+
+
+        await loadTeachers();
+
+    }catch(error){
+
+        alert(
+            "د حذف ستونزه:\n" +
+            error.message
+        );
+    }
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+function showError(message){
+
+    const box =
+        document.getElementById(
+            "errorBox"
+        );
+
+    box.textContent =
+        message;
+
+    box.style.display =
+        "block";
+}
+
+
+function hideError(){
+
+    document.getElementById(
+        "errorBox"
+    ).style.display =
+        "none";
+}
+
+
+/* =========================
+   ESCAPE
+========================= */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+
+/* =========================
+   START
+========================= */
+
+(async function(){
+
+    await testDatabase();
+
+    await loadTeachers();
+
+})();
+
+</script>
+
+</body>
+      </html>
