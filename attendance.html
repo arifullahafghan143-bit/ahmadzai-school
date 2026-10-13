@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="ps" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>حاضري - احمدزي ښوونځی</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Tahoma,Arial,sans-serif;
+  background:linear-gradient(135deg,#eef4ff,#f8fbff);
+  color:#172033;
+}
+
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
+}
+
+.header{
+  background:linear-gradient(135deg,#2563eb,#1d4ed8);
+  color:white;
+  padding:24px;
+  border-radius:20px;
+  margin-bottom:20px;
+  box-shadow:0 10px 30px #2563eb30;
+}
+
+.header h1{
+  margin:0 0 8px;
+  font-size:25px;
+}
+
+.header p{
+  margin:0;
+  opacity:.9;
+}
+
+.card{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 8px 25px #0000000d;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:7px;
+}
+
+input,
+select{
+  width:100%;
+  padding:13px;
+  border:1px solid #d7deea;
+  border-radius:12px;
+  font-size:15px;
+  background:white;
+}
+
+input:focus,
+select:focus{
+  outline:none;
+  border-color:#2563eb;
+  box-shadow:0 0 0 3px #2563eb18;
+}
+
+.students{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.student{
+  border:1px solid #e1e7f0;
+  border-radius:15px;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.student-info strong{
+  display:block;
+  font-size:17px;
+  margin-bottom:5px;
+}
+
+.student-info span{
+  color:#64748b;
+  font-size:13px;
+}
+
+.buttons{
+  display:flex;
+  gap:7px;
+}
+
+.status{
+  border:0;
+  padding:10px 14px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.present{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.absent{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.late{
+  background:#fef3c7;
+  color:#92400e;
+}
+
+.status.active{
+  outline:3px solid #2563eb35;
+  transform:scale(1.04);
+}
+
+.save{
+  width:100%;
+  border:0;
+  background:#2563eb;
+  color:white;
+  padding:15px;
+  border-radius:13px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:15px;
+}
+
+.save:hover{
+  background:#1d4ed8;
+}
+
+.message{
+  padding:13px;
+  border-radius:12px;
+  margin-top:15px;
+  display:none;
+}
+
+.success{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.error{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.count{
+  color:#2563eb;
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.loading{
+  color:#64748b;
+}
+
+@media(max-width:700px){
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .student{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .buttons{
+    width:100%;
+  }
+
+  .status{
+    flex:1;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>📋 د زده‌کوونکو حاضري</h1>
+    <p>احمدزي ښوونځی</p>
+  </div>
+
+
+  <!-- انتخابونه -->
+
+  <div class="card">
+
+    <div class="grid">
+
+      <div>
+        <label>📅 نېټه</label>
+        <input type="date" id="date">
+      </div>
+
+      <div>
+        <label>🏫 صنف</label>
+
+        <select id="classSelect">
+          <option value="">صنف انتخاب کړئ</option>
+        </select>
+
+      </div>
+
+      <div>
+        <label>📚 مضمون</label>
+
+        <select id="subjectSelect">
+          <option value="">مضمون انتخاب کړئ</option>
+        </select>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- زده کوونکي -->
+
+  <div class="card">
+
+    <h3>👨‍🎓 زده‌کوونکي</h3>
+
+    <div id="count" class="count"></div>
+
+    <div id="students" class="students">
+      <p class="loading">
+        لومړی صنف انتخاب کړئ.
+      </p>
+    </div>
+
+
+    <button
+      class="save"
+      onclick="saveAttendance()">
+
+      💾 حاضري آنلاین ثبت کړئ
+
+    </button>
+
+
+    <div
+      id="message"
+      class="message">
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+"https://oaxmnfnaqhdvnykawvyh.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
+
+
+const CLASS_API =
+`${SUPABASE_URL}/rest/v1/classes`;
+
+const SUBJECT_API =
+`${SUPABASE_URL}/rest/v1/subjects`;
+
+const STUDENT_API =
+`${SUPABASE_URL}/rest/v1/students`;
+
+const ATTENDANCE_API =
+`${SUPABASE_URL}/rest/v1/attendance`;
+
+
+const headers = {
+
+  "apikey": SUPABASE_KEY,
+
+  "Authorization":
+  `Bearer ${SUPABASE_KEY}`,
+
+  "Content-Type":
+  "application/json"
+
+};
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const dateInput =
+document.getElementById("date");
+
+const classSelect =
+document.getElementById("classSelect");
+
+const subjectSelect =
+document.getElementById("subjectSelect");
+
+const studentsDiv =
+document.getElementById("students");
+
+const countDiv =
+document.getElementById("count");
+
+
+let classes = [];
+let subjects = [];
+let students = [];
+
+
+/* =========================
+   TODAY
+========================= */
+
+const today =
+new Date();
+
+const yyyy =
+today.getFullYear();
+
+const mm =
+String(today.getMonth()+1)
+.padStart(2,"0");
+
+const dd =
+String(today.getDate())
+.padStart(2,"0");
+
+dateInput.value =
+`${yyyy}-${mm}-${dd}`;
+
+
+/* =========================
+   LOAD CLASSES
+========================= */
+
+async function loadClasses(){
+
+  try{
+
+    const response =
+    await fetch(
+
+      `${CLASS_API}?select=id,code,name,grade,capacity,teacher&order=id.asc`,
+
+      {
+        headers
+      }
+
+    );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+
+    }
+
+
+    classes =
+    await response.json();
+
+
+    classSelect.innerHTML =
+    `<option value="">
+      صنف انتخاب کړئ
+    </option>`;
+
+
+    classes.forEach(item => {
+
+      const code =
+      String(item.code || "").trim();
+
+      const name =
+      String(item.name || "").trim();
+
+
+      if(!name && !code){
+        return;
+      }
+
+
+      const option =
+      document.createElement("option");
+
+
+      /*
+       اصلي value د صنف نوم دی
+       مثال:
+       A-10
+       A-11
+      */
+
+      option.value =
+      name || code;
+
+
+      option.textContent =
+      code
+      ? `${code} - ${name}`
+      : name;
+
+
+      option.dataset.code =
+      code;
+
+      option.dataset.name =
+      name;
+
+
+      classSelect.appendChild(option);
+
+    });
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      "د صنفونو لوستلو ستونزه: " +
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   LOAD SUBJECTS
+========================= */
+
+async function loadSubjects(){
+
+  try{
+
+    const response =
+    await fetch(
+
+      `${SUBJECT_API}?select=id,code,name,teacher,class&order=id.asc`,
+
+      {
+        headers
+      }
+
+    );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+
+    }
+
+
+    subjects =
+    await response.json();
+
+
+    subjectSelect.innerHTML =
+    `<option value="">
+      مضمون انتخاب کړئ
+    </option>`;
+
+
+    subjects.forEach(item => {
+
+      const code =
+      String(item.code || "").trim();
+
+      const name =
+      String(item.name || "").trim();
+
+      const teacher =
+      String(item.teacher || "").trim();
+
+      const className =
+      String(item.class || "").trim();
+
+
+      if(!name){
+        return;
+      }
+
+
+      const option =
+      document.createElement("option");
+
+
+      option.value =
+      name;
+
+
+      option.textContent =
+      code
+      ? `${code} - ${name}`
+      : name;
+
+
+      option.dataset.code =
+      code;
+
+      option.dataset.name =
+      name;
+
+      option.dataset.teacher =
+      teacher;
+
+      option.dataset.class =
+      className;
+
+
+      subjectSelect.appendChild(option);
+
+    });
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      "د مضمونونو لوستلو ستونزه: " +
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   LOAD STUDENTS
+========================= */
+
+async function loadStudents(){
+
+  try{
+
+    const response =
+    await fetch(
+
+      `${STUDENT_API}?select=id,code,name,father,class,phone,gender,address&order=id.asc`,
+
+      {
+        headers
+      }
+
+    );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+
+    }
+
+
+    students =
+    await response.json();
+
+
+    console.log(
+      "Students:",
+      students
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      "د زده‌کوونکو لوستلو ستونزه: " +
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   SHOW STUDENTS
+========================= */
+
+function showStudents(){
+
+  const selected =
+  classSelect.options[
+    classSelect.selectedIndex
+  ];
+
+
+  if(
+    !selected ||
+    !selected.value
+  ){
+
+    studentsDiv.innerHTML =
+    `<p>
+      لومړی صنف انتخاب کړئ.
+    </p>`;
+
+    countDiv.textContent = "";
+
+    return;
+  }
+
+
+  const className =
+  String(
+    selected.dataset.name ||
+    selected.value ||
+    ""
+  ).trim();
+
+
+  const classCode =
+  String(
+    selected.dataset.code ||
+    ""
+  ).trim();
+
+
+  console.log(
+    "Selected class:",
+    className,
+    classCode
+  );
+
+
+  /*
+    د زده‌کوونکو class معلومول
+  */
+
+  const filtered =
+  students.filter(student => {
+
+    const studentClass =
+    String(
+      student.class || ""
+    ).trim();
+
+
+    return (
+
+      studentClass === className ||
+
+      (
+        classCode &&
+        studentClass === classCode
+      )
+
+    );
+
+  });
+
+
+  countDiv.textContent =
+  `${filtered.length} زده‌کوونکي`;
+
+
+  if(filtered.length === 0){
+
+    studentsDiv.innerHTML =
+    `<p>
+      په "${className}" کې
+      زده‌کوونکی پیدا نه شو.
+    </p>`;
+
+    return;
+
+  }
+
+
+  studentsDiv.innerHTML = "";
+
+
+  filtered.forEach(student => {
+
+    const div =
+    document.createElement("div");
+
+
+    div.className =
+    "student";
+
+
+    div.dataset.studentId =
+    student.id;
+
+
+    div.dataset.status =
+    "حاضر";
+
+
+    div.innerHTML = `
+
+      <div class="student-info">
+
+        <strong>
+          ${escapeHtml(
+            student.name || ""
+          )}
+        </strong>
+
+        <span>
+          ${escapeHtml(
+            student.code || ""
+          )}
+        </span>
+
+      </div>
+
+
+      <div class="buttons">
+
+        <button
+          class="status present active"
+          onclick="setStatus(this,'حاضر')">
+
+          حاضر
+
+        </button>
+
+
+        <button
+          class="status absent"
+          onclick="setStatus(this,'غیرحاضر')">
+
+          غیرحاضر
+
+        </button>
+
+
+        <button
+          class="status late"
+          onclick="setStatus(this,'ناوخته')">
+
+          ناوخته
+
+        </button>
+
+      </div>
+
+    `;
+
+
+    studentsDiv.appendChild(div);
+
+  });
+
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+function setStatus(
+  button,
+  status
+){
+
+  const parent =
+  button.parentElement;
+
+
+  parent
+  .querySelectorAll(".status")
+  .forEach(btn => {
+
+    btn.classList.remove(
+      "active"
+    );
+
+  });
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  const student =
+  button.closest(".student");
+
+
+  student.dataset.status =
+  status;
+
+}
+
+
+/* =========================
+   SAVE ATTENDANCE
+========================= */
+
+async function saveAttendance(){
+
+  const date =
+  dateInput.value;
+
+
+  const className =
+  classSelect.value;
+
+
+  const subject =
+  subjectSelect.value;
+
+
+  if(!date){
+
+    showMessage(
+      "مهرباني وکړئ نېټه انتخاب کړئ.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!className){
+
+    showMessage(
+      "مهرباني وکړئ صنف انتخاب کړئ.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!subject){
+
+    showMessage(
+      "مهرباني وکړئ مضمون انتخاب کړئ.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const rows =
+  document.querySelectorAll(
+    ".student"
+  );
+
+
+  if(rows.length === 0){
+
+    showMessage(
+      "د ثبت لپاره زده‌کوونکي نشته.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    /*
+      پخوانۍ حاضري پاکول
+    */
+
+    const deleteResponse =
+    await fetch(
+
+      `${ATTENDANCE_API}?Date=eq.${encodeURIComponent(date)}&class=eq.${encodeURIComponent(className)}`,
+
+      {
+        method:"DELETE",
+        headers
+      }
+
+    );
+
+
+    if(!deleteResponse.ok){
+
+      throw new Error(
+        await deleteResponse.text()
+      );
+
+    }
+
+
+    const data = [];
+
+
+    rows.forEach(row => {
+
+      data.push({
+
+        Date:
+        date,
+
+        student_id:
+        Number(
+          row.dataset.studentId
+        ),
+
+        class:
+        className,
+
+        subject:
+        subject,
+
+        status:
+        row.dataset.status ||
+        "حاضر"
+
+      });
+
+    });
+
+
+    console.log(
+      "Attendance data:",
+      data
+    );
+
+
+    const response =
+    await fetch(
+
+      ATTENDANCE_API,
+
+      {
+
+        method:"POST",
+
+        headers:{
+          ...headers,
+
+          "Prefer":
+          "return=representation"
+        },
+
+        body:
+        JSON.stringify(data)
+
+      }
+
+    );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+
+    }
+
+
+    showMessage(
+      "✅ حاضري په بریالیتوب آنلاین ثبت شوه.",
+      "success"
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      "❌ د حاضري ثبتولو ستونزه: " +
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function showMessage(
+  text,
+  type
+){
+
+  const message =
+  document.getElementById(
+    "message"
+  );
+
+
+  message.textContent =
+  text;
+
+
+  message.className =
+  `message ${type}`;
+
+
+  message.style.display =
+  "block";
+
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHtml(value){
+
+  return String(value)
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+
+/* =========================
+   IMPORTANT
+   صنف انتخاب شي
+   زده کوونکي راوستل شي
+========================= */
+
+classSelect.addEventListener(
+  "change",
+  showStudents
+);
+
+
+/* =========================
+   START
+========================= */
+
+async function start(){
+
+  studentsDiv.innerHTML =
+  `<p class="loading">
+    معلومات لوډ کېږي...
+  </p>`;
+
+
+  await Promise.all([
+
+    loadClasses(),
+
+    loadSubjects(),
+
+    loadStudents()
+
+  ]);
+
+
+  /*
+    که صنف انتخاب شوی وي،
+    زده کوونکي ښکاره کړه
+  */
+
+  showStudents();
+
+}
+
+
+start();
+
+</script>
+
+</body>
+</html>
