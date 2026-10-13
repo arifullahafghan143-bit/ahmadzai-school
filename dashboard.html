@@ -2,924 +2,181 @@
 <html lang="ps" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102544">
 <title>احمدزي عالي لېسه | ډیشبورډ</title>
-
 <style>
-:root {
-    --navy: #102544;
-    --blue: #1769aa;
-    --blue-light: #eaf3ff;
-    --gold: #e6b85c;
-    --bg: #f3f6fb;
-    --white: #ffffff;
-    --text: #1b2b43;
-    --muted: #7c8ba1;
-    --border: #e7edf5;
-    --green: #15966a;
-    --red: #d9485f;
-    --shadow: 0 8px 28px rgba(24, 47, 79, .07);
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: Tahoma, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.8;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-button {
-    font-family: inherit;
-    cursor: pointer;
-}
-
-.app {
-    min-height: 100vh;
-}
-
-/* اړخیز مینو */
-
-.sidebar {
-    width: 255px;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(180deg, #102544, #173d69);
-    color: white;
-    padding: 22px 15px;
-    overflow-y: auto;
-    z-index: 100;
-}
-
-.school-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 8px 5px 23px;
-    border-bottom: 1px solid rgba(255,255,255,.13);
-    margin-bottom: 20px;
-}
-
-.school-logo {
-    width: 49px;
-    height: 49px;
-    background: linear-gradient(135deg, #f6d88f, #d6a442);
-    border-radius: 15px;
-    display: grid;
-    place-items: center;
-    font-size: 25px;
-    color: #102544;
-    flex-shrink: 0;
-}
-
-.school-brand h2 {
-    font-size: 17px;
-    color: #fff;
-}
-
-.school-brand p {
-    font-size: 11px;
-    color: #c5d5e8;
-}
-
-.menu-title {
-    color: #a9bfd8;
-    font-size: 11px;
-    margin: 15px 10px 8px;
-}
-
-.menu-link {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 11px 13px;
-    margin-bottom: 5px;
-    border-radius: 10px;
-    color: #d9e5f3;
-    font-size: 13px;
-    transition: .2s;
-}
-
-.menu-link .icon {
-    width: 25px;
-    text-align: center;
-    font-size: 18px;
-}
-
-.menu-link:hover,
-.menu-link.active {
-    background: rgba(255,255,255,.13);
-    color: #fff;
-}
-
-.menu-link.active {
-    border-right: 3px solid var(--gold);
-    background: rgba(255,255,255,.15);
-}
-
-.sidebar-footer {
-    border-top: 1px solid rgba(255,255,255,.12);
-    margin-top: 22px;
-    padding: 15px 8px;
-    color: #c5d5e8;
-    font-size: 11px;
-}
-
-/* اصلي محتوا */
-
-.main {
-    margin-right: 255px;
-    min-height: 100vh;
-    padding: 25px;
-}
-
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 24px;
-}
-
-.page-heading h1 {
-    font-size: 25px;
-    color: var(--navy);
-}
-
-.page-heading p {
-    color: var(--muted);
-    font-size: 13px;
-}
-
-.top-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.date-box {
-    background: white;
-    padding: 9px 13px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    color: #50647e;
-    font-size: 12px;
-}
-
-.refresh-btn {
-    background: var(--navy);
-    color: white;
-    border: none;
-    border-radius: 11px;
-    padding: 10px 15px;
-    font-size: 12px;
-}
-
-/* د ښه راغلاست برخه */
-
-.welcome {
-    background: linear-gradient(115deg, #102544, #1b548c);
-    border-radius: 19px;
-    padding: 26px;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 25px;
-    box-shadow: var(--shadow);
-}
-
-.welcome::after {
-    content: "✦";
-    position: absolute;
-    left: 25%;
-    top: -65px;
-    font-size: 210px;
-    color: rgba(255,255,255,.045);
-    pointer-events: none;
-}
-
-.welcome h2 {
-    font-size: 23px;
-    margin-bottom: 7px;
-}
-
-.welcome p {
-    color: #d5e5f8;
-    font-size: 13px;
-}
-
-.welcome-badge {
-    background: rgba(255,255,255,.12);
-    border: 1px solid rgba(255,255,255,.2);
-    padding: 12px 17px;
-    border-radius: 13px;
-    text-align: center;
-    min-width: 130px;
-}
-
-.welcome-badge strong {
-    display: block;
-    color: var(--gold);
-    font-size: 16px;
-}
-
-.welcome-badge span {
-    font-size: 11px;
-    color: #dce8f5;
-}
-
-/* د شمېرو کارتونه */
-
-.section-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 25px 0 15px;
-    gap: 10px;
-}
-
-.section-heading h2 {
-    font-size: 17px;
-    color: var(--navy);
-}
-
-.section-heading p {
-    font-size: 11px;
-    color: var(--muted);
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 15px;
-}
-
-.stat-card {
-    display: block;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 18px;
-    box-shadow: var(--shadow);
-    transition: transform .2s, box-shadow .2s;
-    min-width: 0;
-}
-
-.stat-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(24,47,79,.12);
-}
-
-.stat-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 17px;
-}
-
-.stat-icon {
-    width: 44px;
-    height: 44px;
-    display: grid;
-    place-items: center;
-    border-radius: 13px;
-    font-size: 22px;
-}
-
-.icon-blue { background: #eaf3ff; }
-.icon-green { background: #e5f8f0; }
-.icon-gold { background: #fff4d9; }
-.icon-purple { background: #f1eaff; }
-.icon-red { background: #ffeaed; }
-.icon-cyan { background: #e2f8fc; }
-
-.stat-label {
-    font-size: 12px;
-    color: var(--muted);
-}
-
-.stat-number {
-    font-size: 29px;
-    font-weight: bold;
-    color: var(--navy);
-    line-height: 1.4;
-    overflow-wrap: anywhere;
-}
-
-.stat-note {
-    margin-top: 7px;
-    color: var(--blue);
-    font-size: 11px;
-}
-
-.stat-note small {
-    color: var(--muted);
-}
-
-/* د چټکو برخو کارتونه */
-
-.modules-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 15px;
-}
-
-.module-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 15px;
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    min-height: 145px;
-    transition: .2s;
-}
-
-.module-card:hover {
-    border-color: #b5d2f3;
-    transform: translateY(-3px);
-}
-
-.module-icon {
-    font-size: 25px;
-    margin-bottom: 10px;
-}
-
-.module-card h3 {
-    font-size: 14px;
-    margin-bottom: 5px;
-    color: var(--navy);
-}
-
-.module-card p {
-    font-size: 11px;
-    color: var(--muted);
-}
-
-.module-arrow {
-    margin-top: auto;
-    padding-top: 10px;
-    font-size: 11px;
-    color: var(--blue);
-}
-
-/* لاندې راپورونه */
-
-.bottom-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 17px;
-    margin-top: 25px;
-}
-
-.panel {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: var(--shadow);
-    min-width: 0;
-}
-
-.panel h3 {
-    font-size: 15px;
-    margin-bottom: 15px;
-    color: var(--navy);
-}
-
-.status-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 11px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 12px;
-}
-
-.status-row:last-child {
-    border-bottom: none;
-}
-
-.status-label {
-    color: var(--muted);
-}
-
-.status-value {
-    font-weight: bold;
-    text-align: left;
-}
-
-.online { color: var(--green); }
-.warning { color: #c18a19; }
-.offline { color: var(--red); }
-
-.quick-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.quick-btn {
-    border: 1px solid var(--border);
-    background: #f8faff;
-    border-radius: 10px;
-    padding: 12px 10px;
-    font-size: 12px;
-    text-align: right;
-    transition: .2s;
-}
-
-.quick-btn:hover {
-    background: var(--blue-light);
-    border-color: #c5dcf7;
-}
-
-.footer {
-    text-align: center;
-    color: var(--muted);
-    font-size: 11px;
-    padding: 25px 10px 5px;
-}
-
-.loading {
-    font-size: 18px;
-    color: var(--muted);
-}
-
-@media (max-width: 1100px) {
-    .stats-grid,
-    .modules-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
-@media (max-width: 760px) {
-    .sidebar {
-        width: 74px;
-        padding: 15px 8px;
-    }
-
-    .school-brand {
-        justify-content: center;
-        padding: 7px 0 18px;
-    }
-
-    .school-brand > div:last-child,
-    .menu-title,
-    .menu-link .label,
-    .sidebar-footer {
-        display: none;
-    }
-
-    .school-logo {
-        width: 45px;
-        height: 45px;
-        font-size: 22px;
-    }
-
-    .menu-link {
-        justify-content: center;
-        padding: 12px 4px;
-        gap: 0;
-    }
-
-    .menu-link .icon {
-        font-size: 21px;
-    }
-
-    .main {
-        margin-right: 74px;
-        padding: 15px;
-    }
-
-    .topbar {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .page-heading h1 {
-        font-size: 21px;
-    }
-
-    .top-actions {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .welcome {
-        padding: 20px;
-    }
-
-    .welcome h2 {
-        font-size: 18px;
-    }
-
-    .welcome-badge {
-        min-width: 90px;
-        padding: 8px;
-    }
-
-    .welcome-badge strong {
-        font-size: 13px;
-    }
-
-    .bottom-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .stat-card {
-        padding: 13px;
-    }
-
-    .stat-number {
-        font-size: 24px;
-    }
-
-    .stat-icon {
-        width: 37px;
-        height: 37px;
-        font-size: 19px;
-    }
-}
-
-@media (max-width: 390px) {
-    .stats-grid,
-    .modules-grid {
-        gap: 9px;
-    }
-
-    .stat-card {
-        padding: 10px;
-    }
-
-    .stat-number {
-        font-size: 21px;
-    }
-
-    .welcome-badge {
-        display: none;
-    }
-
-    .date-box {
-        font-size: 10px;
-    }
-}
+:root{--navy:#102544;--blue:#1769aa;--gold:#e6b85c;--bg:#f3f6fb;--text:#1b2b43;--muted:#7c8ba1;--border:#e7edf5;--green:#15966a;--red:#d9485f;--shadow:0 8px 28px rgba(24,47,79,.07)}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.8}a{text-decoration:none;color:inherit}button{font:inherit;cursor:pointer}
+.sidebar{width:250px;position:fixed;top:0;right:0;bottom:0;background:linear-gradient(180deg,#102544,#173d69);color:#fff;padding:20px 14px;overflow-y:auto;z-index:5}.school-brand{display:flex;align-items:center;gap:12px;padding:8px 5px 20px;border-bottom:1px solid #ffffff22;margin-bottom:16px}.school-logo{width:48px;height:48px;background:linear-gradient(135deg,#f6d88f,#d6a442);border-radius:14px;display:grid;place-items:center;font-size:25px;flex-shrink:0}.school-brand h2{font-size:16px}.school-brand p{font-size:11px;color:#c5d5e8}.menu-title{color:#a9bfd8;font-size:11px;margin:14px 10px 7px}.menu-link{display:flex;align-items:center;gap:12px;padding:10px 12px;margin-bottom:4px;border-radius:10px;color:#d9e5f3;font-size:13px}.menu-link .icon{width:25px;text-align:center;font-size:18px}.menu-link:hover,.menu-link.active{background:#ffffff20;color:#fff}.menu-link.active{border-right:3px solid var(--gold)}.sidebar-footer{border-top:1px solid #ffffff22;margin-top:20px;padding:14px 8px;color:#c5d5e8;font-size:11px}
+.main{margin-right:250px;min-height:100vh;padding:24px;max-width:1800px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:22px}.page-heading h1{font-size:25px;color:var(--navy)}.page-heading p,.section-heading p{color:var(--muted);font-size:12px}.top-actions{display:flex;align-items:center;gap:9px}.date-box{background:#fff;padding:8px 12px;border:1px solid var(--border);border-radius:11px;font-size:12px;color:#50647e}.refresh-btn{background:var(--navy);color:#fff;border:0;border-radius:10px;padding:9px 14px;font-size:12px}.refresh-btn:disabled{opacity:.6;cursor:wait}
+.welcome{background:linear-gradient(115deg,#102544,#1b548c);border-radius:18px;padding:25px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:24px;box-shadow:var(--shadow)}.welcome h2{font-size:22px;margin-bottom:6px}.welcome p{color:#d5e5f8;font-size:12px}.welcome-badge{background:#ffffff18;border:1px solid #ffffff30;padding:11px 15px;border-radius:12px;text-align:center;min-width:125px}.welcome-badge strong{display:block;color:var(--gold);font-size:14px}.welcome-badge span{font-size:11px;color:#dce8f5}
+.section-heading{display:flex;align-items:center;justify-content:space-between;margin:23px 0 13px}.section-heading h2{font-size:17px;color:var(--navy)}.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.stat-card{background:#fff;border:1px solid var(--border);border-radius:15px;padding:16px;box-shadow:var(--shadow);min-width:0;transition:.2s}.stat-card:hover,.module-card:hover{transform:translateY(-3px)}.stat-top{display:flex;justify-content:space-between;align-items:center;gap:7px;margin-bottom:13px}.stat-icon{width:41px;height:41px;display:grid;place-items:center;border-radius:12px;font-size:21px}.icon-blue{background:#eaf3ff}.icon-green{background:#e5f8f0}.icon-gold{background:#fff4d9}.icon-purple{background:#f1eaff}.icon-red{background:#ffeaed}.icon-cyan{background:#e2f8fc}.stat-label{font-size:12px;color:var(--muted)}.stat-number{font-size:28px;font-weight:bold;color:var(--navy);line-height:1.4;overflow-wrap:anywhere}.stat-note{margin-top:6px;color:var(--blue);font-size:11px}
+.modules-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.module-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px;display:flex;flex-direction:column;min-height:145px;transition:.2s}.module-icon{font-size:25px;margin-bottom:8px}.module-card h3{font-size:14px;margin-bottom:4px;color:var(--navy)}.module-card p{font-size:11px;color:var(--muted)}.module-arrow{margin-top:auto;padding-top:9px;font-size:11px;color:var(--blue)}
+.bottom-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:24px}.panel{background:#fff;border:1px solid var(--border);border-radius:15px;padding:18px;box-shadow:var(--shadow);min-width:0}.panel h3{font-size:15px;margin-bottom:12px;color:var(--navy)}.status-row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:12px}.status-row:last-child{border-bottom:0}.status-label{color:var(--muted)}.status-value{font-weight:bold;text-align:left}.online{color:var(--green)}.warning{color:#b47d0c}.offline{color:var(--red)}.quick-list{display:grid;grid-template-columns:1fr 1fr;gap:9px}.quick-btn{border:1px solid var(--border);background:#f8faff;border-radius:9px;padding:11px 9px;font-size:12px;text-align:right}.quick-btn:hover{background:#eaf3ff}
+.footer{text-align:center;color:var(--muted);font-size:11px;padding:24px 10px 5px}.notice{display:none;padding:12px 14px;border-radius:10px;margin:12px 0;font-size:12px;overflow-wrap:anywhere}.notice.show{display:block}.notice.error{background:#fff0f1;color:#9f2338;border:1px solid #ffd4da}.notice.info{background:#fff8e6;color:#78570b;border:1px solid #f5e3a9}.notice.success{background:#e9f9f1;color:#126c4e;border:1px solid #c8efdd}
+@media(max-width:1100px){.stats-grid,.modules-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.sidebar{width:70px;padding:14px 7px}.school-brand{justify-content:center;padding:7px 0 16px}.school-brand>div:last-child,.menu-title,.menu-link .label,.sidebar-footer{display:none}.school-logo{width:44px;height:44px}.menu-link{justify-content:center;padding:11px 3px;gap:0}.menu-link .icon{font-size:20px}.main{margin-right:70px;padding:13px}.topbar{align-items:flex-start;flex-direction:column}.page-heading h1{font-size:21px}.top-actions{width:100%;justify-content:space-between}.welcome{padding:18px}.welcome h2{font-size:17px}.welcome-badge{min-width:95px;padding:8px}.welcome-badge strong{font-size:12px}.bottom-grid{grid-template-columns:1fr}.stat-card{padding:12px}.stat-number{font-size:23px}.stat-icon{width:35px;height:35px;font-size:18px}}
+@media(max-width:390px){.stats-grid,.modules-grid{gap:8px}.stat-card{padding:9px}.stat-number{font-size:20px}.welcome-badge{display:none}.date-box{font-size:10px}.module-card{padding:12px}}
 </style>
 </head>
-
 <body>
-
-<div class="app">
-
-<!-- اړخیز مینو -->
 <aside class="sidebar">
-
-    <div class="school-brand">
-        <div class="school-logo">🎓</div>
-        <div>
-            <h2>احمدزي عالي لېسه</h2>
-            <p>د ښوونځي مدیریت سیستم</p>
-        </div>
-    </div>
-
-    <div class="menu-title">اصلي مینو</div>
-
-    <a href="dashboard.html" class="menu-link active">
-        <span class="icon">▦</span>
-        <span class="label">ډیشبورډ</span>
-    </a>
-
-    <a href="students.html" class="menu-link">
-        <span class="icon">👨‍🎓</span>
-        <span class="label">زده‌کوونکي</span>
-    </a>
-
-    <a href="teachers.html" class="menu-link">
-        <span class="icon">👨‍🏫</span>
-        <span class="label">استادان</span>
-    </a>
-
-    <a href="classes.html" class="menu-link">
-        <span class="icon">🏫</span>
-        <span class="label">صنفونه</span>
-    </a>
-
-    <a href="subjects.html" class="menu-link">
-        <span class="icon">📚</span>
-        <span class="label">مضامین</span>
-    </a>
-
-    <div class="menu-title">تعلیمي چارې</div>
-
-    <a href="attendance.html" class="menu-link">
-        <span class="icon">📅</span>
-        <span class="label">حاضري</span>
-    </a>
-
-    <a href="results-new.html" class="menu-link">
-        <span class="icon">📝</span>
-        <span class="label">د پایلو ثبت</span>
-    </a>
-
-    <a href="results-report.html" class="menu-link">
-        <span class="icon">📊</span>
-        <span class="label">د پایلو راپور</span>
-    </a>
-
-    <div class="menu-title">اداري چارې</div>
-
-    <a href="fees.html" class="menu-link">
-        <span class="icon">💰</span>
-        <span class="label">فیسونه</span>
-    </a>
-
-    <a href="reports.html" class="menu-link">
-        <span class="icon">📈</span>
-        <span class="label">عمومي راپورونه</span>
-    </a>
-
-    <div class="sidebar-footer">
-        احمدزي عالي لېسه<br>
-        د ښوونې او روزنې مدیریت
-    </div>
-
+ <div class="school-brand"><div class="school-logo">🎓</div><div><h2>احمدزي عالي لېسه</h2><p>د ښوونځي مدیریت سیستم</p></div></div>
+ <div class="menu-title">اصلي مینو</div>
+ <a href="dashboard.html" class="menu-link active"><span class="icon">▦</span><span class="label">ډیشبورډ</span></a>
+ <a href="students.html" class="menu-link"><span class="icon">👨‍🎓</span><span class="label">زده‌کوونکي</span></a>
+ <a href="teachers.html" class="menu-link"><span class="icon">👨‍🏫</span><span class="label">استادان</span></a>
+ <a href="classes.html" class="menu-link"><span class="icon">🏫</span><span class="label">صنفونه</span></a>
+ <a href="subjects.html" class="menu-link"><span class="icon">📚</span><span class="label">مضامین</span></a>
+ <div class="menu-title">تعلیمي چارې</div>
+ <a href="attendance.html" class="menu-link"><span class="icon">📅</span><span class="label">حاضري</span></a>
+ <a href="results-new.html" class="menu-link"><span class="icon">📝</span><span class="label">د پایلو ثبت</span></a>
+ <a href="results-report.html" class="menu-link"><span class="icon">📊</span><span class="label">د پایلو راپور</span></a>
+ <div class="menu-title">اداري چارې</div>
+ <a href="fees.html" class="menu-link"><span class="icon">💰</span><span class="label">فیسونه</span></a>
+ <a href="reports.html" class="menu-link"><span class="icon">📈</span><span class="label">عمومي راپورونه</span></a>
+ <div class="sidebar-footer">احمدزي عالي لېسه<br>د ښوونې او روزنې مدیریت</div>
 </aside>
-
-<!-- اصلي برخه -->
 <main class="main">
-
-    <header class="topbar">
-        <div class="page-heading">
-            <h1>ډیشبورډ</h1>
-            <p>د ښوونځي د ټولو چارو عمومي کتنه</p>
-        </div>
-
-        <div class="top-actions">
-            <div class="date-box" id="todayDate">نېټه...</div>
-            <button class="refresh-btn" onclick="loadDashboard()">
-                ↻ تازه کول
-            </button>
-        </div>
-    </header>
-
-    <!-- ښه راغلاست -->
-    <section class="welcome">
-        <div>
-            <h2>احمدزي عالي لېسې ته ښه راغلاست!</h2>
-            <p>د زده‌کوونکو، استادانو، حاضري او ازموینو چارې له همدې ځایه اداره کړئ.</p>
-        </div>
-
-        <div class="welcome-badge">
-            <strong>تعلیم او پرمختګ</strong>
-            <span>زموږ ګډ هدف</span>
-        </div>
-    </section>
-
-    <!-- احصائیه -->
-    <div class="section-heading">
-        <div>
-            <h2>📊 عمومي احصائیه</h2>
-            <p>د ډیټابېس د موجودو معلوماتو لنډیز</p>
-        </div>
-    </div>
-
-    <section class="stats-grid">
-
-        <a href="students.html" class="stat-card">
-            <div class="stat-top">
-                <span class="stat-label">ټول زده‌کوونکي</span>
-                <span class="stat-icon icon-blue">👨‍🎓</span>
-            </div>
-            <div class="stat-number" id="studentsCount">—</div>
-            <div class="stat-note">د زده‌کوونکو لېست ←</div>
-        </a>
-
-        <a href="teachers.html" class="stat-card">
-            <div class="stat-top">
-                <span class="stat-label">ټول استادان</span>
-                <span class="stat-icon icon-green">👨‍🏫</span>
-            </div>
-            <div class="stat-number" id="teachersCount">—</div>
-            <div class="stat-note">د استادانو لېست ←</div>
-        </a>
-
-        <a href="classes.html" class="stat-card">
-            <div class="stat-top">
-                <span class="stat-label">ټول صنفونه</span>
-                <span class="stat-icon icon-gold">🏫</span>
-            </div>
-            <div class="stat-number" id="classesCount">—</div>
-            <div class="stat-note">د صنفونو مدیریت ←</div>
-        </a>
-
-        <a href="subjects.html" class="stat-card">
-            <div class="stat-top">
-                <span class="stat-label">ټول مضامین</span>
-                <span class="stat-icon icon-purple">📚</span>
-            </div>
-            <div class="stat-number" id="subjectsCount">—</div>
-            <div class="stat-note">د مضامینو مدیریت ←</div>
-        </a>
-
-        <a href="attendance.html" class="stat-card">
-            <div class="stat-top">
-                <span class="stat-label">د حاضري ثبتونه</span>
-                <span class="stat-icon icon-cyan">📅</span>
-            </div>
-            <div class="stat-number" id="attendanceCount">—</div>
-            <div class="stat-note">حاضري ثبت او وګورئ ←</div>
-        </a>
-
-        <a href="results-new.html" class="stat-card">
-            <div class="stat-top">
-                <span class="stat-label">د ازموینو پایلې</span>
-                <span class="stat-icon icon-red">📝</span>
-            </div>
-            <div class="stat-number" id="resultsCount">—</div>
-            <div class="stat-note">پایلې ثبت کړئ ←</div>
-        </a>
-
-        <a href="fees.html" class="stat-card">
-            <div class="stat-top">
-                <span class="stat-label">د فیس ثبتونه</span>
-                <span class="stat-icon icon-gold">💰</span>
-            </div>
-            <div class="stat-number" id="feesCount">—</div>
-            <div class="stat-note">د فیسونو مدیریت ←</div>
-        </a>
-
-        <a href="reports.html" class="stat-card">
-            <div class="stat-top">
-                <span class="stat-label">راپورونه</span>
-                <span class="stat-icon icon-blue">📈</span>
-            </div>
-            <div class="stat-number">↗</div>
-            <div class="stat-note">ټول راپورونه وګورئ ←</div>
-        </a>
-
-    </section>
-
-    <!-- د سیستم ټولې برخې -->
-    <div class="section-heading">
-        <div>
-            <h2>⚡ چټک لاسرسی</h2>
-            <p>خپله اړینه برخه انتخاب کړئ</p>
-        </div>
-    </div>
-
-    <section class="modules-grid">
-
-        <a href="students.html" class="module-card">
-            <span class="module-icon">👨‍🎓</span>
-            <h3>زده‌کوونکي</h3>
-            <p>نوي زده‌کوونکي ثبت او معلومات یې اداره کړئ.</p>
-            <span class="module-arrow">برخې ته ننوتل ←</span>
-        </a>
-
-        <a href="teachers.html" class="module-card">
-            <span class="module-icon">👨‍🏫</span>
-            <h3>استادان</h3>
-            <p>د استادانو معلومات ثبت او تنظیم کړئ.</p>
-            <span class="module-arrow">برخې ته ننوتل ←</span>
-        </a>
-
-        <a href="classes.html" class="module-card">
-            <span class="module-icon">🏫</span>
-            <h3>صنفونه</h3>
-            <p>صنفونه جوړ او د زده‌کوونکو معلومات تنظیم کړئ.</p>
-            <span class="module-arrow">برخې ته ننوتل ←</span>
-        </a>
-
-        <a href="subjects.html" class="module-card">
-            <span class="module-icon">📚</span>
-            <h3>مضامین</h3>
-            <p>مضامین او د اړوندو صنفونو معلومات تنظیم کړئ.</p>
-            <span class="module-arrow">برخې ته ننوتل ←</span>
-        </a>
-
-        <a href="attendance.html" class="module-card">
-            <span class="module-icon">📅</span>
-            <h3>حاضري</h3>
-            <p>د زده‌کوونکو ورځنۍ حاضري ثبت کړئ.</p>
-            <span class="module-arrow">برخې ته ننوتل ←</span>
-        </a>
-
-        <a href="results-new.html" class="module-card">
-            <span class="module-icon">📝</span>
-            <h3>د پایلو ثبت</h3>
-            <p>د ازموینو نمرې او پایلې ثبت کړئ.</p>
-            <span class="module-arrow">برخې ته ننوتل ←</span>
-        </a>
-
-        <a href="results-report.html" class="module-card">
-            <span class="module-icon">📊</span>
-            <h3>د پایلو راپور</h3>
-            <p>د زده‌کوونکو د ازموینو پایلې وګورئ.</p>
-            <span class="module-arrow">برخې ته ننوتل ←</span>
-        </a>
-
-        <a href="fees.html" class="module-card">
-            <span class="module-icon">💰</span>
-            <h3>فیسونه</h3>
-            <p>د فیسونو ثبت او مالي معلومات تنظیم کړئ.</p>
-            <span class="module-arrow">برخې ته ننوتل ←</span>
-        </a>
-
-    </section>
-
-    <!-- د سیستم حالت او لنډلارې -->
-    <section class="bottom-grid">
-
-        <div class="panel">
-            <h3>🖥️ د سیستم حالت</h3>
-
-            <div class="status-row">
-                <span class="status-label">ډیټابېس</span>
-                <span class="status-value warning" id="dbStatus">
-                    د کتنې په حال کې...
-                </span>
-            </div>
-
-            <div class="status-row">
-                <span class="status-label">د معلوماتو حالت</span>
-                <span class="status-value" id="dataStatus">
-                    د کتنې په حال کې...
-                </span>
-            </div>
-
-            <div class="status-row">
-                <span class="status-label">وروستی تازه کېدل</span>
-                <span class="status-value" id="lastUpdated">—</span>
-            </div>
-        </div>
-
-        <div class="panel">
-            <h3>🚀 مهمې لنډلارې</h3>
-
-            <div class="quick-list">
-                <a href="students.html" class="quick-btn">➕ زده‌کوونکی ثبتول</a>
-                <a href="teachers.html" class="quick-btn">➕ استاد ثبتول</a>
-                <a href="attendance.html" class="quick-btn">📅 حاضري ثبتول</a>
-                <a href="results-new.html" class="quick-btn">📝 نمرې ثبتول</a>
-                <a href="classes.html" class="quick-btn">🏫 نوی صنف</a>
-                <a href="subjects.html" class="quick-btn">📚 نوی مضمون</a>
-            </div>
-        </div>
-
-    </section>
-
-    <footer class="footer">
-        © <span id="year"></span> احمدزي عالي لېسه — د ښوونځي مدیریت سیستم
-    </footer>
-
+ <header class="topbar"><div class="page-heading"><h1>ډیشبورډ</h1><p>د ښوونځي د ټولو چارو عمومي کتنه</p></div><div class="top-actions"><div class="date-box" id="todayDate">نېټه...</div><button class="refresh-btn" id="refreshBtn" onclick="loadDashboard()">↻ تازه کول</button></div></header>
+ <section class="welcome"><div><h2>احمدزي عالي لېسې ته ښه راغلاست!</h2><p>د زده‌کوونکو، استادانو، حاضري او ازموینو چارې له همدې ځایه اداره کړئ.</p></div><div class="welcome-badge"><strong>تعلیم او پرمختګ</strong><span>زموږ ګډ هدف</span></div></section>
+ <div id="notice" class="notice" role="status"></div>
+ <div class="section-heading"><div><h2>📊 عمومي احصائیه</h2><p>د ډیټابېس د موجودو معلوماتو لنډیز</p></div></div>
+ <section class="stats-grid">
+  <a href="students.html" class="stat-card"><div class="stat-top"><span class="stat-label">ټول زده‌کوونکي</span><span class="stat-icon icon-blue">👨‍🎓</span></div><div class="stat-number" id="studentsCount">...</div><div class="stat-note">د زده‌کوونکو لېست ←</div></a>
+  <a href="teachers.html" class="stat-card"><div class="stat-top"><span class="stat-label">ټول استادان</span><span class="stat-icon icon-green">👨‍🏫</span></div><div class="stat-number" id="teachersCount">...</div><div class="stat-note">د استادانو لېست ←</div></a>
+  <a href="classes.html" class="stat-card"><div class="stat-top"><span class="stat-label">ټول صنفونه</span><span class="stat-icon icon-gold">🏫</span></div><div class="stat-number" id="classesCount">...</div><div class="stat-note">د صنفونو مدیریت ←</div></a>
+  <a href="subjects.html" class="stat-card"><div class="stat-top"><span class="stat-label">ټول مضامین</span><span class="stat-icon icon-purple">📚</span></div><div class="stat-number" id="subjectsCount">...</div><div class="stat-note">د مضامینو مدیریت ←</div></a>
+  <a href="attendance.html" class="stat-card"><div class="stat-top"><span class="stat-label">د حاضري ثبتونه</span><span class="stat-icon icon-cyan">📅</span></div><div class="stat-number" id="attendanceCount">...</div><div class="stat-note">حاضري ثبت او وګورئ ←</div></a>
+  <a href="results-new.html" class="stat-card"><div class="stat-top"><span class="stat-label">د ازموینو پایلې</span><span class="stat-icon icon-red">📝</span></div><div class="stat-number" id="resultsCount">...</div><div class="stat-note">پایلې ثبت کړئ ←</div></a>
+  <a href="fees.html" class="stat-card"><div class="stat-top"><span class="stat-label">د فیس ثبتونه</span><span class="stat-icon icon-gold">💰</span></div><div class="stat-number" id="feesCount">—</div><div class="stat-note">د فیسونو مدیریت ←</div></a>
+  <a href="reports.html" class="stat-card"><div class="stat-top"><span class="stat-label">راپورونه</span><span class="stat-icon icon-blue">📈</span></div><div class="stat-number">↗</div><div class="stat-note">ټول راپورونه وګورئ ←</div></a>
+ </section>
+ <div class="section-heading"><div><h2>⚡ چټک لاسرسی</h2><p>خپله اړینه برخه انتخاب کړئ</p></div></div>
+ <section class="modules-grid">
+  <a href="students.html" class="module-card"><span class="module-icon">👨‍🎓</span><h3>زده‌کوونکي</h3><p>نوي زده‌کوونکي ثبت او معلومات یې اداره کړئ.</p><span class="module-arrow">برخې ته ننوتل ←</span></a>
+  <a href="teachers.html" class="module-card"><span class="module-icon">👨‍🏫</span><h3>استادان</h3><p>د استادانو معلومات ثبت او تنظیم کړئ.</p><span class="module-arrow">برخې ته ننوتل ←</span></a>
+  <a href="classes.html" class="module-card"><span class="module-icon">🏫</span><h3>صنفونه</h3><p>صنفونه جوړ او د زده‌کوونکو معلومات تنظیم کړئ.</p><span class="module-arrow">برخې ته ننوتل ←</span></a>
+  <a href="subjects.html" class="module-card"><span class="module-icon">📚</span><h3>مضامین</h3><p>مضامین او د اړوندو صنفونو معلومات تنظیم کړئ.</p><span class="module-arrow">برخې ته ننوتل ←</span></a>
+  <a href="attendance.html" class="module-card"><span class="module-icon">📅</span><h3>حاضري</h3><p>د زده‌کوونکو ورځنۍ حاضري ثبت کړئ.</p><span class="module-arrow">برخې ته ننوتل ←</span></a>
+  <a href="results-new.html" class="module-card"><span class="module-icon">📝</span><h3>د پایلو ثبت</h3><p>د ازموینو نمرې او پایلې ثبت کړئ.</p><span class="module-arrow">برخې ته ننوتل ←</span></a>
+  <a href="results-report.html" class="module-card"><span class="module-icon">📊</span><h3>د پایلو راپور</h3><p>د زده‌کوونکو د ازموینو پایلې وګورئ.</p><span class="module-arrow">برخې ته ننوتل ←</span></a>
+  <a href="fees.html" class="module-card"><span class="module-icon">💰</span><h3>فیسونه</h3><p>د فیسونو ثبت او مالي معلومات تنظیم کړئ.</p><span class="module-arrow">برخې ته ننوتل ←</span></a>
+ </section>
+ <section class="bottom-grid">
+  <div class="panel"><h3>🖥️ د سیستم حالت</h3><div class="status-row"><span class="status-label">ډیټابېس</span><span class="status-value warning" id="dbStatus">د کتنې په حال کې...</span></div><div class="status-row"><span class="status-label">د معلوماتو حالت</span><span class="status-value" id="dataStatus">د کتنې په حال کې...</span></div><div class="status-row"><span class="status-label">وروستی تازه کېدل</span><span class="status-value" id="lastUpdated">—</span></div></div>
+  <div class="panel"><h3>🚀 مهمې لنډلارې</h3><div class="quick-list"><a href="students.html" class="quick-btn">➕ زده‌کوونکی ثبتول</a><a href="teachers.html" class="quick-btn">➕ استاد ثبتول</a><a href="attendance.html" class="quick-btn">📅 حاضري ثبتول</a><a href="results-new.html" class="quick-btn">📝 نمرې ثبتول</a><a href="classes.html" class="quick-btn">🏫 نوی صنف</a><a href="subjects.html" class="quick-btn">📚 نوی مضمون</a></div></div>
+ </section>
+ <footer class="footer">© <span id="year"></span> احمدزي عالي لېسه — د ښوونځي مدیریت سیستم</footer>
 </main>
-</div>
-
 <script>
-/* د Supabase اړیکه */
+"use strict";
+const SUPABASE_URL = "https://oaxmnfnaqhdvnykawvyh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
 
-const SUPABASE_URL =
-    "https://oaxmnfnaqhdvnykawvyh.supabase.co";
+/* که په ډیټابېس کې د جدول نومونه بدل وي، دلته یې اصلاح کړئ. */
+const TABLES = [
+ {table:"students", element:"studentsCount", label:"زده‌کوونکي"},
+ {table:"teachers", element:"teachersCount", label:"استادان"},
+ {table:"classes", element:"classesCount", label:"صنفونه"},
+ {table:"subjects", element:"subjectsCount", label:"مضامین"},
+ {table:"attendance", element:"attendanceCount", label:"حاضري"},
+ {table:"results", element:"resultsCount", label:"پایلې"},
+ {table:"fees", element:"feesCount", label:"فیسونه"}
+];
+const $ = id => document.getElementById(id);
 
-const SUPABASE_KEY =
-    "sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
-
-
-/* نېټه */
-
-function showDate() {
-    const now = new Date();
-
-    document.getElementById("todayDate").textContent =
-        now.toLocaleDateString("ps-AF", {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        });
-
-    document.getElementById("year").textContent =
-        now.getFullYear();
+function showDate(){
+ const now=new Date();
+ $("todayDate").textContent=now.toLocaleDateString("ps-AF",{year:"numeric",month:"long",day:"numeric"});
+ $("year").textContent=now.getFullYear();
+}
+function setNotice(message,type="info"){
+ const box=$("notice");box.textContent=message;box.className="notice show "+type;
+}
+function clearNotice(){$("notice").textContent="";$("notice").className="notice";}
+function setCount(id,value){$(id).textContent=Number(value).toLocaleString("en-US");}
+function setStatus(id,text,kind){
+ const el=$(id);el.textContent=text;el.className="status-value "+kind;
 }
 
+/* د شمېر ترلاسه کول. د هر جدول لپاره ۱۲ ثانیې محدود وخت. */
+async function fetchTableCount(table){
+ const controller=new AbortController();
+ const timer=setTimeout(()=>controller.abort(),12000);
+ try{
+  const url=SUPABASE_URL+"/rest/v1/"+encodeURIComponent(table)+"?select=*";
+  const response=await fetch(url,{
+   method:"GET",
+   headers:{
+    "apikey":SUPABASE_KEY,
+    "Authorization":"Bearer "+SUPABASE_KEY,
+    "Prefer":"count=exact",
+    "Range":"0-0"
+   },
+   signal:controller.signal
+  });
+  if(!response.ok){
+   let detail="";
+   try{const body=await response.json();detail=body.message||body.details||body.hint||body.code||"";}catch(e){}
+   throw new Error("HTTP "+response.status+(detail?": "+detail:""));
+  }
+  const contentRange=response.headers.get("content-range");
+  if(contentRange){
+   const total=contentRange.split("/").pop();
+   if(total!=="*" && Number.isFinite(Number(total))) return {count:Number(total)};
+  }
+  const rows=await response.json();
+  return {count:Array.isArray(rows)?rows.length:0};
+ }catch(error){
+  if(error.name==="AbortError") throw new Error("اړیکې ته ډېر وخت ووت");
+  throw error;
+ }finally{clearTimeout(timer);}
+}
 
-/* هرې غوښتنې ته د انتظار محدود وخت */
+async function loadDashboard(){
+ const button=$("refreshBtn");
+ button.disabled=true;button.textContent="⏳ لوډ کېږي...";
+ clearNotice();
+ setStatus("dbStatus","اړیکه ازمویل کېږي...","warning");
+ setStatus("dataStatus","معلومات لوډ کېږي...","warning");
+ TABLES.forEach(item=>$(item.element).textContent="…");
 
-async fu
+ let success=0;let failures=[];
+ const checks=await Promise.all(TABLES.map(async item=>{
+  try{
+   const result=await fetchTableCount(item.table);
+   setCount(item.element,result.count);
+   success++;
+   return {ok:true,item};
+  }catch(error){
+   $(item.element).textContent="—";
+   failures.push(item.label+": "+error.message);
+   return {ok:false,item,error};
+  }
+ }));
+
+ const coreTables=checks.filter(x=>["students","classes","subjects"].includes(x.item.table));
+ const coreSuccess=coreTables.every(x=>x.ok);
+ if(success>0){
+  setStatus("dbStatus","اړیکه شته","online");
+  setStatus("dataStatus",success+" له "+TABLES.length+" جدولونو ولوستل شول",failures.length?"warning":"online");
+  if(failures.length){
+   setNotice("ځینې شمېرې ونه لوستل شوې. ممکن اړوند جدول موجود نه وي یا د لوستلو اجازه نه وي. ستونزې: "+failures.join("؛ "),"info");
+  }else{
+   setNotice("معلومات په بریالیتوب تازه شول.","success");
+  }
+ }else{
+  setStatus("dbStatus","اړیکه ناکامه","offline");
+  setStatus("dataStatus","معلومات ونه لوستل شول","offline");
+  setNotice("له ډیټابېس څخه معلومات ترلاسه نه شول. انټرنېټ، د Supabase URL/Key او د جدولونو د لوستلو اجازې (RLS) وګورئ. "+failures.slice(0,3).join("؛ "),"error");
+ }
+ $("lastUpdated").textContent=new Date().toLocaleTimeString("ps-AF",{hour:"2-digit",minute:"2-digit"});
+ button.disabled=false;button.textContent="↻ تازه کول";
+}
+showDate();
+loadDashboard();
+</script>
+</body>
+</html>
