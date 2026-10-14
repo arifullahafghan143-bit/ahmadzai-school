@@ -3,44 +3,408 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>د حاضري راپورونه | احمدزي ښوونځی</title>
+
+<title>احمدزي ښوونځی - د حاضري راپورونه</title>
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;padding:15px;font-family:Arial,sans-serif;background:#f1f5f9;color:#1e293b}
-header{background:#0f766e;color:white;padding:22px 12px;text-align:center;border-radius:14px;margin-bottom:16px}
-header h2{margin:0 0 8px}
-header p{margin:0;font-size:14px}
-.home{display:block;text-decoration:none;text-align:center;color:#0f766e;margin:15px 0}
-.card{background:white;padding:16px;border-radius:12px;margin-bottom:16px;box-shadow:0 3px 12px #0000000c}
-label{display:block;font-weight:bold;margin:12px 0 6px}
-input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;background:white;font-size:15px}
-button{border:0;border-radius:8px;padding:12px;font-size:15px;cursor:pointer}
-.primary{background:#0f766e;color:white;width:100%;margin-top:16px}
-.print{background:#334155;color:white;width:100%;margin-top:10px}
-.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.stat{background:#f8fafc;padding:15px 8px;text-align:center;border-radius:10px}
-.stat strong{display:block;font-size:25px;margin-bottom:7px}
-.present strong{color:#15803d}
-.absent strong{color:#dc2626}
-.late strong{color:#b45309}
-.rate strong{color:#0f766e}
-.message{display:none;padding:12px;border-radius:8px;margin-bottom:12px;overflow-wrap:anywhere}
-.error{display:block;background:#fee2e2;color:#991b1b}
-.success{display:block;background:#dcfce7;color:#166534}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:600px}
-th,td{border:1px solid #e2e8f0;padding:10px;text-align:center;font-size:14px}
-th{background:#e2e8f0}
-tbody tr:nth-child(even){background:#f8fafc}
-.badge{display:inline-block;padding:4px 8px;border-radius:6px;background:#dcfce7;color:#166534}
-.muted{text-align:center;padding:20px;color:#64748b}
-footer{text-align:center;color:#64748b;font-size:12px;padding:15px}
+:root{
+    --primary:#176b55;
+    --primary-dark:#105440;
+    --bg:#f3f7f6;
+    --white:#ffffff;
+    --border:#dce7e1;
+    --text:#24342c;
+    --muted:#6b7a72;
+    --success:#16834a;
+    --danger:#c0392b;
+    --warning:#a66a00;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Tahoma,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+header{
+    background:linear-gradient(135deg,#105440,#218366);
+    color:white;
+    padding:24px 15px;
+    text-align:center;
+}
+
+header h1{
+    margin:0 0 10px;
+    font-size:25px;
+}
+
+header p{
+    margin:0;
+    font-size:14px;
+}
+
+nav{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+    padding:12px;
+    background:white;
+    border-bottom:1px solid var(--border);
+}
+
+nav a{
+    text-decoration:none;
+    background:#eaf4ef;
+    color:var(--primary);
+    padding:10px 14px;
+    border-radius:8px;
+    font-size:14px;
+}
+
+nav a:hover{
+    background:#d7ebe1;
+}
+
+main{
+    max-width:1250px;
+    margin:22px auto;
+    padding:0 14px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    margin-bottom:18px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    box-shadow:0 3px 12px #00000008;
+}
+
+h2{
+    font-size:20px;
+    color:var(--primary);
+    margin:0 0 18px;
+}
+
+h3{
+    margin-top:0;
+}
+
+.filters{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:14px;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    font-size:14px;
+    margin-bottom:7px;
+}
+
+input,select{
+    display:block;
+    width:100%;
+    min-width:0;
+    padding:12px;
+    border:1px solid #cbd9d1;
+    border-radius:8px;
+    font:inherit;
+    background:white;
+    color:var(--text);
+}
+
+input:focus,select:focus{
+    outline:2px solid #a6d7c1;
+    border-color:var(--primary);
+}
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:17px;
+}
+
+button{
+    border:0;
+    border-radius:8px;
+    padding:12px 17px;
+    font:inherit;
+    cursor:pointer;
+    background:var(--primary);
+    color:white;
+}
+
+button:hover{
+    background:var(--primary-dark);
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+button.secondary{
+    background:#e8f1ec;
+    color:var(--primary);
+}
+
+button.secondary:hover{
+    background:#d7e8df;
+}
+
+button.print{
+    background:#225ca8;
+}
+
+.summary{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:13px;
+}
+
+.stat{
+    padding:18px 12px;
+    background:#f8fbf9;
+    border:1px solid var(--border);
+    border-radius:12px;
+    text-align:center;
+}
+
+.stat .label{
+    font-size:14px;
+    color:var(--muted);
+    margin-bottom:10px;
+}
+
+.stat .number{
+    font-size:28px;
+    font-weight:bold;
+    color:var(--primary);
+    overflow-wrap:anywhere;
+}
+
+.stat.present .number{
+    color:var(--success);
+}
+
+.stat.absent .number{
+    color:var(--danger);
+}
+
+.stat.late .number{
+    color:var(--warning);
+}
+
+.message{
+    display:none;
+    padding:13px;
+    border-radius:8px;
+    margin-top:15px;
+    white-space:pre-wrap;
+    overflow-wrap:anywhere;
+}
+
+.message.show{
+    display:block;
+}
+
+.message.error{
+    background:#fff0ee;
+    color:#a32118;
+}
+
+.message.success{
+    background:#e8f8ee;
+    color:#176b42;
+}
+
+.message.info{
+    background:#edf5ff;
+    color:#174b83;
+}
+
+.table-wrap{
+    width:100%;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    min-width:850px;
+    border-collapse:collapse;
+    margin-top:12px;
+}
+
+th,td{
+    padding:12px 10px;
+    text-align:right;
+    border-bottom:1px solid #e5ece7;
+    font-size:13px;
+    vertical-align:middle;
+}
+
+th{
+    background:#eaf3ee;
+    color:var(--primary);
+    white-space:nowrap;
+}
+
+tbody tr:hover{
+    background:#f7fbf8;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:12px;
+    white-space:nowrap;
+}
+
+.badge.present{
+    background:#e4f7eb;
+    color:#13743d;
+}
+
+.badge.absent{
+    background:#ffebe8;
+    color:#b32d23;
+}
+
+.badge.late{
+    background:#fff3d8;
+    color:#946000;
+}
+
+.badge.other{
+    background:#edf0f2;
+    color:#45545c;
+}
+
+.empty{
+    text-align:center;
+    padding:28px 12px;
+    color:var(--muted);
+}
+
+.small{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.8;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+@media(max-width:750px){
+    .filters{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .summary{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    header h1{
+        font-size:21px;
+    }
+}
+
+@media(max-width:450px){
+    .filters{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:14px;
+    }
+
+    .stat .number{
+        font-size:24px;
+    }
+}
+
 @media print{
-body{background:white;padding:0}
-.no-print,.home,header p{display:none!important}
-.card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
-header{background:white;color:black;border:1px solid #ddd}
+    body{
+        background:white;
+        color:black;
+    }
+
+    header{
+        background:white;
+        color:black;
+        border-bottom:2px solid black;
+    }
+
+    nav,
+    .filters-card,
+    .actions,
+    footer,
+    .message{
+        display:none!important;
+    }
+
+    main{
+        max-width:none;
+        margin:0;
+        padding:0;
+    }
+
+    .card{
+        box-shadow:none;
+        border:0;
+        padding:8px 0;
+        margin:0;
+    }
+
+    .summary{
+        grid-template-columns:repeat(4,minmax(0,1fr));
+    }
+
+    .stat{
+        border:1px solid #999;
+        background:white;
+    }
+
+    .stat .number{
+        color:black!important;
+    }
+
+    .table-wrap{
+        overflow:visible;
+    }
+
+    table{
+        min-width:0;
+        width:100%;
+    }
+
+    th,td{
+        padding:6px 4px;
+        font-size:10px;
+        color:black;
+    }
+
+    th{
+        background:#eee!important;
+    }
+
+    tr{
+        break-inside:avoid;
+    }
 }
 </style>
 </head>
@@ -48,282 +412,589 @@ header{background:white;color:black;border:1px solid #ddd}
 <body>
 
 <header>
-<h2>🏫 احمدزي ښوونځی</h2>
-<p>د زده‌کوونکو د حاضري راپورونه</p>
+    <h1>احمدزي ښوونځی</h1>
+    <p>د زده‌کوونکو د حاضري او غیرحاضري راپورونه</p>
 </header>
 
-<a class="home no-print" href="dashboard.html">← بېرته ډشبورډ ته</a>
+<nav>
+    <a href="./dashboard.html">اصلي پاڼه</a>
+    <a href="./students.html">زده‌کوونکي</a>
+    <a href="./attendance.html">حاضري</a>
+    <a href="./results-new.html">د ازموینو پایلې</a>
+</nav>
 
-<div id="message" class="message"></div>
+<main>
 
-<section class="card no-print">
-<h3>د راپور د لټون معلومات</h3>
+    <section class="card filters-card">
+        <h2>د راپور د لټون شرایط</h2>
 
-<label for="startDate">له نېټې</label>
-<input type="date" id="startDate">
+        <div class="filters">
 
-<label for="endDate">تر نېټې</label>
-<input type="date" id="endDate">
+            <div>
+                <label for="classFilter">ټولګی</label>
+                <select id="classFilter">
+                    <option value="">ټول ټولګي</option>
+                </select>
+            </div>
 
-<label for="classSelect">ټولګی</label>
-<select id="classSelect">
-<option value="">ټول ټولګي</option>
-</select>
+            <div>
+                <label for="subjectFilter">مضمون</label>
+                <select id="subjectFilter">
+                    <option value="">ټول مضامین</option>
+                </select>
+            </div>
 
-<label for="studentSelect">زده‌کوونکی</label>
-<select id="studentSelect">
-<option value="">ټول زده‌کوونکي</option>
-</select>
+            <div>
+                <label for="statusFilter">د حاضرۍ حالت</label>
+                <select id="statusFilter">
+                    <option value="">ټول حالتونه</option>
+                    <option value="حاضر">حاضر</option>
+                    <option value="غیرحاضر">غیرحاضر</option>
+                    <option value="ناوخته">ناوخته</option>
+                </select>
+            </div>
 
-<button class="primary" id="searchBtn">راپور ښکاره کړئ</button>
-<button class="print" id="printBtn">🖨️ راپور چاپ کړئ</button>
-</section>
+            <div>
+                <label for="startDate">له نېټې</label>
+                <input type="date" id="startDate">
+            </div>
 
-<section class="card">
-<h3>د حاضري عمومي راپور</h3>
+            <div>
+                <label for="endDate">تر نېټې</label>
+                <input type="date" id="endDate">
+            </div>
 
-<div class="stats">
-<div class="stat">
-<strong id="totalCount">0</strong>
-ټولې ثبت شوې حاضري
-</div>
+        </div>
 
-<div class="stat present">
-<strong id="presentCount">0</strong>
-حاضر
-</div>
+        <div class="actions">
+            <button type="button" id="searchBtn">
+                راپور ښکاره کړئ
+            </button>
 
-<div class="stat absent">
-<strong id="absentCount">0</strong>
-غیر حاضر
-</div>
+            <button type="button" class="secondary" id="resetBtn">
+                فلټرونه پاک کړئ
+            </button>
 
-<div class="stat late">
-<strong id="lateCount">0</strong>
-ناوخته
-</div>
+            <button type="button" class="print" id="printBtn">
+                راپور چاپ کړئ
+            </button>
+        </div>
 
-<div class="stat rate">
-<strong id="rateCount">0%</strong>
-د حاضرۍ سلنه
-</div>
-</div>
-</section>
+        <div id="message" class="message"></div>
+    </section>
 
-<section class="card">
-<h3>د حاضري تفصیلي راپور</h3>
 
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>شمېره</th>
-<th>نېټه</th>
-<th>د زده‌کوونکي نوم</th>
-<th>کوډ</th>
-<th>ټولګی</th>
-<th>مضمون</th>
-<th>حالت</th>
-</tr>
-</thead>
-<tbody id="reportBody">
-<tr><td colspan="7">د راپور د ترلاسه کولو لپاره لټون وکړئ.</td></tr>
-</tbody>
-</table>
-</div>
-</section>
+    <section class="card">
+        <h2>د حاضري لنډیز</h2>
 
-<footer>د احمدزي ښوونځي د مدیریت سیستم</footer>
+        <div class="summary">
+
+            <div class="stat">
+                <div class="label">ټول ریکارډونه</div>
+                <div class="number" id="totalCount">۰</div>
+            </div>
+
+            <div class="stat present">
+                <div class="label">حاضر</div>
+                <div class="number" id="presentCount">۰</div>
+            </div>
+
+            <div class="stat absent">
+                <div class="label">غیرحاضر</div>
+                <div class="number" id="absentCount">۰</div>
+            </div>
+
+            <div class="stat late">
+                <div class="label">ناوخته</div>
+                <div class="number" id="lateCount">۰</div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="card">
+        <h2>د حاضري تفصیلي راپور</h2>
+
+        <p class="small" id="reportInfo">
+            د راپور د لیدلو لپاره د «راپور ښکاره کړئ» تڼۍ کېکاږئ.
+        </p>
+
+        <div class="table-wrap" id="tableWrap">
+            <div class="empty">
+                د حاضري راپور لا نه دی پورته شوی.
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    احمدزي ښوونځی — د حاضري مدیریت سیستم
+</footer>
+
 
 <script>
-const SUPABASE_URL="https://oaxmnfnaqhdvnykawvyh.supabase.co";
-const SUPABASE_KEY="sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
+'use strict';
 
-const $=id=>document.getElementById(id);
+/* د Supabase اتصال */
+const SUPABASE_URL =
+    'https://oaxmnfnaqhdvnykawvyh.supabase.co';
 
-let allStudents=[];
-let allAttendance=[];
-let allClasses=[];
-let allReports=[];
+const SUPABASE_KEY =
+    'sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7';
 
-function apiRequest(path){
-return fetch(SUPABASE_URL+"/rest/v1/"+path,{
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":"Bearer "+SUPABASE_KEY,
-"Accept":"application/json"
-}
-}).then(async response=>{
-const text=await response.text();
-let data;
-try{data=text?JSON.parse(text):null}catch{data=text}
-if(!response.ok){
-throw new Error(data?.message||data?.details||String(data));
-}
-return data;
-});
-}
+const API = SUPABASE_URL + '/rest/v1/';
 
-function showMessage(text,type="success"){
-const box=$("message");
-box.textContent=text;
-box.className="message "+type;
+const $ = id => document.getElementById(id);
+
+let allClasses = [];
+let allSubjects = [];
+let currentReport = [];
+
+
+/* د HTML خوندي کول */
+function escapeHtml(value){
+    return String(value ?? '').replace(/[&<>"']/g, char => ({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#39;'
+    })[char]);
 }
 
-function escapeHTML(value){
-return String(value??"").replace(/[&<>"']/g,char=>({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#39;"
-}[char]));
+
+/* د Supabase غوښتنې */
+async function apiRequest(path){
+    const response = await fetch(API + path, {
+        method:'GET',
+        headers:{
+            apikey:SUPABASE_KEY,
+            Authorization:'Bearer ' + SUPABASE_KEY,
+            Accept:'application/json'
+        }
+    });
+
+    const text = await response.text();
+
+    let data;
+
+    try{
+        data = text ? JSON.parse(text) : null;
+    }catch(_){
+        data = text;
+    }
+
+    if(!response.ok){
+        let details = '';
+
+        if(data && typeof data === 'object'){
+            details =
+                data.message ||
+                data.details ||
+                data.hint ||
+                JSON.stringify(data);
+        }else{
+            details = String(data || response.statusText);
+        }
+
+        throw new Error(
+            'HTTP ' + response.status + ': ' + details
+        );
+    }
+
+    return data;
 }
 
-async function loadOptions(){
-try{
-const [classes,students]=await Promise.all([
-apiRequest("classes?select=*&order=code.asc"),
-apiRequest("students?select=*&order=name.asc")
-]);
 
-allClasses=classes||[];
-allStudents=students||[];
+/* د پیغامونو ښودل */
+function showMessage(text,type='info'){
+    const box = $('message');
 
-allClasses.forEach(item=>{
-if(!item.name)return;
-const option=document.createElement("option");
-option.value=item.name;
-option.textContent=item.name;
-$("classSelect").appendChild(option);
-});
-
-fillStudentOptions();
-
-}catch(error){
-showMessage("د ټولګیو او زده‌کوونکو د ترلاسه کولو ستونزه: "+error.message,"error");
-}
+    box.textContent = text;
+    box.className = 'message show ' + type;
 }
 
-function fillStudentOptions(){
-const select=$("studentSelect");
-select.innerHTML='<option value="">ټول زده‌کوونکي</option>';
-
-const className=$("classSelect").value;
-
-allStudents
-.filter(student=>!className||student.class===className)
-.forEach(student=>{
-const option=document.createElement("option");
-option.value=student.id;
-option.textContent=(student.name||"بې نومه")+" — "+(student.code||"");
-select.appendChild(option);
-});
+function hideMessage(){
+    $('message').textContent = '';
+    $('message').className = 'message';
 }
 
-async function searchReport(){
-$("searchBtn").disabled=true;
-$("searchBtn").textContent="راپور ترلاسه کېږي...";
 
-try{
-const start=$("startDate").value;
-const end=$("endDate").value;
-const className=$("classSelect").value;
-const studentId=$("studentSelect").value;
+/* د انتخابونو جوړول */
+function fillSelect(select,items,placeholder,valueFn,labelFn){
+    select.innerHTML = '';
 
-if(start&&end&&start>end){
-throw new Error("د پیل نېټه باید د پای له نېټې مخکې وي.");
+    const first = document.createElement('option');
+    first.value = '';
+    first.textContent = placeholder;
+    select.appendChild(first);
+
+    items.forEach(item => {
+        const option = document.createElement('option');
+
+        option.value = valueFn(item);
+        option.textContent = labelFn(item);
+
+        select.appendChild(option);
+    });
 }
 
-let path="attendance?select=*&order=date.desc&limit=10000";
 
-if(start)path+="&date=gte."+encodeURIComponent(start);
-if(end)path+="&date=lte."+encodeURIComponent(end);
-if(className)path+="&class=eq."+encodeURIComponent(className);
-if(studentId)path+="&student_id=eq."+encodeURIComponent(studentId);
+/* د ټولګیو لوستل */
+async function loadClasses(){
+    try{
+        const rows = await apiRequest(
+            'classes?select=code,name,grade&order=code.asc'
+        );
 
-allAttendance=await apiRequest(path)||[];
+        allClasses = (rows || []).filter(
+            item => item.code || item.name
+        );
 
-const studentMap=new Map(
-allStudents.map(student=>[String(student.id),student])
+        fillSelect(
+            $('classFilter'),
+            allClasses,
+            'ټول ټولګي',
+            item => String(item.code || item.name),
+            item => {
+                const name = item.name || item.code;
+                const code = item.code || '';
+
+                return name === code
+                    ? name
+                    : name + ' (' + code + ')';
+            }
+        );
+
+    }catch(error){
+        showMessage(
+            'د ټولګیو د لوستلو ستونزه:\n' + error.message,
+            'error'
+        );
+    }
+}
+
+
+/* د مضمونونو لوستل */
+async function loadSubjects(){
+    try{
+        const rows = await apiRequest(
+            'subjects?select=code,name,class&order=code.asc'
+        );
+
+        allSubjects = (rows || []).filter(
+            item => item.name || item.code
+        );
+
+        fillSelect(
+            $('subjectFilter'),
+            allSubjects,
+            'ټول مضامین',
+            item => String(item.name || item.code),
+            item => item.name || item.code
+        );
+
+    }catch(error){
+        showMessage(
+            'د مضمونونو د لوستلو ستونزه:\n' + error.message,
+            'error'
+        );
+    }
+}
+
+
+/* د حاضرۍ د حالت پېژندل */
+function normalizeStatus(value){
+    const status = String(value || '').trim();
+
+    if(
+        status === 'حاضر' ||
+        status === 'Present' ||
+        status.toLowerCase() === 'present'
+    ){
+        return 'حاضر';
+    }
+
+    if(
+        status === 'غیرحاضر' ||
+        status === 'غايب' ||
+        status === 'غایب' ||
+        status === 'Absent' ||
+        status.toLowerCase() === 'absent'
+    ){
+        return 'غیرحاضر';
+    }
+
+    if(
+        status === 'ناوخته' ||
+        status === 'Late' ||
+        status.toLowerCase() === 'late'
+    ){
+        return 'ناوخته';
+    }
+
+    return status || 'نامعلوم';
+}
+
+
+/* د شمېرونو تازه کول */
+function updateSummary(rows){
+    let present = 0;
+    let absent = 0;
+    let late = 0;
+
+    rows.forEach(row => {
+        const status = normalizeStatus(row.status);
+
+        if(status === 'حاضر'){
+            present++;
+        }else if(status === 'غیرحاضر'){
+            absent++;
+        }else if(status === 'ناوخته'){
+            late++;
+        }
+    });
+
+    $('totalCount').textContent = rows.length;
+    $('presentCount').textContent = present;
+    $('absentCount').textContent = absent;
+    $('lateCount').textContent = late;
+}
+
+
+/* د حالت رنګ */
+function statusClass(status){
+    if(status === 'حاضر') return 'present';
+    if(status === 'غیرحاضر') return 'absent';
+    if(status === 'ناوخته') return 'late';
+
+    return 'other';
+}
+
+
+/* د راپور جدول */
+function renderReport(rows){
+    const wrap = $('tableWrap');
+
+    if(!rows.length){
+        wrap.innerHTML = `
+            <div class="empty">
+                د ټاکلو شرایطو مطابق د حاضري ریکارډونه ونه موندل شول.
+            </div>
+        `;
+
+        $('reportInfo').textContent =
+            'د راپور ریکارډونه: ۰';
+
+        return;
+    }
+
+    let html = `
+        <table>
+            <thead>
+                <tr>
+                    <th>شمېره</th>
+                    <th>نېټه</th>
+                    <th>د زده‌کوونکي نوم</th>
+                    <th>د پلار نوم</th>
+                    <th>ټولګی</th>
+                    <th>مضمون</th>
+                    <th>حالت</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    rows.forEach((row,index) => {
+        const status = normalizeStatus(row.status);
+
+        html += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${escapeHtml(row.attendance_date)}</td>
+                <td>${escapeHtml(row.student_name || '—')}</td>
+                <td>${escapeHtml(row.father_name || '—')}</td>
+                <td>${escapeHtml(row.class || '—')}</td>
+                <td>${escapeHtml(row.subject || '—')}</td>
+                <td>
+                    <span class="badge ${statusClass(status)}">
+                        ${escapeHtml(status)}
+                    </span>
+                </td>
+            </tr>
+        `;
+    });
+
+    html += `
+            </tbody>
+        </table>
+    `;
+
+    wrap.innerHTML = html;
+
+    $('reportInfo').textContent =
+        'د راپور ریکارډونه: ' + rows.length;
+}
+
+
+/* د حاضري راپور لوستل */
+async function loadReport(){
+    hideMessage();
+
+    const start = $('startDate').value;
+    const end = $('endDate').value;
+    const className = $('classFilter').value;
+    const subject = $('subjectFilter').value;
+    const statusFilter = $('statusFilter').value;
+
+    if(start && end && start > end){
+        showMessage(
+            'د پیل نېټه باید د پای له نېټې وروسته نه وي.',
+            'error'
+        );
+        return;
+    }
+
+    const button = $('searchBtn');
+
+    button.disabled = true;
+    button.textContent = 'راپور بارېږي...';
+
+    $('tableWrap').innerHTML = `
+        <div class="empty">مهرباني وکړئ، انتظار وکړئ...</div>
+    `;
+
+    try{
+        /*
+         * دا View په مخکیني SQL Query کې جوړ شوی:
+         * public.attendance_report
+         */
+
+        let path =
+            'attendance_report?select=attendance_date,student_id,student_name,father_name,class,subject,status' +
+            '&order=attendance_date.desc';
+
+        if(start){
+            path +=
+                '&attendance_date=gte.' +
+                encodeURIComponent(start);
+        }
+
+        if(end){
+            path +=
+                '&attendance_date=lte.' +
+                encodeURIComponent(end);
+        }
+
+        if(className){
+            path +=
+                '&class=eq.' +
+                encodeURIComponent(className);
+        }
+
+        if(subject){
+            path +=
+                '&subject=eq.' +
+                encodeURIComponent(subject);
+        }
+
+        if(statusFilter){
+            path +=
+                '&status=eq.' +
+                encodeURIComponent(statusFilter);
+        }
+
+        const rows = await apiRequest(path);
+
+        currentReport = rows || [];
+
+        updateSummary(currentReport);
+        renderReport(currentReport);
+
+        showMessage(
+            'راپور په بریالیتوب پورته شو.',
+            'success'
+        );
+
+    }catch(error){
+        currentReport = [];
+
+        updateSummary([]);
+        renderReport([]);
+
+        showMessage(
+            'د حاضري راپور د لوستلو ستونزه:\n' +
+            error.message +
+            '\n\nد attendance_report View، د SELECT اجازې او د جدول د کالمونو نومونه وګورئ.',
+            'error'
+        );
+
+    }finally{
+        button.disabled = false;
+        button.textContent = 'راپور ښکاره کړئ';
+    }
+}
+
+
+/* فلټرونه پاکول */
+function resetFilters(){
+    $('classFilter').value = '';
+    $('subjectFilter').value = '';
+    $('statusFilter').value = '';
+    $('startDate').value = '';
+    $('endDate').value = '';
+
+    hideMessage();
+
+    currentReport = [];
+
+    updateSummary([]);
+    renderReport([]);
+
+    $('reportInfo').textContent =
+        'د راپور د لیدلو لپاره د «راپور ښکاره کړئ» تڼۍ کېکاږئ.';
+}
+
+
+/* د تڼیو پېښې */
+$('searchBtn').addEventListener(
+    'click',
+    loadReport
 );
 
-allReports=allAttendance.map(record=>{
-const student=studentMap.get(String(record.student_id));
-return{
-date:record.date||"",
-name:student?.name||("د زده‌کوونکي ID: "+record.student_id),
-code:student?.code||"-",
-className:record.class||student?.class||"-",
-subject:record.subject||"-",
-status:record.status||"نامعلوم"
-};
-});
+$('resetBtn').addEventListener(
+    'click',
+    resetFilters
+);
 
-renderReport();
+$('printBtn').addEventListener(
+    'click',
+    () => {
+        if(!currentReport.length){
+            showMessage(
+                'د چاپ لپاره لومړی یو راپور ښکاره کړئ.',
+                'error'
+            );
+            return;
+        }
 
-showMessage("راپور ترلاسه شو. ټولې موندل شوې ثبت شوې حاضري: "+allReports.length);
+        window.print();
+    }
+);
 
-}catch(error){
-showMessage("د راپور په ترلاسه کولو کې ستونزه: "+error.message,"error");
-$("reportBody").innerHTML='<tr><td colspan="7">راپور ترلاسه نه شو.</td></tr>';
-}finally{
-$("searchBtn").disabled=false;
-$("searchBtn").textContent="راپور ښکاره کړئ";
-}
-}
 
-function renderReport(){
-const total=allReports.length;
-const present=allReports.filter(r=>r.status==="حاضر").length;
-const absent=allReports.filter(r=>r.status==="غیر حاضر").length;
-const late=allReports.filter(r=>r.status==="ناوخته").length;
-
-$("totalCount").textContent=total;
-$("presentCount").textContent=present;
-$("absentCount").textContent=absent;
-$("lateCount").textContent=late;
-
-const rate=total?((present/total)*100).toFixed(1):"0.0";
-$("rateCount").textContent=rate+"%";
-
-if(!total){
-$("reportBody").innerHTML='<tr><td colspan="7">د ټاکلو شرایطو لپاره حاضري ونه موندل شوه.</td></tr>';
-return;
+/* د پاڼې پیل */
+async function init(){
+    await Promise.all([
+        loadClasses(),
+        loadSubjects()
+    ]);
 }
 
-$("reportBody").innerHTML=allReports.map((r,index)=>`
-<tr>
-<td>${index+1}</td>
-<td>${escapeHTML(r.date)}</td>
-<td>${escapeHTML(r.name)}</td>
-<td>${escapeHTML(r.code)}</td>
-<td>${escapeHTML(r.className)}</td>
-<td>${escapeHTML(r.subject)}</td>
-<td>${escapeHTML(r.status)}</td>
-</tr>
-`).join("");
-}
-
-$("classSelect").addEventListener("change",()=>{
-fillStudentOptions();
-});
-
-$("searchBtn").addEventListener("click",searchReport);
-
-$("printBtn").addEventListener("click",()=>{
-window.print();
-});
-
-const now=new Date();
-const localNow=new Date(now.getTime()-now.getTimezoneOffset()*60000);
-const today=localNow.toISOString().slice(0,10);
-
-$("startDate").value=today.slice(0,8)+"01";
-$("endDate").value=today;
-
-loadOptions().then(searchReport);
+init();
 </script>
 
 </body>
-  </html>
+</html>
