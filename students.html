@@ -6,227 +6,171 @@
 <title>د زده‌کوونکو مدیریت | احمدزي ښوونځی</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f1f5f9;
+    color:#1e293b;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f1f5f9;
-    color: #1e293b;
+header{
+    background:linear-gradient(135deg,#123b66,#176b87);
+    color:white;
+    padding:22px 15px;
+    text-align:center;
 }
 
-header {
-    background: linear-gradient(135deg, #123b66, #176b87);
-    color: white;
-    padding: 22px 15px;
-    text-align: center;
+header h2{margin:0 0 10px}
+header a{color:white;text-decoration:none}
+
+.container{
+    max-width:1100px;
+    margin:20px auto;
+    padding:12px;
 }
 
-header h2 {
-    margin: 0 0 10px;
+.card{
+    background:white;
+    padding:20px;
+    margin-bottom:18px;
+    border-radius:14px;
+    box-shadow:0 4px 15px #0000000c;
 }
 
-header a {
-    color: white;
-    text-decoration: none;
+h3{color:#123b66;margin-top:0}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
 }
 
-.container {
-    max-width: 1100px;
-    margin: 20px auto;
-    padding: 12px;
+label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
 }
 
-.card {
-    background: white;
-    padding: 20px;
-    margin-bottom: 18px;
-    border-radius: 14px;
-    box-shadow: 0 4px 15px #0000000c;
+input,select,button{
+    width:100%;
+    padding:12px;
+    border:1px solid #cbd5e1;
+    border-radius:8px;
+    font-size:15px;
+    font-family:inherit;
 }
 
-h3 {
-    color: #123b66;
-    margin-top: 0;
+input,select{background:white;color:#1e293b}
+input:focus,select:focus{
+    outline:2px solid #93c5fd;
+    border-color:#2563eb;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+button{
+    background:#123b66;
+    color:white;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 7px;
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
 }
 
-input,
-select,
-button {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    font-size: 15px;
-    font-family: inherit;
+.save{background:#087f5b;margin-top:18px}
+.cancel{background:#64748b;margin-top:10px}
+.delete{background:#dc2626}
+.edit{background:#d97706}
+
+.search{margin-bottom:14px}
+
+.table-wrap{overflow-x:auto}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:850px;
 }
 
-input,
-select {
-    background: #fff;
-    color: #1e293b;
+th,td{
+    padding:11px 8px;
+    border-bottom:1px solid #e2e8f0;
+    text-align:center;
 }
 
-input:focus,
-select:focus {
-    outline: 2px solid #93c5fd;
-    border-color: #2563eb;
+th{background:#eaf1f8;color:#123b66}
+
+.actions{
+    display:flex;
+    gap:6px;
 }
 
-select {
-    cursor: pointer;
+.actions button{
+    padding:8px;
+    min-width:65px;
 }
 
-button {
-    background: #123b66;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
+.message{
+    display:none;
+    padding:13px;
+    border-radius:8px;
+    margin-bottom:15px;
+    overflow-wrap:anywhere;
+    line-height:1.8;
 }
 
-button:disabled,
-select:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+.message.success,.message.error,.message.info{display:block}
+.success{background:#dcfce7;color:#166534}
+.error{background:#fee2e2;color:#991b1b}
+.info{background:#dbeafe;color:#1e40af}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:12px;
+    margin-bottom:18px;
 }
 
-.save {
-    background: #087f5b;
-    margin-top: 18px;
+.stat{
+    background:white;
+    padding:18px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 3px 12px #00000008;
 }
 
-.cancel {
-    background: #64748b;
-    margin-top: 10px;
+.stat strong{
+    display:block;
+    font-size:25px;
+    color:#123b66;
+    margin-top:8px;
 }
 
-.delete {
-    background: #dc2626;
+#code{
+    background:#f1f5f9;
+    font-weight:bold;
+    color:#087f5b;
+    direction:ltr;
+    text-align:center;
 }
 
-.edit {
-    background: #d97706;
+small{
+    display:block;
+    margin-top:6px;
+    color:#64748b;
+    line-height:1.7;
 }
 
-.search {
-    margin-bottom: 14px;
-}
+[hidden]{display:none!important}
 
-.table-wrap {
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 850px;
-}
-
-th,
-td {
-    padding: 11px 8px;
-    border-bottom: 1px solid #e2e8f0;
-    text-align: center;
-}
-
-th {
-    background: #eaf1f8;
-    color: #123b66;
-}
-
-.actions {
-    display: flex;
-    gap: 6px;
-}
-
-.actions button {
-    padding: 8px;
-    min-width: 65px;
-}
-
-.message {
-    display: none;
-    padding: 13px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    overflow-wrap: anywhere;
-    line-height: 1.8;
-}
-
-.message.success,
-.message.error,
-.message.info {
-    display: block;
-}
-
-.success {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.error {
-    background: #fee2e2;
-    color: #991b1b;
-}
-
-.info {
-    background: #dbeafe;
-    color: #1e40af;
-}
-
-.stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
-    margin-bottom: 18px;
-}
-
-.stat {
-    background: white;
-    padding: 18px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 3px 12px #00000008;
-}
-
-.stat strong {
-    display: block;
-    font-size: 25px;
-    color: #123b66;
-    margin-top: 8px;
-}
-
-[hidden] {
-    display: none !important;
-}
-
-@media(max-width: 600px) {
-    .container {
-        padding: 8px;
-    }
-
-    .card {
-        padding: 14px;
-    }
-
-    header {
-        padding: 18px 10px;
-    }
+@media(max-width:600px){
+    .container{padding:8px}
+    .card{padding:14px}
+    header{padding:18px 10px}
 }
 </style>
 </head>
@@ -248,12 +192,10 @@ th {
             ټول زده‌کوونکي
             <strong id="totalStudents">0</strong>
         </div>
-
         <div class="stat">
             هلکان
             <strong id="boysCount">0</strong>
         </div>
-
         <div class="stat">
             نجونې
             <strong id="girlsCount">0</strong>
@@ -261,55 +203,45 @@ th {
     </div>
 
     <section class="card">
-
         <h3 id="formTitle">➕ نوی زده‌کوونکی ثبت کړئ</h3>
 
         <form id="studentForm">
-
             <input type="hidden" id="studentId">
 
             <div class="grid">
 
                 <div>
-                    <label for="code">د زده‌کوونکي کوډ *</label>
+                    <label for="code">د زده‌کوونکي اتومات کوډ</label>
                     <input
                         id="code"
-                        required
-                        placeholder="لکه ST-003"
+                        type="text"
+                        placeholder="د ثبت وروسته جوړېږي"
+                        readonly
                     >
+                    <small>
+                        کوډ په اتومات ډول جوړېږي؛ په لاس یې مه لیکئ.
+                    </small>
                 </div>
 
                 <div>
                     <label for="name">د زده‌کوونکي نوم *</label>
-                    <input
-                        id="name"
-                        required
-                        placeholder="بشپړ نوم"
-                    >
+                    <input id="name" required placeholder="بشپړ نوم">
                 </div>
 
                 <div>
                     <label for="father">د پلار نوم *</label>
-                    <input
-                        id="father"
-                        required
-                        placeholder="د پلار نوم"
-                    >
+                    <input id="father" required placeholder="د پلار نوم">
                 </div>
 
                 <div>
                     <label for="className">صنف انتخاب کړئ *</label>
-
                     <select id="className" required disabled>
-                        <option value="">
-                            د صنفونو لېست لوستل کېږي...
-                        </option>
+                        <option value="">د صنفونو لېست لوستل کېږي...</option>
                     </select>
                 </div>
 
                 <div>
                     <label for="gender">جنسیت *</label>
-
                     <select id="gender" required>
                         <option value="">جنسیت انتخاب کړئ</option>
                         <option value="هلک">هلک</option>
@@ -319,47 +251,27 @@ th {
 
                 <div>
                     <label for="phone">د ټیلیفون شمېره</label>
-                    <input
-                        id="phone"
-                        type="tel"
-                        placeholder="د اړیکې شمېره"
-                    >
+                    <input id="phone" type="tel" placeholder="د اړیکې شمېره">
                 </div>
 
                 <div>
                     <label for="address">پته</label>
-                    <input
-                        id="address"
-                        placeholder="د اوسېدو ځای"
-                    >
+                    <input id="address" placeholder="د اوسېدو ځای">
                 </div>
 
             </div>
 
-            <button
-                class="save"
-                id="saveButton"
-                type="submit"
-                disabled
-            >
+            <button class="save" id="saveButton" type="submit" disabled>
                 زده‌کوونکی ثبت کړئ
             </button>
 
-            <button
-                class="cancel"
-                id="cancelButton"
-                type="button"
-                hidden
-            >
+            <button class="cancel" id="cancelButton" type="button" hidden>
                 اصلاح لغوه کړئ
             </button>
-
         </form>
-
     </section>
 
     <section class="card">
-
         <h3>📋 د زده‌کوونکو لېست</h3>
 
         <input
@@ -369,7 +281,6 @@ th {
         >
 
         <div class="table-wrap">
-
             <table>
                 <thead>
                     <tr>
@@ -384,18 +295,13 @@ th {
                         <th>عملیات</th>
                     </tr>
                 </thead>
-
                 <tbody id="studentsBody">
                     <tr>
-                        <td colspan="9">
-                            معلومات لوستل کېږي...
-                        </td>
+                        <td colspan="9">معلومات لوستل کېږي...</td>
                     </tr>
                 </tbody>
             </table>
-
         </div>
-
     </section>
 
 </main>
@@ -403,9 +309,7 @@ th {
 <script>
 "use strict";
 
-/* =========================================
-   1. د Supabase اتصال
-========================================= */
+/* 1. د Supabase اتصال */
 
 const SUPABASE_URL =
     "https://oaxmnfnaqhdvnykawvyh.supabase.co";
@@ -413,10 +317,7 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
 
-
-/* =========================================
-   2. د HTML عناصرو پېژندنه
-========================================= */
+/* 2. د HTML عناصرو پېژندنه */
 
 const form = document.getElementById("studentForm");
 const studentsBody = document.getElementById("studentsBody");
@@ -429,60 +330,45 @@ const classSelect = document.getElementById("className");
 let students = [];
 let classes = [];
 let classesLoaded = false;
+let busy = false;
 
+/* 3. عمومي دندې */
 
-/* =========================================
-   3. د پیغامونو سیستم
-========================================= */
-
-function showMessage(text, type = "info") {
-    messageBox.textContent = text;
-    messageBox.className = "message " + type;
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+function valueOf(id){
+    return document.getElementById(id).value.trim();
 }
 
-function clearMessage() {
+function safeValue(value){
+    return value == null ? "" : String(value);
+}
+
+function showMessage(text,type="info"){
+    messageBox.textContent = text;
+    messageBox.className = "message " + type;
+}
+
+function clearMessage(){
     messageBox.textContent = "";
     messageBox.className = "message";
 }
 
+/* 4. د Supabase API */
 
-/* =========================================
-   4. عمومي دندې
-========================================= */
+async function apiRequest(path,options={}){
 
-function valueOf(id) {
-    return document.getElementById(id).value.trim();
-}
-
-function safeValue(value) {
-    return value == null ? "" : String(value);
-}
-
-
-/* =========================================
-   5. د Supabase API
-========================================= */
-
-async function apiRequest(path, options = {}) {
+    const headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": "Bearer " + SUPABASE_KEY,
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Prefer": "return=representation"
+    };
 
     const response = await fetch(
         SUPABASE_URL + "/rest/v1/" + path,
         {
             method: options.method || "GET",
-
-            headers: {
-                "apikey": SUPABASE_KEY,
-                "Authorization": "Bearer " + SUPABASE_KEY,
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "Prefer": "return=representation"
-            },
-
+            headers,
             body: options.body === undefined
                 ? undefined
                 : JSON.stringify(options.body)
@@ -491,17 +377,15 @@ async function apiRequest(path, options = {}) {
 
     const responseText = await response.text();
 
-    let data;
+    let data = null;
 
-    try {
-        data = responseText
-            ? JSON.parse(responseText)
-            : null;
-    } catch {
+    try{
+        data = responseText ? JSON.parse(responseText) : null;
+    }catch{
         data = responseText;
     }
 
-    if (!response.ok) {
+    if(!response.ok){
 
         const detail =
             data && typeof data === "object"
@@ -514,91 +398,54 @@ async function apiRequest(path, options = {}) {
                 : String(data || response.statusText);
 
         throw new Error(
-            "Supabase " +
-            response.status +
-            ": " +
-            detail
+            "Supabase " + response.status + ": " + detail
         );
     }
 
     return data;
 }
 
+/* 5. د صنفونو لېست */
 
-/* =========================================
-   6. د صنفونو د ډراپ‌ډاون جوړول
-========================================= */
-
-function populateClassSelect(legacyClass = "") {
+function populateClassSelect(legacyClass=""){
 
     classSelect.innerHTML = "";
 
-    // د انتخاب لومړنی پیغام
     const placeholder = document.createElement("option");
-
     placeholder.value = "";
     placeholder.textContent = "— صنف انتخاب کړئ —";
-
     classSelect.appendChild(placeholder);
 
-    // د ډیټابېس اوسني صنفونه
-    classes.forEach(item => {
+    classes.forEach(item=>{
 
         const className = safeValue(item.name);
 
-        if (!className) {
-            return;
-        }
+        if(!className) return;
 
         const option = document.createElement("option");
-
         option.value = className;
         option.textContent = className;
-
         classSelect.appendChild(option);
     });
 
-    /*
-       د پخوانیو زده‌کوونکو لپاره:
-       که پخوانی صنف په نوي لېست کې نه وي،
-       د اصلاح پر وخت یې هم ساتو.
-    */
-
-    if (
+    if(
         legacyClass &&
-        !classes.some(
-            item => safeValue(item.name) === legacyClass
-        )
-    ) {
-
-        const oldOption = document.createElement("option");
-
-        oldOption.value = legacyClass;
-
-        oldOption.textContent =
-            legacyClass + " (پخوانی صنف)";
-
-        classSelect.appendChild(oldOption);
+        !classes.some(item=>safeValue(item.name)===legacyClass)
+    ){
+        const option = document.createElement("option");
+        option.value = legacyClass;
+        option.textContent = legacyClass + " (پخوانی صنف)";
+        classSelect.appendChild(option);
     }
 }
 
-
-/* =========================================
-   7. له Supabase څخه د صنفونو لوستل
-========================================= */
-
-async function loadClasses() {
+async function loadClasses(){
 
     classesLoaded = false;
-
     classSelect.disabled = true;
-
     saveButton.disabled = true;
 
-    classSelect.innerHTML =
-        '<option value="">د صنفونو لېست لوستل کېږي...</option>';
-
-    try {
+    try{
 
         const data = await apiRequest(
             "classes?select=id,code,name,grade_number,section"
@@ -606,154 +453,102 @@ async function loadClasses() {
 
         classes = Array.isArray(data) ? data : [];
 
-        /*
-           یوازې هغه صنفونه اخلو چې
-           نوم، ټولګي شمېره او سکشن ولري.
-        */
+        classes = classes.filter(item=>
+            item.name != null &&
+            String(item.name).trim() !== "" &&
+            item.grade_number != null &&
+            item.section != null
+        );
 
-        classes = classes.filter(item => {
+        classes.sort((a,b)=>{
 
-            return (
-                item.name != null &&
-                String(item.name).trim() !== "" &&
-                item.grade_number != null &&
-                item.section != null
+            const gradeDifference =
+                Number(a.grade_number)-Number(b.grade_number);
+
+            if(gradeDifference !== 0) return gradeDifference;
+
+            return safeValue(a.section).localeCompare(
+                safeValue(b.section)
             );
-
-        });
-
-        /*
-           د لومړي ټولګي څخه تر دولسم ټولګي پورې
-           او د A، B، C، D سکشنونو ترتیب.
-        */
-
-        classes.sort((a, b) => {
-
-            const gradeA = Number(a.grade_number);
-            const gradeB = Number(b.grade_number);
-
-            if (gradeA !== gradeB) {
-                return gradeA - gradeB;
-            }
-
-            const sectionA = safeValue(a.section);
-            const sectionB = safeValue(b.section);
-
-            return sectionA.localeCompare(sectionB);
         });
 
         populateClassSelect();
 
-        if (classes.length === 0) {
-
-            classSelect.innerHTML =
-                '<option value="">صنفونه ونه موندل شول</option>';
-
-            showMessage(
-                "د صنفونو لېست تش دی. د Supabase د classes جدول او د SELECT اجازې وګورئ.",
-                "error"
-            );
-
-            return;
+        if(classes.length===0){
+            throw new Error("د صنفونو لېست تش دی.");
         }
 
         classesLoaded = true;
-
         classSelect.disabled = false;
-
         saveButton.disabled = false;
 
-        console.log(
-            "په ډراپ‌ډاون کې د صنفونو شمېر:",
-            classes.length
-        );
-
-        if (classes.length !== 48) {
-
+        if(classes.length!==48){
             showMessage(
-                "خبرتیا: " +
-                classes.length +
-                " صنفونه ترلاسه شول، خو تمه ۴۸ صنفونه ده.",
+                "خبرتیا: " + classes.length +
+                " صنفونه لوستل شوي؛ تمه ۴۸ صنفونه ده.",
                 "info"
             );
         }
 
-    } catch (error) {
+    }catch(error){
 
-        console.error(
-            "د صنفونو د لوستلو ستونزه:",
-            error
-        );
+        console.error("د صنفونو ستونزه:",error);
 
         classSelect.innerHTML =
             '<option value="">د صنفونو لوستل ناکام شول</option>';
 
         showMessage(
-            "د صنفونو لېست ترلاسه نه شو: " +
-            error.message,
+            "د صنفونو لېست ترلاسه نه شو: " + error.message,
             "error"
         );
 
-    } finally {
-
-        /*
-           که صنفونه ونه لوستل شي،
-           د نوي زده‌کوونکي ثبت نه فعالوو.
-        */
+    }finally{
 
         classSelect.disabled = !classesLoaded;
-
-        saveButton.disabled = !classesLoaded;
+        saveButton.disabled = !classesLoaded || busy;
     }
 }
 
+/* 6. د زده‌کوونکو لوستل */
 
-/* =========================================
-   8. د زده‌کوونکو لوستل
-========================================= */
-
-async function loadStudents() {
+async function loadStudents(){
 
     studentsBody.innerHTML =
         '<tr><td colspan="9">معلومات لوستل کېږي...</td></tr>';
 
-    try {
+    try{
 
         const data = await apiRequest(
             "students?select=*&order=id.desc"
         );
 
         students = Array.isArray(data) ? data : [];
-
         renderStudents();
 
-    } catch (error) {
+    }catch(error){
+
+        console.error("د زده‌کوونکو ستونزه:",error);
 
         studentsBody.innerHTML =
             '<tr><td colspan="9">معلومات ونه لوستل شول.</td></tr>';
 
         showMessage(
-            "د زده‌کوونکو د لوستلو ستونزه: " +
-            error.message,
+            "د زده‌کوونکو د لوستلو ستونزه: " + error.message,
             "error"
         );
     }
 }
 
+/* 7. د زده‌کوونکو لېست او شمېرې */
 
-/* =========================================
-   9. د زده‌کوونکو لېست او شمېرې
-========================================= */
+function renderStudents(){
 
-function renderStudents() {
+    const search = searchInput.value.trim().toLowerCase();
 
-    const search =
-        searchInput.value.trim().toLowerCase();
-
-    const filtered = students.filter(student => {
+    const filtered = students.filter(student=>{
 
         const text = [
-
+            student.id,
             student.code,
             student.name,
             student.father,
@@ -761,10 +556,7 @@ function renderStudents() {
             student.phone,
             student.gender,
             student.address
-
-        ].map(safeValue)
-         .join(" ")
-         .toLowerCase();
+        ].map(safeValue).join(" ").toLowerCase();
 
         return text.includes(search);
     });
@@ -775,16 +567,12 @@ function renderStudents() {
         students.length;
 
     document.getElementById("boysCount").textContent =
-        students.filter(
-            student => student.gender === "هلک"
-        ).length;
+        students.filter(s=>s.gender==="هلک").length;
 
     document.getElementById("girlsCount").textContent =
-        students.filter(
-            student => student.gender === "نجلۍ"
-        ).length;
+        students.filter(s=>s.gender==="نجلۍ").length;
 
-    if (filtered.length === 0) {
+    if(filtered.length===0){
 
         studentsBody.innerHTML =
             '<tr><td colspan="9">زده‌کوونکي ونه موندل شول.</td></tr>';
@@ -792,13 +580,12 @@ function renderStudents() {
         return;
     }
 
-    filtered.forEach((student, index) => {
+    filtered.forEach(student=>{
 
         const row = document.createElement("tr");
 
         const fields = [
-
-            index + 1,
+            student.id,
             student.code,
             student.name,
             student.father,
@@ -806,231 +593,240 @@ function renderStudents() {
             student.gender,
             student.phone,
             student.address
-
         ];
 
-        fields.forEach(value => {
+        fields.forEach(value=>{
 
             const cell = document.createElement("td");
-
             cell.textContent = safeValue(value) || "—";
-
             row.appendChild(cell);
         });
 
         const actionCell = document.createElement("td");
-
         const actions = document.createElement("div");
-
         actions.className = "actions";
 
-        // د اصلاح تڼۍ
         const editButton = document.createElement("button");
-
         editButton.textContent = "اصلاح";
-
         editButton.className = "edit";
-
         editButton.type = "button";
+        editButton.addEventListener("click",()=>editStudent(student.id));
 
-        editButton.addEventListener("click", () => {
-            editStudent(student.id);
-        });
-
-        // د حذف تڼۍ
         const deleteButton = document.createElement("button");
-
         deleteButton.textContent = "حذف";
-
         deleteButton.className = "delete";
-
         deleteButton.type = "button";
+        deleteButton.addEventListener("click",()=>deleteStudent(student.id));
 
-        deleteButton.addEventListener("click", () => {
-            deleteStudent(student.id);
-        });
-
-        actions.append(editButton, deleteButton);
-
+        actions.append(editButton,deleteButton);
         actionCell.appendChild(actions);
-
         row.appendChild(actionCell);
-
         studentsBody.appendChild(row);
     });
 }
 
+/* 8. د فورمې پاکول */
 
-/* =========================================
-   10. د زده‌کوونکي ثبت او اصلاح
-========================================= */
+function resetForm(){
 
-form.addEventListener("submit", async function(event) {
+    form.reset();
+
+    document.getElementById("studentId").value = "";
+    document.getElementById("code").value = "";
+
+    document.getElementById("formTitle").textContent =
+        "➕ نوی زده‌کوونکی ثبت کړئ";
+
+    saveButton.textContent = "زده‌کوونکی ثبت کړئ";
+    cancelButton.hidden = true;
+
+    classSelect.disabled = !classesLoaded;
+    saveButton.disabled = !classesLoaded || busy;
+}
+
+/* 9. د نوي زده‌کوونکي ثبت او اصلاح */
+
+form.addEventListener("submit",async function(event){
 
     event.preventDefault();
-
     clearMessage();
 
-    if (!classesLoaded) {
+    if(busy) return;
 
-        showMessage(
-            "تر هغه چې د صنفونو لېست نه وي لوستل شوی، زده‌کوونکی نه شي ثبتېدای.",
-            "error"
-        );
-
+    if(!classesLoaded){
+        showMessage("لومړی باید د صنفونو لېست ولوستل شي.","error");
         return;
     }
 
     const id = valueOf("studentId");
-
     const selectedClass = valueOf("className");
 
     const record = {
-
-        code: valueOf("code"),
         name: valueOf("name"),
         father: valueOf("father"),
         class: selectedClass,
         gender: valueOf("gender"),
         phone: valueOf("phone"),
         address: valueOf("address")
-
     };
 
-    if (
-        !record.code ||
+    if(
         !record.name ||
         !record.father ||
         !record.class ||
         !record.gender
-    ) {
-
+    ){
         showMessage(
-            "کوډ، نوم، د پلار نوم، صنف او جنسیت ضروري دي.",
+            "د زده‌کوونکي نوم، د پلار نوم، صنف او جنسیت ضروري دي.",
             "error"
         );
-
         return;
     }
 
-    /*
-       د نوي زده‌کوونکي لپاره یوازې
-       د اوسني ۴۸ صنفونو انتخاب منل کېږي.
-       د پخواني زده‌کوونکي د اصلاح پر وخت
-       پخوانی صنف هم ساتل کېږي.
-    */
-
-    if (!id) {
+    if(!id){
 
         const validClass = classes.some(
-            item => safeValue(item.name) === selectedClass
+            item=>safeValue(item.name)===selectedClass
         );
 
-        if (!validClass) {
-
+        if(!validClass){
             showMessage(
-                "مهرباني وکړئ صنف د ډراپ‌ډاون له لېست څخه انتخاب کړئ.",
+                "مهرباني وکړئ صنف له لېست څخه انتخاب کړئ.",
                 "error"
             );
-
             return;
+        }
+
+    }else{
+
+        /*
+         د اصلاح پر مهال پخوانی کوډ ساتل کېږي.
+        */
+
+        const existing = students.find(
+            student=>String(student.id)===String(id)
+        );
+
+        if(existing && existing.code){
+            record.code = existing.code;
         }
     }
 
+    busy = true;
     saveButton.disabled = true;
+    cancelButton.disabled = true;
 
     saveButton.textContent = id
         ? "اصلاحات ثبتېږي..."
         : "معلومات ثبتېږي...";
 
-    try {
+    try{
 
-        if (id) {
+        if(id){
 
-            await apiRequest(
-                "students?id=eq." +
-                encodeURIComponent(id),
+            const updated = await apiRequest(
+                "students?id=eq." + encodeURIComponent(id),
                 {
-                    method: "PATCH",
-                    body: record
+                    method:"PATCH",
+                    body:record
                 }
             );
+
+            if(!Array.isArray(updated) || updated.length===0){
+                throw new Error(
+                    "معلومات بدل نه شول. د Supabase اجازې وګورئ."
+                );
+            }
 
             showMessage(
                 "د زده‌کوونکي معلومات په بریالیتوب اصلاح شول.",
                 "success"
             );
 
-        } else {
+        }else{
 
-            await apiRequest(
+            /*
+             code نه لېږو.
+             د ډیټابېس Trigger به یې جوړ کړي.
+             id هم نه لېږو؛ Identity Column یې جوړوي.
+            */
+
+            const inserted = await apiRequest(
                 "students",
                 {
-                    method: "POST",
-                    body: record
+                    method:"POST",
+                    body:record
                 }
             );
 
+            if(!Array.isArray(inserted) || inserted.length===0){
+                throw new Error(
+                    "ثبت بشپړ شو، خو د ثبت شوي ریکارډ معلومات بېرته ترلاسه نه شول."
+                );
+            }
+
+            const newStudent = inserted[0];
+
+            /*
+             د ثبت شوي زده‌کوونکي کوډ په فورمه کې ښکاره کول.
+            */
+
+            document.getElementById("code").value =
+                safeValue(newStudent.code);
+
             showMessage(
-                "نوی زده‌کوونکی په بریالیتوب ثبت شو.",
+                "زده‌کوونکی په بریالیتوب ثبت شو. کوډ: " +
+                safeValue(newStudent.code) +
+                " | ID: " + safeValue(newStudent.id),
                 "success"
             );
         }
 
-        resetForm();
-
         await loadStudents();
 
-    } catch (error) {
+        /*
+         د بریالي ثبت یا اصلاح وروسته فورمه پاکول.
+        */
+
+        resetForm();
+
+    }catch(error){
+
+        console.error("د ثبت ستونزه:",error);
 
         showMessage(
-            "معلومات ثبت نه شول: " +
-            error.message,
+            "معلومات ثبت نه شول: " + error.message,
             "error"
         );
 
-    } finally {
+    }finally{
 
+        busy = false;
+        cancelButton.disabled = false;
         saveButton.disabled = !classesLoaded;
-
-        saveButton.textContent =
-            "زده‌کوونکی ثبت کړئ";
+        saveButton.textContent = valueOf("studentId")
+            ? "اصلاحات ثبت کړئ"
+            : "زده‌کوونکی ثبت کړئ";
     }
 });
 
+/* 10. د زده‌کوونکي اصلاح */
 
-/* =========================================
-   11. د زده‌کوونکي اصلاح
-========================================= */
-
-function editStudent(id) {
+function editStudent(id){
 
     const student = students.find(
-        item => String(item.id) === String(id)
+        item=>String(item.id)===String(id)
     );
 
-    if (!student) {
-
-        showMessage(
-            "زده‌کوونکی ونه موندل شو.",
-            "error"
-        );
-
+    if(!student){
+        showMessage("زده‌کوونکی ونه موندل شو.","error");
         return;
     }
 
-    if (!classesLoaded) {
-
-        showMessage(
-            "د صنفونو لېست لا نه دی چمتو شوی.",
-            "error"
-        );
-
-        return;
-    }
+    clearMessage();
 
     document.getElementById("studentId").value =
-        student.id;
+        safeValue(student.id);
 
     document.getElementById("code").value =
         safeValue(student.code);
@@ -1041,17 +837,6 @@ function editStudent(id) {
     document.getElementById("father").value =
         safeValue(student.father);
 
-    /*
-       که پخوانی صنف په اوسني لېست کې نه وي،
-       د اصلاح لپاره یې هم ښکاره کوو.
-    */
-
-    const oldClass = safeValue(student.class);
-
-    populateClassSelect(oldClass);
-
-    classSelect.value = oldClass;
-
     document.getElementById("gender").value =
         safeValue(student.gender);
 
@@ -1061,139 +846,8 @@ function editStudent(id) {
     document.getElementById("address").value =
         safeValue(student.address);
 
-    document.getElementById("formTitle").textContent =
-        "✏️ د زده‌کوونکي معلومات اصلاح کړئ";
+    populateClassSelect(safeValue(student.class));
 
-    saveButton.textContent =
-        "اصلاحات ثبت کړئ";
+    classSelect.value = safeValue(student.class);
 
-    cancelButton.hidden = false;
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
-
-
-/* =========================================
-   12. د زده‌کوونکي حذف
-========================================= */
-
-async function deleteStudent(id) {
-
-    const student = students.find(
-        item => String(item.id) === String(id)
-    );
-
-    if (!student) {
-        return;
-    }
-
-    const confirmed = confirm(
-        "ایا غواړئ د «" +
-        safeValue(student.name) +
-        "» معلومات حذف کړئ؟"
-    );
-
-    if (!confirmed) {
-        return;
-    }
-
-    try {
-
-        await apiRequest(
-            "students?id=eq." +
-            encodeURIComponent(id),
-            {
-                method: "DELETE"
-            }
-        );
-
-        showMessage(
-            "د زده‌کوونکي معلومات حذف شول.",
-            "success"
-        );
-
-        await loadStudents();
-
-    } catch (error) {
-
-        showMessage(
-            "حذف ترسره نه شو: " +
-            error.message,
-            "error"
-        );
-    }
-}
-
-
-/* =========================================
-   13. د فورمې پاکول
-========================================= */
-
-function resetForm() {
-
-    form.reset();
-
-    document.getElementById("studentId").value = "";
-
-    /*
-       د اصلاح پر مهال اضافه شوی پخوانی صنف
-       له فورمې لرې کوو، څو د نوي ثبت پر وخت
-       یوازې اوسني صنفونه ښکاره شي.
-    */
-
-    populateClassSelect();
-
-    document.getElementById("formTitle").textContent =
-        "➕ نوی زده‌کوونکی ثبت کړئ";
-
-    saveButton.textContent =
-        "زده‌کوونکی ثبت کړئ";
-
-    saveButton.disabled = !classesLoaded;
-
-    cancelButton.hidden = true;
-}
-
-
-/* =========================================
-   14. د تڼیو او لټون پېښې
-========================================= */
-
-cancelButton.addEventListener("click", function() {
-
-    resetForm();
-
-    clearMessage();
-});
-
-searchInput.addEventListener(
-    "input",
-    renderStudents
-);
-
-
-/* =========================================
-   15. د سیستم پیل
-========================================= */
-
-async function startSystem() {
-
-    showMessage(
-        "د ډیټابېس سره اړیکه ټینګېږي...",
-        "info"
-    );
-
-    await loadClasses();
-
-    await loadStudents();
-}
-
-startSystem();
-
-</script>
-
-</body>
-</html>
+    document.getElementById("formTi
