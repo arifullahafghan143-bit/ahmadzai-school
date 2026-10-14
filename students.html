@@ -2,183 +2,53 @@
 <html lang="ps" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>د زده‌کوونکو مدیریت | احمدزي ښوونځی</title>
 
 <style>
 *{box-sizing:border-box}
-
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f1f5f9;
-    color:#1e293b;
-}
-
-header{
-    background:linear-gradient(135deg,#123b66,#176b87);
-    color:white;
-    padding:22px 15px;
-    text-align:center;
-}
-
-header h2{margin:0 0 10px}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#1e293b}
+header{background:linear-gradient(135deg,#123b66,#087f8c);color:white;text-align:center;padding:24px 12px}
+header h1{font-size:25px;margin:0 0 10px}
 header a{color:white;text-decoration:none}
-
-.container{
-    max-width:1100px;
-    margin:20px auto;
-    padding:12px;
-}
-
-.card{
-    background:white;
-    padding:20px;
-    margin-bottom:18px;
-    border-radius:14px;
-    box-shadow:0 4px 15px #0000000c;
-}
-
-h3{color:#123b66;margin-top:0}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:15px;
-}
-
-label{
-    display:block;
-    font-weight:bold;
-    margin-bottom:7px;
-}
-
-input,select,button{
-    width:100%;
-    padding:12px;
-    border:1px solid #cbd5e1;
-    border-radius:8px;
-    font-size:15px;
-    font-family:inherit;
-}
-
-input,select{background:white;color:#1e293b}
-input:focus,select:focus{
-    outline:2px solid #93c5fd;
-    border-color:#2563eb;
-}
-
-button{
-    background:#123b66;
-    color:white;
-    border:none;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-button:disabled{
-    opacity:.6;
-    cursor:not-allowed;
-}
-
+.container{max-width:1150px;margin:20px auto;padding:12px}
+.card{background:white;padding:20px;margin-bottom:20px;border-radius:14px;box-shadow:0 4px 18px #0000000c}
+h2{font-size:20px;color:#123b66;margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px}
+label{display:block;font-weight:bold;margin-bottom:7px}
+input,select,button{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font:inherit}
+input:focus,select:focus{outline:2px solid #93c5fd}
+button{border:0;background:#123b66;color:white;cursor:pointer;font-weight:bold}
+button:disabled{opacity:.6;cursor:not-allowed}
 .save{background:#087f5b;margin-top:18px}
 .cancel{background:#64748b;margin-top:10px}
-.delete{background:#dc2626}
 .edit{background:#d97706}
-
-.search{margin-bottom:14px}
-
-.table-wrap{overflow-x:auto}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:850px;
-}
-
-th,td{
-    padding:11px 8px;
-    border-bottom:1px solid #e2e8f0;
-    text-align:center;
-}
-
-th{background:#eaf1f8;color:#123b66}
-
-.actions{
-    display:flex;
-    gap:6px;
-}
-
-.actions button{
-    padding:8px;
-    min-width:65px;
-}
-
-.message{
-    display:none;
-    padding:13px;
-    border-radius:8px;
-    margin-bottom:15px;
-    overflow-wrap:anywhere;
-    line-height:1.8;
-}
-
+.delete{background:#dc2626}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:18px}
+.stat{background:white;padding:18px;border-radius:12px;text-align:center;box-shadow:0 3px 12px #00000008}
+.stat strong{display:block;font-size:27px;color:#087f8c;margin-top:8px}
+.message{display:none;padding:13px;border-radius:8px;margin-bottom:15px;line-height:1.8;overflow-wrap:anywhere}
 .message.success,.message.error,.message.info{display:block}
-.success{background:#dcfce7;color:#166534}
-.error{background:#fee2e2;color:#991b1b}
-.info{background:#dbeafe;color:#1e40af}
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-    gap:12px;
-    margin-bottom:18px;
-}
-
-.stat{
-    background:white;
-    padding:18px;
-    border-radius:12px;
-    text-align:center;
-    box-shadow:0 3px 12px #00000008;
-}
-
-.stat strong{
-    display:block;
-    font-size:25px;
-    color:#123b66;
-    margin-top:8px;
-}
-
-#code{
-    background:#f1f5f9;
-    font-weight:bold;
-    color:#087f5b;
-    direction:ltr;
-    text-align:center;
-}
-
-small{
-    display:block;
-    margin-top:6px;
-    color:#64748b;
-    line-height:1.7;
-}
-
+.message.success{background:#dcfce7;color:#166534}
+.message.error{background:#fee2e2;color:#991b1b}
+.message.info{background:#dbeafe;color:#1e40af}
+#code{background:#f1f5f9;direction:ltr;text-align:center;font-weight:bold;color:#087f5b}
+small{display:block;color:#64748b;margin-top:6px;line-height:1.7}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:850px}
+th,td{padding:11px 8px;border-bottom:1px solid #e2e8f0;text-align:center}
+th{background:#eaf1f8;color:#123b66}
+.actions{display:flex;gap:6px}
+.actions button{padding:8px;min-width:60px}
 [hidden]{display:none!important}
-
-@media(max-width:600px){
-    .container{padding:8px}
-    .card{padding:14px}
-    header{padding:18px 10px}
-}
+@media(max-width:600px){.container{padding:8px}.card{padding:14px}header h1{font-size:22px}}
 </style>
 </head>
 
 <body>
 
 <header>
-    <h2>🏫 احمدزي ښوونځی</h2>
+    <h1>🏫 احمدزي ښوونځی</h1>
     <div>د زده‌کوونکو د مدیریت سیستم</div>
     <p><a href="dashboard.html">← ډشبورډ ته بېرته تلل</a></p>
 </header>
@@ -188,39 +58,23 @@ small{
     <div id="message" class="message"></div>
 
     <div class="stats">
-        <div class="stat">
-            ټول زده‌کوونکي
-            <strong id="totalStudents">0</strong>
-        </div>
-        <div class="stat">
-            هلکان
-            <strong id="boysCount">0</strong>
-        </div>
-        <div class="stat">
-            نجونې
-            <strong id="girlsCount">0</strong>
-        </div>
+        <div class="stat">ټول زده‌کوونکي<strong id="totalStudents">0</strong></div>
+        <div class="stat">هلکان<strong id="boysCount">0</strong></div>
+        <div class="stat">نجونې<strong id="girlsCount">0</strong></div>
+        <div class="stat">صنفونه<strong id="totalClasses">0</strong></div>
     </div>
 
     <section class="card">
-        <h3 id="formTitle">➕ نوی زده‌کوونکی ثبت کړئ</h3>
+        <h2 id="formTitle">➕ نوی زده‌کوونکی ثبت کړئ</h2>
 
         <form id="studentForm">
             <input type="hidden" id="studentId">
 
             <div class="grid">
-
                 <div>
                     <label for="code">د زده‌کوونکي اتومات کوډ</label>
-                    <input
-                        id="code"
-                        type="text"
-                        placeholder="د ثبت وروسته جوړېږي"
-                        readonly
-                    >
-                    <small>
-                        کوډ په اتومات ډول جوړېږي؛ په لاس یې مه لیکئ.
-                    </small>
+                    <input id="code" readonly placeholder="د ثبت وروسته جوړېږي">
+                    <small>سیستم به کوډ په اتومات ډول جوړ کړي.</small>
                 </div>
 
                 <div>
@@ -236,7 +90,7 @@ small{
                 <div>
                     <label for="className">صنف انتخاب کړئ *</label>
                     <select id="className" required disabled>
-                        <option value="">د صنفونو لېست لوستل کېږي...</option>
+                        <option value="">صنفونه لوستل کېږي...</option>
                     </select>
                 </div>
 
@@ -258,33 +112,27 @@ small{
                     <label for="address">پته</label>
                     <input id="address" placeholder="د اوسېدو ځای">
                 </div>
-
             </div>
 
-            <button class="save" id="saveButton" type="submit" disabled>
+            <button id="saveButton" class="save" type="submit" disabled>
                 زده‌کوونکی ثبت کړئ
             </button>
 
-            <button class="cancel" id="cancelButton" type="button" hidden>
+            <button id="cancelButton" class="cancel" type="button" hidden>
                 اصلاح لغوه کړئ
             </button>
         </form>
     </section>
 
     <section class="card">
-        <h3>📋 د زده‌کوونکو لېست</h3>
+        <h2>📋 د زده‌کوونکو لېست</h2>
+        <input id="searchInput" placeholder="د نوم، کوډ یا صنف له مخې لټون...">
 
-        <input
-            id="searchInput"
-            class="search"
-            placeholder="د نوم، کوډ یا صنف له مخې لټون..."
-        >
-
-        <div class="table-wrap">
+        <div class="table-wrap" style="margin-top:15px">
             <table>
                 <thead>
                     <tr>
-                        <th>شمېره</th>
+                        <th>ID</th>
                         <th>کوډ</th>
                         <th>نوم</th>
                         <th>د پلار نوم</th>
@@ -296,28 +144,19 @@ small{
                     </tr>
                 </thead>
                 <tbody id="studentsBody">
-                    <tr>
-                        <td colspan="9">معلومات لوستل کېږي...</td>
-                    </tr>
+                    <tr><td colspan="9">د زده‌کوونکو معلومات لوستل کېږي...</td></tr>
                 </tbody>
             </table>
         </div>
     </section>
-
 </main>
 
 <script>
 "use strict";
 
-/* 1. د Supabase اتصال */
-
-const SUPABASE_URL =
-    "https://oaxmnfnaqhdvnykawvyh.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
-
-/* 2. د HTML عناصرو پېژندنه */
+/* د Supabase اتصال */
+const SUPABASE_URL = "https://oaxmnfnaqhdvnykawvyh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
 
 const form = document.getElementById("studentForm");
 const studentsBody = document.getElementById("studentsBody");
@@ -332,13 +171,11 @@ let classes = [];
 let classesLoaded = false;
 let busy = false;
 
-/* 3. عمومي دندې */
-
-function valueOf(id){
+function val(id){
     return document.getElementById(id).value.trim();
 }
 
-function safeValue(value){
+function str(value){
     return value == null ? "" : String(value);
 }
 
@@ -352,61 +189,66 @@ function clearMessage(){
     messageBox.className = "message";
 }
 
-/* 4. د Supabase API */
-
+/* API غوښتنه؛ د انتظار حد ۱۵ ثانیې دی */
 async function apiRequest(path,options={}){
 
-    const headers = {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY,
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Prefer": "return=representation"
-    };
-
-    const response = await fetch(
-        SUPABASE_URL + "/rest/v1/" + path,
-        {
-            method: options.method || "GET",
-            headers,
-            body: options.body === undefined
-                ? undefined
-                : JSON.stringify(options.body)
-        }
-    );
-
-    const responseText = await response.text();
-
-    let data = null;
+    const controller = new AbortController();
+    const timer = setTimeout(()=>controller.abort(),15000);
 
     try{
-        data = responseText ? JSON.parse(responseText) : null;
-    }catch{
-        data = responseText;
-    }
+        const response = await fetch(
+            SUPABASE_URL + "/rest/v1/" + path,
+            {
+                method:options.method || "GET",
+                headers:{
+                    "apikey":SUPABASE_KEY,
+                    "Authorization":"Bearer " + SUPABASE_KEY,
+                    "Content-Type":"application/json",
+                    "Accept":"application/json",
+                    "Prefer":"return=representation"
+                },
+                body:options.body === undefined
+                    ? undefined
+                    : JSON.stringify(options.body),
+                signal:controller.signal
+            }
+        );
 
-    if(!response.ok){
+        const text = await response.text();
+        let data;
 
-        const detail =
-            data && typeof data === "object"
-                ? (
-                    data.message ||
-                    data.details ||
-                    data.hint ||
-                    JSON.stringify(data)
-                )
+        try{
+            data = text ? JSON.parse(text) : null;
+        }catch{
+            data = text;
+        }
+
+        if(!response.ok){
+            const detail = data && typeof data === "object"
+                ? (data.message || data.details || data.hint || JSON.stringify(data))
                 : String(data || response.statusText);
 
-        throw new Error(
-            "Supabase " + response.status + ": " + detail
-        );
-    }
+            throw new Error("HTTP " + response.status + ": " + detail);
+        }
 
-    return data;
+        return data;
+
+    }catch(error){
+        if(error.name === "AbortError"){
+            throw new Error("د سرور ځواب ۱۵ ثانیې وځنډېد. اتصال وګورئ.");
+        }
+        throw error;
+    }finally{
+        clearTimeout(timer);
+    }
 }
 
-/* 5. د صنفونو لېست */
+/* د صنفونو نوم له موجودو احتمالي کالمونو څخه اخلي */
+function classNameOf(item){
+    return str(item.name ?? item.Name ?? "").trim();
+}
 
+/* د صنفونو ډراپ‌ډاون جوړول */
 function populateClassSelect(legacyClass=""){
 
     classSelect.innerHTML = "";
@@ -417,20 +259,18 @@ function populateClassSelect(legacyClass=""){
     classSelect.appendChild(placeholder);
 
     classes.forEach(item=>{
-
-        const className = safeValue(item.name);
-
-        if(!className) return;
+        const name = classNameOf(item);
+        if(!name) return;
 
         const option = document.createElement("option");
-        option.value = className;
-        option.textContent = className;
+        option.value = name;
+        option.textContent = name;
         classSelect.appendChild(option);
     });
 
     if(
         legacyClass &&
-        !classes.some(item=>safeValue(item.name)===legacyClass)
+        !classes.some(item=>classNameOf(item)===legacyClass)
     ){
         const option = document.createElement("option");
         option.value = legacyClass;
@@ -439,85 +279,82 @@ function populateClassSelect(legacyClass=""){
     }
 }
 
+/* د صنفونو لوستل */
 async function loadClasses(){
 
     classesLoaded = false;
     classSelect.disabled = true;
     saveButton.disabled = true;
+    classSelect.innerHTML =
+        '<option value="">صنفونه لوستل کېږي...</option>';
 
     try{
+        /*
+         ټول کالمونه لوستل کېږي، ترڅو د اختیاري کالمونو نوم
+         د غوښتنې د ناکامېدو سبب نه شي.
+        */
+        const data = await apiRequest("classes?select=*");
 
-        const data = await apiRequest(
-            "classes?select=id,code,name,grade_number,section"
-        );
+        if(!Array.isArray(data)){
+            throw new Error("د صنفونو معلومات په سمه بڼه نه دي.");
+        }
 
-        classes = Array.isArray(data) ? data : [];
-
-        classes = classes.filter(item=>
-            item.name != null &&
-            String(item.name).trim() !== "" &&
-            item.grade_number != null &&
-            item.section != null
-        );
+        classes = data.filter(item=>classNameOf(item)!=="");
 
         classes.sort((a,b)=>{
+            const gradeA = Number(a.grade_number ?? a.grade ?? 0);
+            const gradeB = Number(b.grade_number ?? b.grade ?? 0);
 
-            const gradeDifference =
-                Number(a.grade_number)-Number(b.grade_number);
+            if(gradeA !== gradeB) return gradeA-gradeB;
 
-            if(gradeDifference !== 0) return gradeDifference;
-
-            return safeValue(a.section).localeCompare(
-                safeValue(b.section)
-            );
+            return str(a.section).localeCompare(str(b.section));
         });
 
         populateClassSelect();
 
         if(classes.length===0){
-            throw new Error("د صنفونو لېست تش دی.");
+            throw new Error(
+                "د classes جدول ځواب ورکړ، خو د صنفونو نومونه پکې ونه موندل شول."
+            );
         }
 
         classesLoaded = true;
         classSelect.disabled = false;
         saveButton.disabled = false;
 
-        if(classes.length!==48){
-            showMessage(
-                "خبرتیا: " + classes.length +
-                " صنفونه لوستل شوي؛ تمه ۴۸ صنفونه ده.",
-                "info"
-            );
-        }
+        document.getElementById("totalClasses").textContent =
+            classes.length;
+
+        showMessage(
+            "د صنفونو لېست په بریالیتوب ولوستل شو. ټول صنفونه: " +
+            classes.length,
+            "success"
+        );
 
     }catch(error){
-
         console.error("د صنفونو ستونزه:",error);
 
         classSelect.innerHTML =
-            '<option value="">د صنفونو لوستل ناکام شول</option>';
+            '<option value="">د صنفونو لېست ونه لوستل شو</option>';
 
         showMessage(
-            "د صنفونو لېست ترلاسه نه شو: " + error.message,
+            "د صنفونو ستونزه: " + error.message +
+            " که ستونزه پاتې وي، د Supabase د classes جدول د SELECT اجازه وګورئ.",
             "error"
         );
-
     }finally{
-
         classSelect.disabled = !classesLoaded;
         saveButton.disabled = !classesLoaded || busy;
     }
 }
 
-/* 6. د زده‌کوونکو لوستل */
-
+/* د زده‌کوونکو لوستل */
 async function loadStudents(){
 
     studentsBody.innerHTML =
-        '<tr><td colspan="9">معلومات لوستل کېږي...</td></tr>';
+        '<tr><td colspan="9">د زده‌کوونکو معلومات لوستل کېږي...</td></tr>';
 
     try{
-
         const data = await apiRequest(
             "students?select=*&order=id.desc"
         );
@@ -526,11 +363,10 @@ async function loadStudents(){
         renderStudents();
 
     }catch(error){
-
         console.error("د زده‌کوونکو ستونزه:",error);
 
         studentsBody.innerHTML =
-            '<tr><td colspan="9">معلومات ونه لوستل شول.</td></tr>';
+            '<tr><td colspan="9">د زده‌کوونکو معلومات ونه لوستل شول.</td></tr>';
 
         showMessage(
             "د زده‌کوونکو د لوستلو ستونزه: " + error.message,
@@ -539,98 +375,73 @@ async function loadStudents(){
     }
 }
 
-/* 7. د زده‌کوونکو لېست او شمېرې */
-
+/* د لېست جوړول */
 function renderStudents(){
 
-    const search = searchInput.value.trim().toLowerCase();
+    const query = searchInput.value.trim().toLowerCase();
 
     const filtered = students.filter(student=>{
-
         const text = [
-            student.id,
-            student.code,
-            student.name,
-            student.father,
-            student.class,
-            student.phone,
-            student.gender,
-            student.address
-        ].map(safeValue).join(" ").toLowerCase();
+            student.id,student.code,student.name,student.father,
+            student.class,student.gender,student.phone,student.address
+        ].map(str).join(" ").toLowerCase();
 
-        return text.includes(search);
+        return text.includes(query);
     });
 
-    studentsBody.innerHTML = "";
-
-    document.getElementById("totalStudents").textContent =
-        students.length;
-
+    document.getElementById("totalStudents").textContent = students.length;
     document.getElementById("boysCount").textContent =
         students.filter(s=>s.gender==="هلک").length;
-
     document.getElementById("girlsCount").textContent =
         students.filter(s=>s.gender==="نجلۍ").length;
 
-    if(filtered.length===0){
+    studentsBody.innerHTML = "";
 
+    if(filtered.length===0){
         studentsBody.innerHTML =
             '<tr><td colspan="9">زده‌کوونکي ونه موندل شول.</td></tr>';
-
         return;
     }
 
     filtered.forEach(student=>{
-
         const row = document.createElement("tr");
 
-        const fields = [
-            student.id,
-            student.code,
-            student.name,
-            student.father,
-            student.class,
-            student.gender,
-            student.phone,
-            student.address
-        ];
-
-        fields.forEach(value=>{
-
-            const cell = document.createElement("td");
-            cell.textContent = safeValue(value) || "—";
-            row.appendChild(cell);
+        [
+            student.id,student.code,student.name,student.father,
+            student.class,student.gender,student.phone,student.address
+        ].forEach(value=>{
+            const td = document.createElement("td");
+            td.textContent = str(value) || "—";
+            row.appendChild(td);
         });
 
-        const actionCell = document.createElement("td");
+        const td = document.createElement("td");
         const actions = document.createElement("div");
         actions.className = "actions";
 
-        const editButton = document.createElement("button");
-        editButton.textContent = "اصلاح";
-        editButton.className = "edit";
-        editButton.type = "button";
-        editButton.addEventListener("click",()=>editStudent(student.id));
+        const edit = document.createElement("button");
+        edit.type = "button";
+        edit.className = "edit";
+        edit.textContent = "اصلاح";
+        edit.addEventListener("click",()=>editStudent(student.id));
 
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "حذف";
-        deleteButton.className = "delete";
-        deleteButton.type = "button";
-        deleteButton.addEventListener("click",()=>deleteStudent(student.id));
+        const del = document.createElement("button");
+        del.type = "button";
+        del.className = "delete";
+        del.textContent = "حذف";
+        del.addEventListener("click",()=>deleteStudent(student.id));
 
-        actions.append(editButton,deleteButton);
-        actionCell.appendChild(actions);
-        row.appendChild(actionCell);
+        actions.append(edit,del);
+        td.appendChild(actions);
+        row.appendChild(td);
         studentsBody.appendChild(row);
     });
 }
 
-/* 8. د فورمې پاکول */
-
+/* فورمه پاکول */
 function resetForm(){
 
     form.reset();
-
     document.getElementById("studentId").value = "";
     document.getElementById("code").value = "";
 
@@ -640,13 +451,13 @@ function resetForm(){
     saveButton.textContent = "زده‌کوونکی ثبت کړئ";
     cancelButton.hidden = true;
 
+    populateClassSelect();
     classSelect.disabled = !classesLoaded;
     saveButton.disabled = !classesLoaded || busy;
 }
 
-/* 9. د نوي زده‌کوونکي ثبت او اصلاح */
-
-form.addEventListener("submit",async function(event){
+/* ثبت او اصلاح */
+form.addEventListener("submit",async event=>{
 
     event.preventDefault();
     clearMessage();
@@ -654,28 +465,23 @@ form.addEventListener("submit",async function(event){
     if(busy) return;
 
     if(!classesLoaded){
-        showMessage("لومړی باید د صنفونو لېست ولوستل شي.","error");
+        showMessage("د صنفونو لېست لا نه دی لوستل شوی.","error");
         return;
     }
 
-    const id = valueOf("studentId");
-    const selectedClass = valueOf("className");
+    const id = val("studentId");
+    const selectedClass = val("className");
 
     const record = {
-        name: valueOf("name"),
-        father: valueOf("father"),
-        class: selectedClass,
-        gender: valueOf("gender"),
-        phone: valueOf("phone"),
-        address: valueOf("address")
+        name:val("name"),
+        father:val("father"),
+        class:selectedClass,
+        gender:val("gender"),
+        phone:val("phone"),
+        address:val("address")
     };
 
-    if(
-        !record.name ||
-        !record.father ||
-        !record.class ||
-        !record.gender
-    ){
+    if(!record.name || !record.father || !record.class || !record.gender){
         showMessage(
             "د زده‌کوونکي نوم، د پلار نوم، صنف او جنسیت ضروري دي.",
             "error"
@@ -683,171 +489,151 @@ form.addEventListener("submit",async function(event){
         return;
     }
 
-    if(!id){
+    if(!id && !classes.some(item=>classNameOf(item)===selectedClass)){
+        showMessage("صنف له لېست څخه انتخاب کړئ.","error");
+        return;
+    }
 
-        const validClass = classes.some(
-            item=>safeValue(item.name)===selectedClass
-        );
-
-        if(!validClass){
-            showMessage(
-                "مهرباني وکړئ صنف له لېست څخه انتخاب کړئ.",
-                "error"
-            );
-            return;
-        }
-
-    }else{
-
-        /*
-         د اصلاح پر مهال پخوانی کوډ ساتل کېږي.
-        */
-
-        const existing = students.find(
-            student=>String(student.id)===String(id)
-        );
-
-        if(existing && existing.code){
-            record.code = existing.code;
-        }
+    if(id){
+        const old = students.find(s=>String(s.id)===String(id));
+        if(old && old.code) record.code = old.code;
     }
 
     busy = true;
     saveButton.disabled = true;
     cancelButton.disabled = true;
-
-    saveButton.textContent = id
-        ? "اصلاحات ثبتېږي..."
-        : "معلومات ثبتېږي...";
+    saveButton.textContent = id ? "اصلاحات ثبتېږي..." : "ثبتېږي...";
 
     try{
-
         if(id){
-
-            const updated = await apiRequest(
-                "students?id=eq." + encodeURIComponent(id),
-                {
-                    method:"PATCH",
-                    body:record
-                }
+            const result = await apiRequest(
+                "students?id=eq."+encodeURIComponent(id),
+                {method:"PATCH",body:record}
             );
 
-            if(!Array.isArray(updated) || updated.length===0){
+            if(!Array.isArray(result) || result.length===0){
                 throw new Error(
-                    "معلومات بدل نه شول. د Supabase اجازې وګورئ."
+                    "ریکارډ بدل نه شو. د UPDATE اجازه وګورئ."
                 );
             }
 
-            showMessage(
-                "د زده‌کوونکي معلومات په بریالیتوب اصلاح شول.",
-                "success"
-            );
+            showMessage("د زده‌کوونکي معلومات اصلاح شول.","success");
 
         }else{
-
             /*
-             code نه لېږو.
-             د ډیټابېس Trigger به یې جوړ کړي.
-             id هم نه لېږو؛ Identity Column یې جوړوي.
+             id او code نه لېږو.
+             د جدول ID او د code Trigger یې باید جوړ کړي.
             */
-
-            const inserted = await apiRequest(
+            const result = await apiRequest(
                 "students",
-                {
-                    method:"POST",
-                    body:record
-                }
+                {method:"POST",body:record}
             );
 
-            if(!Array.isArray(inserted) || inserted.length===0){
-                throw new Error(
-                    "ثبت بشپړ شو، خو د ثبت شوي ریکارډ معلومات بېرته ترلاسه نه شول."
-                );
+            if(!Array.isArray(result) || result.length===0){
+                throw new Error("د ثبت شوي ریکارډ معلومات بېرته ترلاسه نه شول.");
             }
 
-            const newStudent = inserted[0];
-
-            /*
-             د ثبت شوي زده‌کوونکي کوډ په فورمه کې ښکاره کول.
-            */
-
-            document.getElementById("code").value =
-                safeValue(newStudent.code);
+            const saved = result[0];
 
             showMessage(
-                "زده‌کوونکی په بریالیتوب ثبت شو. کوډ: " +
-                safeValue(newStudent.code) +
-                " | ID: " + safeValue(newStudent.id),
+                "زده‌کوونکی ثبت شو. کوډ: "+str(saved.code)+
+                " | ID: "+str(saved.id),
                 "success"
             );
         }
 
         await loadStudents();
-
-        /*
-         د بریالي ثبت یا اصلاح وروسته فورمه پاکول.
-        */
-
         resetForm();
 
     }catch(error){
-
         console.error("د ثبت ستونزه:",error);
-
-        showMessage(
-            "معلومات ثبت نه شول: " + error.message,
-            "error"
-        );
-
+        showMessage("معلومات ثبت نه شول: "+error.message,"error");
     }finally{
-
         busy = false;
         cancelButton.disabled = false;
         saveButton.disabled = !classesLoaded;
-        saveButton.textContent = valueOf("studentId")
+        saveButton.textContent = val("studentId")
             ? "اصلاحات ثبت کړئ"
             : "زده‌کوونکی ثبت کړئ";
     }
 });
 
-/* 10. د زده‌کوونکي اصلاح */
-
+/* اصلاح */
 function editStudent(id){
 
-    const student = students.find(
-        item=>String(item.id)===String(id)
-    );
-
-    if(!student){
-        showMessage("زده‌کوونکی ونه موندل شو.","error");
-        return;
-    }
+    const student = students.find(s=>String(s.id)===String(id));
+    if(!student) return;
 
     clearMessage();
 
-    document.getElementById("studentId").value =
-        safeValue(student.id);
+    document.getElementById("studentId").value = str(student.id);
+    document.getElementById("code").value = str(student.code);
+    document.getElementById("name").value = str(student.name);
+    document.getElementById("father").value = str(student.father);
+    document.getElementById("gender").value = str(student.gender);
+    document.getElementById("phone").value = str(student.phone);
+    document.getElementById("address").value = str(student.address);
 
-    document.getElementById("code").value =
-        safeValue(student.code);
+    populateClassSelect(str(student.class));
+    classSelect.value = str(student.class);
 
-    document.getElementById("name").value =
-        safeValue(student.name);
+    document.getElementById("formTitle").textContent =
+        "✏️ د زده‌کوونکي معلومات اصلاح کړئ";
 
-    document.getElementById("father").value =
-        safeValue(student.father);
+    saveButton.textContent = "اصلاحات ثبت کړئ";
+    saveButton.disabled = !classesLoaded;
+    cancelButton.hidden = false;
 
-    document.getElementById("gender").value =
-        safeValue(student.gender);
+    window.scrollTo({top:0,behavior:"smooth"});
+}
 
-    document.getElementById("phone").value =
-        safeValue(student.phone);
+/* حذف */
+async function deleteStudent(id){
 
-    document.getElementById("address").value =
-        safeValue(student.address);
+    const student = students.find(s=>String(s.id)===String(id));
+    if(!student) return;
 
-    populateClassSelect(safeValue(student.class));
+    if(!confirm(
+        "ایا د "+str(student.name)+" معلومات حذف کړئ؟\n"+
+        "که فیسونه ورسره تړلي وي، حذف ممکن ناکام شي."
+    )){
+        return;
+    }
 
-    classSelect.value = safeValue(student.class);
+    try{
+        await apiRequest(
+            "students?id=eq."+encodeURIComponent(id),
+            {method:"DELETE"}
+        );
 
-    document.getElementById("formTi
+        showMessage("د حذف غوښتنه ترسره شوه.","success");
+        await loadStudents();
+
+    }catch(error){
+        console.error(error);
+        showMessage("زده‌کوونکی حذف نه شو: "+error.message,"error");
+    }
+}
+
+/* لټون او لغوه کول */
+searchInput.addEventListener("input",renderStudents);
+
+cancelButton.addEventListener("click",()=>{
+    resetForm();
+    clearMessage();
+});
+
+/* د سیستم پیل */
+async function startSystem(){
+
+    showMessage("د صنفونو لېست لوستل کېږي...","info");
+
+    await loadClasses();
+    await loadStudents();
+}
+
+startSystem();
+</script>
+
+</body>
+</html>
