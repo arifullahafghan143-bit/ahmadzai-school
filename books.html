@@ -1,0 +1,804 @@
+<!DOCTYPE html><html lang="ps" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>د کتابونو مدیریت | احمدزي عالي لېسه</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+:root {
+    --primary: #123c69;
+    --secondary: #176b87;
+    --bg: #f3f6fb;
+    --white: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --success: #15803d;
+    --danger: #dc2626;
+}
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Tahoma, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+header {
+    background: linear-gradient(135deg, #123c69, #176b87);
+    color: white;
+    padding: 24px 18px;
+    box-shadow: 0 5px 18px #123c6920;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: auto;
+}
+
+header h1 {
+    margin: 0 0 9px;
+    font-size: 24px;
+}
+
+header p {
+    margin: 0;
+    color: #e0f2fe;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 22px auto;
+    padding: 0 15px 35px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 13px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: white;
+    padding: 18px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    box-shadow: 0 3px 12px #0f172a08;
+}
+
+.stat span {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.stat strong {
+    display: block;
+    margin-top: 9px;
+    color: var(--primary);
+    font-size: 27px;
+}
+
+.card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px #0f172a08;
+}
+
+.card h2 {
+    font-size: 18px;
+    margin: 0 0 18px;
+    color: var(--primary);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.field label {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 12px;
+    font-family: inherit;
+    font-size: 14px;
+    background: white;
+    color: var(--text);
+    outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px #176b8718;
+}
+
+textarea {
+    min-height: 75px;
+    resize: vertical;
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+button, .nav-link {
+    border: none;
+    border-radius: 10px;
+    padding: 11px 16px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.primary {
+    background: var(--primary);
+    color: white;
+}
+
+.secondary {
+    background: #e0f2fe;
+    color: #075985;
+}
+
+.danger {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+.toolbar {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 17px;
+}
+
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 850px;
+    background: white;
+}
+
+th, td {
+    padding: 13px 12px;
+    text-align: right;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+
+th {
+    background: #edf4fa;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+.actions {
+    display: flex;
+    gap: 6px;
+}
+
+.actions button {
+    padding: 8px 10px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 9px;
+    background: #e0f2fe;
+    color: #075985;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.message {
+    display: none;
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.message.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.message.success {
+    display: block;
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status {
+    color: var(--muted);
+    text-align: center;
+    padding: 24px;
+    font-size: 14px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+footer {
+    text-align: center;
+    color: var(--muted);
+    padding: 20px;
+    font-size: 12px;
+}
+
+@media (max-width: 750px) {
+    header h1 { font-size: 20px; }
+    .stats { gap: 8px; }
+    .stat { padding: 13px 10px; }
+    .stat strong { font-size: 23px; }
+    .stat span { font-size: 11px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .toolbar { grid-template-columns: 1fr; }
+    .card { padding: 15px; }
+    .container { margin-top: 15px; }
+    .buttons button { flex: 1; }
+}
+</style></head><body><header>
+    <div class="header-inner">
+        <h1>📚 د کتابونو مدیریت</h1>
+        <p>احمدزي عالي لېسه — د کتابونو ثبت، لټون او تنظیم</p>
+    </div>
+</header><main class="container"><section class="stats">
+    <div class="stat">
+        <span>ټول کتابونه</span>
+        <strong id="totalBooks">۰</strong>
+    </div>
+    <div class="stat">
+        <span>ټول صنفونه</span>
+        <strong id="totalClasses">۰</strong>
+    </div>
+    <div class="stat">
+        <span>ټول مضامین</span>
+        <strong id="totalSubjects">۰</strong>
+    </div>
+</section>
+
+<section class="card">
+    <h2 id="formTitle">➕ نوی کتاب ثبت کړئ</h2>
+
+    <div id="message" class="message"></div>
+
+    <form id="bookForm">
+        <input type="hidden" id="bookId">
+
+        <div class="form-grid">
+
+            <div class="field">
+                <label for="bookName">د کتاب نوم *</label>
+                <input id="bookName" required maxlength="200"
+                       placeholder="د کتاب نوم ولیکئ">
+            </div>
+
+            <div class="field">
+                <label for="bookCode">د کتاب کوډ</label>
+                <input id="bookCode" maxlength="50"
+                       placeholder="لکه B-001">
+            </div>
+
+            <div class="field">
+                <label for="classId">صنف *</label>
+                <select id="classId" required>
+                    <option value="">صنف انتخاب کړئ</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="subjectId">مضمون</label>
+                <select id="subjectId">
+                    <option value="">مضمون انتخاب کړئ (اختیاري)</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="author">لیکوال</label>
+                <input id="author" maxlength="150"
+                       placeholder="د لیکوال نوم">
+            </div>
+
+            <div class="field">
+                <label for="academicYear">تعلیمي کال</label>
+                <input id="academicYear" maxlength="30"
+                       placeholder="لکه ۱۴۰۵">
+            </div>
+
+            <div class="field">
+                <label for="publisher">خپرندوی</label>
+                <input id="publisher" maxlength="150"
+                       placeholder="د خپرندوی نوم">
+            </div>
+
+            <div class="field full">
+                <label for="notes">نور معلومات</label>
+                <textarea id="notes"
+                          placeholder="اختیاري معلومات ولیکئ"></textarea>
+            </div>
+
+        </div>
+
+        <div class="buttons">
+            <button type="submit" class="primary" id="saveButton">
+                💾 کتاب ثبت کړئ
+            </button>
+            <button type="button" class="secondary hidden" id="cancelEdit">
+                لغوه کول
+            </button>
+            <button type="reset" class="secondary" id="resetButton">
+                پاکول
+            </button>
+        </div>
+    </form>
+</section>
+
+<section class="card">
+    <h2>📖 د کتابونو لېست</h2>
+
+    <div class="toolbar">
+        <input id="searchInput"
+               placeholder="🔍 د کتاب نوم، کوډ یا لیکوال ولټوئ">
+
+        <select id="filterClass">
+            <option value="">ټول صنفونه</option>
+        </select>
+
+        <select id="filterSubject">
+            <option value="">ټول مضامین</option>
+        </select>
+    </div>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>شمېره</th>
+                    <th>کوډ</th>
+                    <th>د کتاب نوم</th>
+                    <th>صنف</th>
+                    <th>مضمون</th>
+                    <th>لیکوال</th>
+                    <th>تعلیمي کال</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="booksTable">
+                <tr>
+                    <td colspan="8" class="status">معلومات لوډ کېږي...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p id="resultCount" class="status"></p>
+</section>
+
+</main><footer>احمدزي عالي لېسه © د کتابونو مدیریت</footer><script>
+'use strict';
+
+/* Supabase connection */
+const SUPABASE_URL = 'https://oaxmnfnaqhdvnykawvyh.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7';
+
+const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+let classes = [];
+let subjects = [];
+let books = [];
+
+const $ = id => document.getElementById(id);
+
+function showMessage(text, type = 'error') {
+    const box = $('message');
+    box.textContent = text;
+    box.className = 'message ' + type;
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function hideMessage() {
+    $('message').className = 'message';
+    $('message').textContent = '';
+}
+
+function safeText(value) {
+    return value == null ? '' : String(value);
+}
+
+function escapeHTML(value) {
+    return safeText(value).replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+    })[char]);
+}
+
+function formatNumber(number) {
+    return Number(number || 0).toLocaleString('ps-AF');
+}
+
+function getClassName(id) {
+    const item = classes.find(c => String(c.id) === String(id));
+    return item ? item.name : 'نامعلوم صنف';
+}
+
+function getSubjectName(id) {
+    const item = subjects.find(s => String(s.id) === String(id));
+    return item ? item.name : '';
+}
+
+/* Load classes and subjects */
+async function loadOptions() {
+    const [classResult, subjectResult] = await Promise.all([
+        db.from('classes')
+            .select('id, code, name, grade_number, section')
+            .order('id'),
+
+        db.from('subjects')
+            .select('id, code, name')
+            .order('id')
+    ]);
+
+    if (classResult.error) {
+        throw new Error(
+            'د صنفونو معلومات نه لوډ کېږي: ' +
+            classResult.error.message
+        );
+    }
+
+    if (subjectResult.error) {
+        throw new Error(
+            'د مضمونونو معلومات نه لوډ کېږي: ' +
+            subjectResult.error.message
+        );
+    }
+
+    classes = classResult.data || [];
+    subjects = subjectResult.data || [];
+
+    fillSelect('classId', classes, 'صنف انتخاب کړئ', false);
+    fillSelect('filterClass', classes, 'ټول صنفونه', true);
+    fillSelect('subjectId', subjects, 'مضمون انتخاب کړئ (اختیاري)', false);
+    fillSelect('filterSubject', subjects, 'ټول مضامین', true);
+
+    $('totalClasses').textContent = formatNumber(classes.length);
+    $('totalSubjects').textContent = formatNumber(subjects.length);
+}
+
+function fillSelect(elementId, items, firstLabel, includeAll) {
+    const select = $(elementId);
+    select.replaceChildren();
+
+    const first = document.createElement('option');
+    first.value = '';
+    first.textContent = firstLabel;
+    select.appendChild(first);
+
+    items.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item.id;
+
+        const code = item.code ? ' (' + item.code + ')' : '';
+        option.textContent = safeText(item.name) + code;
+
+        select.appendChild(option);
+    });
+}
+
+/* Load books */
+async function loadBooks() {
+    $('booksTable').innerHTML =
+        '<tr><td colspan="8" class="status">معلومات لوډ کېږي...</td></tr>';
+
+    const { data, error } = await db
+        .from('books')
+        .select('*')
+        .order('id', { ascending: false });
+
+    if (error) {
+        $('booksTable').innerHTML =
+            '<tr><td colspan="8" class="status">د کتابونو معلومات نه لوډ کېږي.</td></tr>';
+
+        throw new Error(
+            'د کتابونو معلومات نه لوډ کېږي: ' + error.message
+        );
+    }
+
+    books = data || [];
+    renderBooks();
+}
+
+/* Render table */
+function renderBooks() {
+    const search = $('searchInput').value.trim().toLowerCase();
+    const classFilter = $('filterClass').value;
+    const subjectFilter = $('filterSubject').value;
+
+    const filtered = books.filter(book => {
+        const searchText = [
+            book.name,
+            book.code,
+            book.author,
+            book.publisher,
+            book.academic_year
+        ].join(' ').toLowerCase();
+
+        return (!search || searchText.includes(search)) &&
+            (!classFilter || String(book.class_id) === classFilter) &&
+            (!subjectFilter || String(book.subject_id) === subjectFilter);
+    });
+
+    $('totalBooks').textContent = formatNumber(books.length);
+    $('resultCount').textContent =
+        'ښودل شوي کتابونه: ' + formatNumber(filtered.length);
+
+    if (!filtered.length) {
+        $('booksTable').innerHTML =
+            '<tr><td colspan="8" class="status">کتاب ونه موندل شو. نوی کتاب ثبت کړئ یا فلټر بدل کړئ.</td></tr>';
+        return;
+    }
+
+    $('booksTable').innerHTML = filtered.map((book, index) => `
+        <tr>
+            <td>${formatNumber(index + 1)}</td>
+            <td>${escapeHTML(book.code || '—')}</td>
+            <td><strong>${escapeHTML(book.name)}</strong></td>
+            <td>${escapeHTML(getClassName(book.class_id))}</td>
+            <td>${escapeHTML(getSubjectName(book.subject_id) || '—')}</td>
+            <td>${escapeHTML(book.author || '—')}</td>
+            <td>${escapeHTML(book.academic_year || '—')}</td>
+            <td>
+                <div class="actions">
+                    <button class="secondary"
+                        data-action="edit"
+                        data-id="${Number(book.id)}">✏️ اصلاح</button>
+                    <button class="danger"
+                        data-action="delete"
+                        data-id="${Number(book.id)}">🗑️ حذف</button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+}
+
+/* Save book */
+$('bookForm').addEventListener('submit', async event => {
+    event.preventDefault();
+    hideMessage();
+
+    const name = $('bookName').value.trim();
+    const classId = $('classId').value;
+    const subjectId = $('subjectId').value;
+    const bookId = $('bookId').value;
+    const code = $('bookCode').value.trim();
+
+    if (!name || !classId) {
+        showMessage('د کتاب نوم او صنف حتمي دي.');
+        return;
+    }
+
+    if (code) {
+        const duplicate = books.find(book =>
+            String(book.code || '').toLowerCase() === code.toLowerCase() &&
+            String(book.id) !== String(bookId)
+        );
+
+        if (duplicate) {
+            showMessage('دا د کتاب کوډ مخکې ثبت شوی دی. بل کوډ وکاروئ.');
+            return;
+        }
+    }
+
+    const payload = {
+        name,
+        code: code || null,
+        class_id: Number(classId),
+        subject_id: subjectId ? Number(subjectId) : null,
+        author: $('author').value.trim() || null,
+        academic_year: $('academicYear').value.trim() || null,
+        publisher: $('publisher').value.trim() || null,
+        notes: $('notes').value.trim() || null
+    };
+
+    const button = $('saveButton');
+    button.disabled = true;
+    button.textContent = '⏳ مهرباني وکړئ...';
+
+    try {
+        let result;
+
+        if (bookId) {
+            result = await db
+                .from('books')
+                .update(payload)
+                .eq('id', Number(bookId))
+                .select('id');
+        } else {
+            result = await db
+                .from('books')
+                .insert(payload)
+                .select('id');
+        }
+
+        if (result.error) {
+            throw result.error;
+        }
+
+        if (!result.data || result.data.length === 0) {
+            throw new Error(
+                'بدلون تایید نه شو. د ډیټابېس اجازې او لاسرسي تنظیمات وګورئ.'
+            );
+        }
+
+        $('bookForm').reset();
+        $('bookId').value = '';
+        $('formTitle').textContent = '➕ نوی کتاب ثبت کړئ';
+        $('cancelEdit').classList.add('hidden');
+        button.textContent = '💾 کتاب ثبت کړئ';
+
+        await loadBooks();
+
+        showMessage(
+            bookId ? 'د کتاب معلومات اصلاح شول.' : 'نوی کتاب په بریالیتوب ثبت شو.',
+            'success'
+        );
+
+    } catch (error) {
+        showMessage('ستونزه: ' + (error.message || 'نامعلومه خطا'));
+    } finally {
+        button.disabled = false;
+        button.textContent = '💾 کتاب ثبت کړئ';
+    }
+});
+
+/* Edit and delete */
+$('booksTable').addEventListener('click', async event => {
+    const button = event.target.closest('button[data-action]');
+    if (!button) return;
+
+    const book = books.find(item =>
+        String(item.id) === button.dataset.id
+    );
+
+    if (!book) {
+        showMessage('کتاب ونه موندل شو. پاڼه بیا تازه کړئ.');
+        return;
+    }
+
+    if (button.dataset.action === 'edit') {
+        $('bookId').value = book.id;
+        $('bookName').value = book.name || '';
+        $('bookCode').value = book.code || '';
+        $('classId').value = String(book.class_id);
+        $('subjectId').value = book.subject_id
+            ? String(book.subject_id)
+            : '';
+        $('author').value = book.author || '';
+        $('academicYear').value = book.academic_year || '';
+        $('publisher').value = book.publisher || '';
+        $('notes').value = book.notes || '';
+
+        $('formTitle').textContent = '✏️ د کتاب معلومات اصلاح کړئ';
+        $('saveButton').textContent = '💾 بدلونونه خوندي کړئ';
+        $('cancelEdit').classList.remove('hidden');
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        hideMessage();
+        return;
+    }
+
+    if (button.dataset.action === 'delete') {
+        const confirmed = confirm(
+            'ایا ډاډه یاست چې دا کتاب حذف کړئ؟\n' + book.name
+        );
+
+        if (!confirmed) return;
+
+        button.disabled = true;
+
+        try {
+            const { data, error } = await db
+                .from('books')
+                .delete()
+                .eq('id', Number(book.id))
+                .select('id');
+
+            if (error) throw error;
+
+            if (!data || data.length === 0) {
+                throw new Error(
+                    'کتاب حذف نه شو. د ډیټابېس اجازې وګورئ.'
+                );
+            }
+
+            await loadBooks();
+            showMessage('کتاب په بریالیتوب حذف شو.', 'success');
+
+        } catch (error) {
+            showMessage('د حذف ستونزه: ' + error.message);
+            button.disabled = false;
+        }
+    }
+});
+
+/* Cancel edit */
+$('cancelEdit').addEventListener('click', () => {
+    $('bookForm').reset();
+    $('bookId').value = '';
+    $('formTitle').textContent = '➕ نوی کتاب ثبت کړئ';
+    $('saveButton').textContent = '💾 کتاب ثبت کړئ';
+    $('cancelEdit').classList.add('hidden');
+    hideMessage();
+});
+
+$('resetButton').addEventListener('click', () => {
+    setTimeout(() => {
+        $('bookId').value = '';
+        $('formTitle').textContent = '➕ نوی کتاب ثبت کړئ';
+        $('saveButton').textContent = '💾 کتاب ثبت کړئ';
+        $('cancelEdit').classList.add('hidden');
+        hideMessage();
+    }, 0);
+});
+
+/* Search and filters */
+$('searchInput').addEventListener('input', renderBooks);
+$('filterClass').addEventListener('change', renderBooks);
+$('filterSubject').addEventListener('change', renderBooks);
+
+/* 
