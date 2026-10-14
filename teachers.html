@@ -901,4 +901,347 @@ function getFormAssignments() {
       throw new Error("په هرې تدریسي دنده کې صنف او مضمون دواړه انتخاب کړئ.");
     }
 
-    const cls 
+    const cls = allClasses.find(item =>
+      String(item.id) === String(classId)
+    );
+
+    const subject = allSubjects.find(item =>
+      String(item.id) === String(subjectId)
+    );
+
+    if (!cls || !subject) {
+      throw new Error("انتخاب شوی صنف یا مضمون په ډیټابېس کې ونه موندل شو.");
+    }
+
+    if (!getSubjectsForClass(cls).some(item =>
+      String(item.id) === String(subject.id)
+    )) {
+      throw new Error(
+        "انتخاب شوی مضمون د ټاکل شوي صنف له ثبت شوي مضمونونو سره برابر نه دی."
+      );
+    }
+
+    assignments.push({
+      class_id: Number(classId),
+      subject_id: Number(subjectId),
+      assignment_type: duty
+    });
+  }
+
+  return assignments;
+}
+
+function makeGeneratedCode() {
+  const numbers = allTeachers
+    .map(t => safeText(t.code).match(/^T-(\d+)$/i))
+    .filter(Boolean)
+    .map(match => Number(match[1]));
+
+  const next = Math.max(0, ...numbers) + 1;
+  return "T-" + String(next).padStart(3, "0");
+}
+
+async function insertTeacherRecord(payload) {
+  const result = await api("teachers", {
+    method: "POST",
+    query: "?select=*",
+    prefer: "return=representation",
+    body: payload
+  });
+
+  if (!Array.isArray(result) || !result[0]) {
+    throw new Error("استاد ثبت شو، خو د ثبت شوي استاد ID ترلاسه نه شو.");
+  }
+
+  return result[0];
+}
+
+async function saveAssignments(teacherId, assignments) {
+  if (!assignments.length) return;
+
+  const payload = assignments.map(item => ({
+    teacher_id: Number(teacherId),
+    class_id: item.class_id,
+    subject_id: item.subject_id,
+    assignment_type: item.assignment_type
+  }));
+
+  await api("teacher_assignments", {
+    method: "POST",
+    prefer: "return=minimal",
+    body: payload
+  });
+}
+
+$("teacherForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (busy) return;
+  busy = true;
+
+  const button = $("saveButton");
+  button.disabled = true;
+  button.textContent = "مهرباني وکړئ، انتظار وکړئ...";
+
+  try {
+    hideMessage();
+
+    if (!allClasses.length) {
+      throw new Error("د صنفونو لېست خالي دی. لومړی د classes جدول وګورئ.");
+    }
+
+    const name = $("teacherName").value.trim();
+    const father = $("teacherFather").value.trim();
+    const phone = $("teacherPhone").value.trim();
+    const code = $("teacherCode").value.trim() || makeGeneratedCode();
+
+    if (!name) throw new Error("د استاد نوم ولیکئ.");
+
+    const assignments = getFormAssignments();
+
+    const firstSubject = assignments.length
+      ? allSubjects.find(s =>
+          String(s.id) === String(assignments[0].subject_id)
+        )
+      : null;
+
+    const teacherPayload = {
+      code,
+      name,
+      father,
+      phone,
+      subject: firstSubject ? safeText(firstSubject.name) : ""
+    };
+
+    let teacher;
+
+    if (editingTeacherId !== null) {
+      await api("teachers", {
+        method: "PATCH",
+        query: "?id=eq." + encodeURIComponent(editingTeacherId),
+        prefer: "return=minimal",
+        body: teacherPayload
+      });
+
+      await api("teacher_assignments", {
+        method: "DELETE",
+        query: "?teacher_id=eq." + encodeURIComponent(editingTeacherId),
+        prefer: "return=minimal"
+      });
+
+      await saveAssignments(editingTeacherId, assignments);
+
+      showMessage("د استاد معلومات او تدریسي دندې اصلاح شوې.", "success");
+    } else {
+      teacher = await insertTeacherRecord(teacherPayload);
+
+      try {
+        await saveAssignments(teacher.id, assignments);
+      } catch (assignmentError) {
+        showMessage(
+          "د استاد معلومات ثبت شول، خو تدریسي دندې ثبت نه شوې. " +
+          "د teacher_assignments جدول او د هغې اجازې وګورئ. " +
+          assignmentError.message,
+          "error"
+        );
+
+        await loadAllData();
+        return;
+      }
+
+      showMessage("استاد او تدریسي دندې په بریالیتوب ثبت شول.", "success");
+    }
+
+    resetForm();
+    await loadAllData();
+
+  } catch (error) {
+    console.error(error);
+    showMessage("ثبت یا اصلاح ناکامه شوه: " + error.message, "error");
+  } finally {
+    busy = false;
+    button.disabled = false;
+    button.textContent = "💾 استاد ثبت کړئ";
+  }
+});
+
+function resetForm() {
+  editingTeacherId = null;
+  $("teacherForm").reset();
+  $("assignmentsContainer").innerHTML = "";
+  $("formTitle").textContent = "＋ نوی استاد ثبت کړئ";
+  $("saveButton").textContent = "💾 استاد ثبت کړئ";
+  addAssignmentRow();
+}
+
+function getTeacherAssignments(teacherId) {
+  return allAssignments.filter(item =>
+    String(item.teacher_id) === String(teacherId)
+  );
+}
+
+function assignmentSummary(teacherId) {
+  const assignments = getTeacherAssignments(teacherId);
+
+  if (!assignments.length) return "دنده نه ده ثبت شوې";
+
+  return assignments.map(item => {
+    const cls = allClasses.find(c =>
+      String(c.id) === String(item.class_id)
+    );
+
+    const subject = allSubjects.find(s =>
+      String(s.id) === String(item.subject_id)
+    );
+
+    return {
+      className: cls ? getClassLabel(cls) : "نامعلوم صنف",
+      subjectName: subject ? safeText(subject.name) : "نامعلوم مضمون",
+      duty: safeText(item.assignment_type || "مضمون ښوونکی")
+    };
+  });
+}
+
+function renderTeachers() {
+  const body = $("teachersTableBody");
+  const term = $("teacherSearch").value.trim().toLowerCase();
+
+  body.innerHTML = "";
+
+  const filtered = allTeachers.filter(t => {
+    const searchText = [
+      t.code, t.name, t.father, t.phone
+    ].map(safeText).join(" ").toLowerCase();
+
+    return searchText.includes(term);
+  });
+
+  if (!filtered.length) {
+    body.innerHTML =
+      '<tr><td colspan="6" class="empty">استاد ونه موندل شو.</td></tr>';
+    return;
+  }
+
+  filtered.forEach(teacher => {
+    const tr = document.createElement("tr");
+
+    const values = [
+      safeText(teacher.code),
+      safeText(teacher.name),
+      safeText(teacher.father),
+      safeText(teacher.phone)
+    ];
+
+    values.forEach(value => {
+      const td = document.createElement("td");
+      td.textContent = value || "—";
+      tr.appendChild(td);
+    });
+
+    const assignmentCell = document.createElement("td");
+    const summary = assignmentSummary(teacher.id);
+
+    if (typeof summary === "string") {
+      assignmentCell.textContent = summary;
+    } else {
+      summary.forEach(item => {
+        const badge = document.createElement("span");
+        badge.className = "badge";
+        badge.textContent =
+          item.className + " | " + item.subjectName + " | " + item.duty;
+        assignmentCell.appendChild(badge);
+      });
+    }
+
+    tr.appendChild(assignmentCell);
+
+    const actionsCell = document.createElement("td");
+    const actions = document.createElement("div");
+    actions.className = "table-actions";
+
+    const edit = document.createElement("button");
+    edit.className = "btn btn-light btn-small";
+    edit.textContent = "اصلاح";
+    edit.onclick = () => editTeacher(teacher.id);
+
+    const remove = document.createElement("button");
+    remove.className = "btn btn-danger btn-small";
+    remove.textContent = "حذف";
+    remove.onclick = () => deleteTeacher(teacher.id);
+
+    actions.append(edit, remove);
+    actionsCell.appendChild(actions);
+    tr.appendChild(actionsCell);
+
+    body.appendChild(tr);
+  });
+}
+
+async function editTeacher(id) {
+  const teacher = allTeachers.find(t => String(t.id) === String(id));
+  if (!teacher) return;
+
+  editingTeacherId = teacher.id;
+
+  $("teacherCode").value = teacher.code || "";
+  $("teacherName").value = teacher.name || "";
+  $("teacherFather").value = teacher.father || "";
+  $("teacherPhone").value = teacher.phone || "";
+
+  $("assignmentsContainer").innerHTML = "";
+
+  const assignments = getTeacherAssignments(teacher.id);
+
+  if (!assignments.length) {
+    addAssignmentRow();
+  } else {
+    assignments.forEach(item => addAssignmentRow(item));
+  }
+
+  $("formTitle").textContent = "✎ د استاد معلومات اصلاح کړئ";
+  $("saveButton").textContent = "💾 اصلاحات ثبت کړئ";
+
+  $("teacherFormPanel").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+async function deleteTeacher(id) {
+  const teacher = allTeachers.find(t => String(t.id) === String(id));
+  if (!teacher) return;
+
+  if (!confirm("ایا د " + teacher.name + " استاد معلومات حذف کړئ؟")) {
+    return;
+  }
+
+  try {
+    await api("teacher_assignments", {
+      method: "DELETE",
+      query: "?teacher_id=eq." + encodeURIComponent(id),
+      prefer: "return=minimal"
+    });
+
+    await api("teachers", {
+      method: "DELETE",
+      query: "?id=eq." + encodeURIComponent(id),
+      prefer: "return=minimal"
+    });
+
+    showMessage("د استاد معلومات حذف شول.", "success");
+    await loadAllData();
+
+  } catch (error) {
+    console.error(error);
+    showMessage("حذف ناکام شو: " + error.message, "error");
+  }
+}
+
+$("teacherSearch").addEventListener("input", renderTeachers);
+
+addAssignmentRow();
+loadAllData();
+</script>
+
+</body>
+</html>
