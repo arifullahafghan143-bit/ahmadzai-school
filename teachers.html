@@ -1,474 +1,719 @@
-<!DOCTYPE html><html lang="ps" dir="rtl">
+<!DOCTYPE html>
+<html lang="ps" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>د استادانو مدیریت | احمدزي عالي لېسه</title><style>
-*{box-sizing:border-box}
-body{
- margin:0;font-family:Tahoma,Arial,sans-serif;
- background:#f1f5f9;color:#1e293b
-}
-header{
- background:linear-gradient(135deg,#102a43,#2563eb);
- color:white;padding:24px 16px
-}
-.container{max-width:1150px;margin:auto;padding:16px}
-.header-row{
- display:flex;justify-content:space-between;
- align-items:center;gap:12px;flex-wrap:wrap
-}
-h1{font-size:23px;margin:0}
-header p{color:#dbeafe;margin-bottom:0}
-.back{
- color:white;text-decoration:none;border:1px solid #ffffff80;
- padding:10px 14px;border-radius:10px
-}
-.card{
- background:white;border:1px solid #e2e8f0;
- border-radius:16px;padding:20px;margin-bottom:18px;
- box-shadow:0 5px 18px #0f172a08
-}
-h2{font-size:19px;margin-top:0}
-.grid{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
- gap:15px
-}
-label{display:block;font-size:14px;font-weight:bold;margin-bottom:7px}
-input{
- width:100%;padding:12px;border:1px solid #cbd5e1;
- border-radius:9px;font:inherit;outline:none;background:white
-}
-input:focus{border-color:#2563eb}
-button{
- border:0;border-radius:9px;padding:11px 15px;
- background:#2563eb;color:white;font:inherit;
- cursor:pointer;font-weight:bold
-}
-button:disabled{opacity:.6;cursor:wait}
-.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
-.secondary{background:#e2e8f0;color:#1e293b}
-.edit{background:#059669}
-.delete{background:#dc2626}
-.small{padding:7px 9px;font-size:12px;margin:2px}
-.status{
- background:#eff6ff;color:#1d4ed8;border-radius:9px;
- padding:12px;margin-top:15px;overflow-wrap:anywhere;
- font-size:13px;white-space:pre-wrap
-}
-.stats{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
- gap:12px;margin:15px 0
-}
-.stat{
- background:#f8fafc;border:1px solid #e2e8f0;
- padding:15px;border-radius:12px
-}
-.stat span{display:block;color:#64748b;font-size:13px}
-.stat strong{display:block;color:#2563eb;font-size:24px;margin-top:8px}
-.table-wrap{overflow-x:auto}
-table{width:100%;min-width:650px;border-collapse:collapse}
-th,td{
- padding:12px;text-align:right;border-bottom:1px solid #e2e8f0;
- font-size:13px
-}
-th{background:#f8fafc;white-space:nowrap}
-.id-cell{font-weight:bold;color:#1d4ed8}
-.empty{text-align:center;color:#64748b;padding:25px}
-footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
-@media(max-width:600px){
- .grid,.stats{grid-template-columns:1fr}
- .card{padding:14px}
- h1{font-size:20px}
-}
-</style></head><body><header>
- <div class="container header-row">
-  <div>
-   <h1>👨‍🏫 د استادانو مدیریت</h1>
-   <p>احمدزي عالي لېسه | د استادانو ثبت او تنظیم</p>
-  </div>
-  <a class="back" href="dashboard.html">← ډیشبورډ</a>
- </div>
-</header><main class="container"> <section class="card">
-  <h2 id="formTitle">📝 د استاد معلومات</h2>  <form id="teacherForm">
-   <div id="formFields" class="grid"></div>   <div class="actions">
-    <button id="saveButton" type="submit">➕ استاد ثبت کړئ</button>
-    <button id="clearButton" class="secondary" type="button">فورمه پاکه کړئ</button>
-   </div>
-  </form>  <div id="status" class="status">د ډیټابېس اتصال...</div>
- </section> <section class="card">
-  <h2>📊 د استادانو لېست</h2>  <div class="stats">
-   <div class="stat">
-    <span>ټول استادان</span>
-    <strong id="total">0</strong>
-   </div>
-   <div class="stat">
-    <span>د لټون پایلې</span>
-    <strong id="shown">0</strong>
-   </div>
-  </div><label for="search">د استادانو لټون</label>
-<input id="search" placeholder="د استاد نوم، ID یا نور معلومات ولیکئ">
+<title>د استادانو مدیریت | احمدزي عالي لېسه</title>
 
-<br><br>
-
-  <div class="table-wrap">
-   <table>
-    <thead id="tableHead"></thead>
-    <tbody id="teacherList">
-     <tr><td class="empty">معلومات لوډ کېږي...</td></tr>
-    </tbody>
-   </table>
-  </div>
- </section></main><footer>احمدزي عالي لېسه © ۲۰۲۶</footer><script>
-'use strict';
-
-const SUPABASE_URL='https://oaxmnfnaqhdvnykawvyh.supabase.co';
-const SUPABASE_KEY='sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7';
-const TABLE='teachers';
-
-const headers={
- apikey:SUPABASE_KEY,
- Authorization:'Bearer '+SUPABASE_KEY,
- 'Content-Type':'application/json'
-};
-
-const $=id=>document.getElementById(id);
-
-let teachers=[];
-let columns=[];
-let editingId=null;
-
-const labels={
- id:'اصلي ID',
- name:'د استاد نوم',
- full_name:'د استاد بشپړ نوم',
- teacher_name:'د استاد نوم',
- code:'د استاد کوډ',
- phone:'د اړیکې شمېره',
- phone_number:'د اړیکې شمېره',
- qualification:'تحصیلي درجه',
- education:'تحصیلي درجه',
- subject:'د تدریس مضمون',
- subject_name:'د تدریس مضمون',
- father:'د پلار نوم',
- fathername:'د پلار نوم',
- address:'پته',
- email:'برېښنالیک',
- gender:'جنسیت',
- teacher_id:'د استاد کوډ',
- created_at:'د ثبت نېټه'
-};
-
-const hiddenColumns=[
- 'id','teacher_id','created_at','updated_at'
-];
-
-function safe(value){
- return String(value??'').replace(/[&<>"']/g,char=>({
-  '&':'&amp;',
-  '<':'&lt;',
-  '>':'&gt;',
-  '"':'&quot;',
-  "'":'&#39;'
- })[char]);
+<style>
+* {
+    box-sizing: border-box;
 }
 
-function showMessage(message,error=false){
- $('status').textContent=message;
- $('status').style.background=error?'#fef2f2':'#eff6ff';
- $('status').style.color=error?'#b91c1c':'#1d4ed8';
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #172033;
 }
 
-function labelFor(column){
- return labels[column]||column.replace(/_/g,' ');
+header {
+    background: linear-gradient(135deg, #123c69, #176b87);
+    color: white;
+    padding: 25px 15px;
+    text-align: center;
 }
 
-/* د ډیټابېس اصلي ID کالم معلومول */
-function idColumn(){
- if(columns.includes('id'))return 'id';
- if(columns.includes('teacher_id'))return 'teacher_id';
- return null;
+header h1 {
+    margin: 0 0 10px;
+    font-size: 25px;
 }
 
-/* د استاد د نوم کالم معلومول */
-function findNameColumn(){
- return ['name','full_name','teacher_name']
-  .find(column=>columns.includes(column));
+header p {
+    margin: 0;
+    font-size: 14px;
 }
 
-/* هغه کالمونه چې په فورمه او جدول کې ښکاري */
-function visibleColumns(){
- return columns.filter(column=>
-  !hiddenColumns.includes(column)&&
-  !column.startsWith('created_')&&
-  !column.startsWith('updated_')
- );
+.container {
+    max-width: 1100px;
+    margin: 25px auto;
+    padding: 0 14px;
 }
 
-/* د فورمې او جدول جوړول */
-function makeForm(){
- const key=idColumn();
- const nameKey=findNameColumn();
-
- const fields=visibleColumns().filter(column=>column!==key);
-
- $('formFields').innerHTML=fields.map(column=>`
-  <div>
-   <label for="field_${safe(column)}">
-    ${safe(labelFor(column))}${column===nameKey?' *':''}
-   </label>
-   <input
-    id="field_${safe(column)}"
-    data-column="${safe(column)}"
-    ${column===nameKey?'required':''}
-    placeholder="${safe(labelFor(column))} ولیکئ">
-  </div>
- `).join('');
-
- $('tableHead').innerHTML='<tr>'+
-  '<th>اصلي ID</th>'+
-  fields.map(column=>
-   `<th>${safe(labelFor(column))}</th>`
-  ).join('')+
-  '<th>کړنې</th></tr>';
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px #0000000d;
 }
 
-/* د Supabase غوښتنې */
-async function request(url,options={}){
- const controller=new AbortController();
- const timer=setTimeout(()=>controller.abort(),20000);
-
- try{
-  const response=await fetch(url,{
-   ...options,
-   headers:{...headers,...options.headers},
-   signal:controller.signal
-  });
-
-  const text=await response.text();
-
-  if(!response.ok){
-   throw new Error(text||('HTTP '+response.status));
-  }
-
-  return text?JSON.parse(text):null;
-
- }catch(error){
-  if(error.name==='AbortError'){
-   throw new Error('د اتصال وخت پای ته ورسېد. انټرنېټ وګورئ.');
-  }
-  throw error;
- }finally{
-  clearTimeout(timer);
- }
+.card h2 {
+    margin-top: 0;
+    color: #123c69;
+    font-size: 20px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 13px;
 }
 
-/* د استادانو معلومات لوستل */
-async function loadTeachers(){
- showMessage('د استادانو معلومات ترلاسه کېږي...');
-
- try{
-  const sample=await request(
-   `${SUPABASE_URL}/rest/v1/${TABLE}?select=*&limit=1`
-  );
-
-  if(!Array.isArray(sample)||sample.length===0){
-   teachers=[];
-   $('total').textContent='0';
-   $('shown').textContent='0';
-   $('teacherList').innerHTML=
-    '<tr><td class="empty">جدول خالي دی؛ د کالمونو د معلومولو لپاره د Supabase د teachers جدول جوړښت ته اړتیا ده.</td></tr>';
-
-   showMessage(
-    'جدول خالي دی. لومړی د teachers جدول کالمونه او لږ تر لږه یو ریکارډ تایید کړئ.',
-    true
-   );
-   return;
-  }
-
-  columns=Object.keys(sample[0]);
-
-  if(!columns.includes('id')){
-   throw new Error('د جدول id کالم ونه موندل شو.');
-  }
-
-  if(!findNameColumn()){
-   throw new Error('د استاد د نوم کالم ونه موندل شو.');
-  }
-
-  makeForm();
-
-  teachers=await request(
-   `${SUPABASE_URL}/rest/v1/${TABLE}?select=*&order=id.desc`
-  );
-
-  renderTeachers();
-  showMessage('د استادانو معلومات په بریالیتوب ترلاسه شول.');
-
- }catch(error){
-  $('teacherList').innerHTML=
-   `<tr><td class="empty">${safe(error.message)}</td></tr>`;
-  showMessage('ستونزه: '+error.message,true);
- }
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
 }
 
-/* د استادانو جدول او اصلي ID ښودل */
-function renderTeachers(){
- const query=$('search').value.trim().toLowerCase();
- const key=idColumn();
-
- const fields=visibleColumns().filter(column=>column!==key);
-
- const filtered=teachers.filter(teacher=>
-  Object.values(teacher).some(value=>
-   String(value??'').toLowerCase().includes(query)
-  )
- );
-
- $('total').textContent=teachers.length;
- $('shown').textContent=filtered.length;
-
- if(filtered.length===0){
-  $('teacherList').innerHTML=
-   `<tr><td colspan="${fields.length+2}" class="empty">استاد ونه موندل شو.</td></tr>`;
-  return;
- }
-
- $('teacherList').innerHTML=filtered.map(teacher=>{
-  const index=teachers.indexOf(teacher);
-
-  return '<tr>'+
-   '<td class="id-cell">'+safe(teacher.id??'—')+'</td>'+
-   fields.map(column=>
-    `<td>${safe(teacher[column]??'—')}</td>`
-   ).join('')+
-   `<td>
-    <button class="small edit" onclick="editTeacher(${index})">اصلاح</button>
-    <button class="small delete" onclick="deleteTeacher(${index})">حذف</button>
-   </td>`+
-   '</tr>';
- }).join('');
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
 }
 
-/* د استاد اصلاح */
-function editTeacher(index){
- const teacher=teachers[index];
-
- if(!teacher||teacher.id==null){
-  showMessage('د استاد اصلي ID ونه موندل شو.',true);
-  return;
- }
-
- editingId=teacher.id;
-
- document.querySelectorAll('[data-column]').forEach(input=>{
-  input.value=teacher[input.dataset.column]??'';
- });
-
- $('saveButton').textContent='💾 بدلونونه خوندي کړئ';
- $('formTitle').textContent='✏️ د استاد معلومات اصلاح کړئ';
-
- window.scrollTo({top:0,behavior:'smooth'});
+input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
 }
 
-/* د استاد حذف */
-async function deleteTeacher(index){
- const teacher=teachers[index];
-
- if(!teacher||teacher.id==null){
-  showMessage('د استاد اصلي ID ونه موندل شو.',true);
-  return;
- }
-
- if(!confirm('ایا د ID '+teacher.id+' لرونکی استاد حذف کړئ؟')){
-  return;
- }
-
- try{
-  await request(
-   `${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${encodeURIComponent(teacher.id)}`,
-   {
-    method:'DELETE',
-    headers:{Prefer:'return=minimal'}
-   }
-  );
-
-  resetForm();
-  await loadTeachers();
-  showMessage('استاد حذف شو.');
-
- }catch(error){
-  showMessage('حذف ناکام شو: '+error.message,true);
- }
+input:focus {
+    border-color: #176b87;
+    box-shadow: 0 0 0 2px #176b871a;
 }
 
-/* د نوي استاد ثبت او د موجود استاد اصلاح */
-$('teacherForm').addEventListener('submit',async event=>{
- event.preventDefault();
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 17px;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
 
- const payload={};
+.save-btn {
+    background: #087f5b;
+    color: white;
+    margin-top: 18px;
+}
 
- document.querySelectorAll('[data-column]').forEach(input=>{
-  payload[input.dataset.column]=input.value.trim()||null;
- });
+.cancel-btn {
+    background: #64748b;
+    color: white;
+    margin-top: 18px;
+    display: none;
+}
 
- const nameKey=findNameColumn();
+.refresh-btn {
+    background: #176b87;
+    color: white;
+}
 
- if(!nameKey||!payload[nameKey]){
-  showMessage('د استاد نوم ولیکئ.',true);
-  return;
- }
+.delete-btn {
+    background: #dc2626;
+    color: white;
+    padding: 7px 10px;
+    font-size: 13px;
+}
 
- const button=$('saveButton');
- const wasEditing=editingId!==null;
+.edit-btn {
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 7px 10px;
+    font-size: 13px;
+}
 
- button.disabled=true;
+.message {
+    display: none;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
 
- try{
-  let url=`${SUPABASE_URL}/rest/v1/${TABLE}`;
-  let method='POST';
+.success {
+    display: block;
+    background: #dcfce7;
+    color: #166534;
+}
 
-  if(wasEditing){
-   url+=`?id=eq.${encodeURIComponent(editingId)}`;
-   method='PATCH';
-  }
+.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+}
 
-  /*
-   * د نوي استاد د ثبت پر مهال id په payload کې نشته.
-   * PostgreSQL د id DEFAULT sequence له لارې ID جوړوي.
-   */
-  await request(url,{
-   method,
-   headers:{Prefer:'return=representation'},
-   body:JSON.stringify(payload)
-  });
+.info {
+    display: block;
+    background: #dbeafe;
+    color: #1e40af;
+}
 
-  resetForm();
-  await loadTeachers();
+.table-wrap {
+    overflow-x: auto;
+}
 
-  showMessage(
-   wasEditing
-    ?'د استاد معلومات اصلاح شول.'
-    :'د استاد د ثبت غوښتنه بشپړه شوه.'
-  );
+table {
+    width: 100%;
+    min-width: 650px;
+    border-collapse: collapse;
+}
 
- }catch(error){
-  showMessage('ثبت یا اصلاح ناکام شو: '+error.message,true);
- }finally{
-  button.disabled=false;
- }
+th, td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+    background: #eaf2f8;
+    color: #123c69;
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.search {
+    margin: 12px 0 18px;
+}
+
+.stats {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.stat-box {
+    flex: 1;
+    background: white;
+    border-radius: 12px;
+    padding: 17px;
+    text-align: center;
+    box-shadow: 0 4px 15px #0000000d;
+}
+
+.stat-box strong {
+    display: block;
+    font-size: 26px;
+    color: #087f5b;
+    margin-top: 8px;
+}
+
+.empty {
+    text-align: center;
+    color: #64748b;
+    padding: 25px;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 15px;
+    color: white;
+    text-decoration: none;
+    background: #ffffff22;
+    padding: 9px 14px;
+    border-radius: 8px;
+}
+
+@media(max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 21px;
+    }
+
+    .stats {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>احمدزي عالي لېسه</h1>
+    <p>د استادانو د ثبت او مدیریت سیستم</p>
+    <a class="back" href="dashboard.html">ډشبورډ ته بېرته تلل</a>
+</header>
+
+<main class="container">
+
+    <div class="stats">
+        <div class="stat-box">
+            ټول استادان
+            <strong id="totalTeachers">۰</strong>
+        </div>
+
+        <div class="stat-box">
+            د سیستم حالت
+            <strong id="systemStatus" style="font-size:18px">...</strong>
+        </div>
+    </div>
+
+    <section class="card">
+        <h2 id="formTitle">➕ نوی استاد ثبت کړئ</h2>
+
+        <form id="teacherForm">
+
+            <div class="form-grid">
+
+                <div>
+                    <label for="teacherName">د استاد بشپړ نوم *</label>
+                    <input
+                        id="teacherName"
+                        type="text"
+                        placeholder="د استاد نوم ولیکئ"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="father">د پلار نوم</label>
+                    <input
+                        id="father"
+                        type="text"
+                        placeholder="د پلار نوم ولیکئ"
+                    >
+                </div>
+
+                <div>
+                    <label for="phone">د اړیکې شمېره</label>
+                    <input
+                        id="phone"
+                        type="tel"
+                        placeholder="د ټیلیفون شمېره"
+                    >
+                </div>
+
+                <div>
+                    <label for="subject">مضمون</label>
+                    <input
+                        id="subject"
+                        type="text"
+                        placeholder="لکه: ریاضي"
+                    >
+                </div>
+
+            </div>
+
+            <button class="save-btn" id="saveBtn" type="submit">
+                استاد ثبت کړئ
+            </button>
+
+            <button class="cancel-btn" id="cancelBtn" type="button">
+                سمون لغوه کړئ
+            </button>
+
+            <div id="formMessage" class="message"></div>
+
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>📋 د استادانو جدول</h2>
+
+        <input
+            class="search"
+            id="searchInput"
+            type="search"
+            placeholder="د استاد په نوم یا ID کې لټون..."
+        >
+
+        <button class="refresh-btn" id="refreshBtn" type="button">
+            جدول تازه کړئ
+        </button>
+
+        <div id="tableMessage" class="message"></div>
+
+        <div class="table-wrap" style="margin-top:15px">
+            <table>
+                <thead>
+                    <tr>
+                        <th>اصلي ID</th>
+                        <th>د استاد نوم</th>
+                        <th>د پلار نوم</th>
+                        <th>ټیلیفون</th>
+                        <th>مضمون</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+
+                <tbody id="teachersBody">
+                    <tr>
+                        <td colspan="6" class="empty">
+                            معلومات لوډ کېږي...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</main>
+
+<script>
+const SUPABASE_URL =
+    'https://oaxmnfnaqhdvnykawvyh.supabase.co';
+
+const SUPABASE_KEY =
+    'sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7';
+
+const TABLE = 'teachers';
+
+const API = SUPABASE_URL + '/rest/v1/' + TABLE;
+
+let teachers = [];
+let editingId = null;
+
+const form = document.getElementById('teacherForm');
+const nameInput = document.getElementById('teacherName');
+const fatherInput = document.getElementById('father');
+const phoneInput = document.getElementById('phone');
+const subjectInput = document.getElementById('subject');
+const saveBtn = document.getElementById('saveBtn');
+const cancelBtn = document.getElementById('cancelBtn');
+const formMessage = document.getElementById('formMessage');
+const tableMessage = document.getElementById('tableMessage');
+const teachersBody = document.getElementById('teachersBody');
+
+function headers(extra = {}) {
+    return {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        ...extra
+    };
+}
+
+function showMessage(element, message, type) {
+    element.textContent = message;
+    element.className = 'message ' + type;
+}
+
+function hideMessage(element) {
+    element.textContent = '';
+    element.className = 'message';
+}
+
+function safe(value) {
+    const span = document.createElement('span');
+    span.textContent = value == null ? '' : String(value);
+    return span.innerHTML;
+}
+
+function showError(error) {
+    if (error && error.message) {
+        return error.message;
+    }
+    return String(error || 'نامعلومه ستونزه');
+}
+
+async function loadTeachers() {
+    document.getElementById('systemStatus').textContent = '...';
+
+    teachersBody.innerHTML =
+        '<tr><td colspan="6" class="empty">معلومات لوډ کېږي...</td></tr>';
+
+    try {
+        const response = await fetch(
+            API + '?select=*&order=id.asc',
+            {
+                method: 'GET',
+                headers: headers()
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || data.details || JSON.stringify(data));
+        }
+
+        teachers = Array.isArray(data) ? data : [];
+
+        document.getElementById('totalTeachers').textContent =
+            teachers.length;
+
+        document.getElementById('systemStatus').textContent = 'وصل دی';
+
+        renderTeachers();
+
+    } catch (error) {
+        document.getElementById('systemStatus').textContent = 'ستونزه';
+
+        teachersBody.innerHTML =
+            '<tr><td colspan="6" class="empty">جدول نه لوډ کېږي.</td></tr>';
+
+        showMessage(
+            tableMessage,
+            'د معلوماتو د لوډ ستونزه: ' + showError(error),
+            'error'
+        );
+    }
+}
+
+function renderTeachers() {
+    hideMessage(tableMessage);
+
+    const query = document.getElementById('searchInput')
+        .value.trim().toLowerCase();
+
+    const filtered = teachers.filter(teacher => {
+        return [
+            teacher.id,
+            teacher.name,
+            teacher.father,
+            teacher.phone,
+            teacher.subject
+        ].some(value =>
+            String(value ?? '').toLowerCase().includes(query)
+        );
+    });
+
+    if (filtered.length === 0) {
+        teachersBody.innerHTML =
+            '<tr><td colspan="6" class="empty">تر اوسه استاد نشته. د پورته فورم له لارې نوی استاد ثبت کړئ.</td></tr>';
+        return;
+    }
+
+    teachersBody.innerHTML = filtered.map(teacher => `
+        <tr>
+            <td>${safe(teacher.id)}</td>
+            <td>${safe(teacher.name)}</td>
+            <td>${safe(teacher.father)}</td>
+            <td>${safe(teacher.phone)}</td>
+            <td>${safe(teacher.subject)}</td>
+            <td>
+                <div class="actions">
+                    <button class="edit-btn"
+                        onclick="editTeacher(${Number(teacher.id)})">
+                        سمون
+                    </button>
+
+                    <button class="delete-btn"
+                        onclick="deleteTeacher(${Number(teacher.id)})">
+                        حذف
+                    </button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+}
+
+form.addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    hideMessage(formMessage);
+
+    const name = nameInput.value.trim();
+
+    if (!name) {
+        showMessage(formMessage, 'د استاد نوم ولیکئ.', 'error');
+        return;
+    }
+
+    const payload = {
+        name: name,
+        father: fatherInput.value.trim() || null,
+        phone: phoneInput.value.trim() || null,
+        subject: subjectInput.value.trim() || null
+    };
+
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'مهرباني وکړئ...';
+
+    try {
+        let response;
+
+        if (editingId === null) {
+            response = await fetch(API, {
+                method: 'POST',
+                headers: headers({
+                    'Prefer': 'return=representation'
+                }),
+                body: JSON.stringify(payload)
+            });
+        } else {
+            response = await fetch(
+                API + '?id=eq.' + encodeURIComponent(editingId),
+                {
+                    method: 'PATCH',
+                    headers: headers({
+                        'Prefer': 'return=representation'
+                    }),
+                    body: JSON.stringify(payload)
+                }
+            );
+        }
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                result.message ||
+                result.details ||
+                result.hint ||
+                JSON.stringify(result)
+            );
+        }
+
+        if (!Array.isArray(result) || result.length === 0) {
+            throw new Error(
+                'معلومات ثبت نه شول. د Supabase اجازه او جدول وګورئ.'
+            );
+        }
+
+        const wasEditing = editingId !== null;
+
+        resetForm();
+
+        showMessage(
+            formMessage,
+            wasEditing
+                ? 'د استاد معلومات په بریالیتوب اصلاح شول.'
+                : 'نوی استاد په بریالیتوب ثبت شو. اصلي ID: ' + result[0].id,
+            'success'
+        );
+
+        await loadTeachers();
+
+    } catch (error) {
+        showMessage(
+            formMessage,
+            'ثبت ناکام شو: ' + showError(error),
+            'error'
+        );
+    } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent =
+            editingId === null ? 'استاد ثبت کړئ' : 'معلومات اصلاح کړئ';
+    }
 });
 
-/* د فورمې پاکول */
-function resetForm(){
- $('teacherForm').reset();
- editingId=null;
- $('saveButton').textContent='➕ استاد ثبت کړئ';
- $('formTitle').textContent='📝 د استاد معلومات';
+function editTeacher(id) {
+    const teacher = teachers.find(item => Number(item.id) === Number(id));
+
+    if (!teacher) {
+        showMessage(formMessage, 'استاد پیدا نه شو.', 'error');
+        return;
+    }
+
+    editingId = id;
+
+    nameInput.value = teacher.name || '';
+    fatherInput.value = teacher.father || '';
+    phoneInput.value = teacher.phone || '';
+    subjectInput.value = teacher.subject || '';
+
+    document.getElementById('formTitle').textContent =
+        '✏️ د استاد معلومات اصلاح کړئ';
+
+    saveBtn.textContent = 'معلومات اصلاح کړئ';
+    cancelBtn.style.display = 'inline-block';
+
+    hideMessage(formMessage);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-$('clearButton').addEventListener('click',resetForm);
-$('search').addEventListener('input',renderTeachers);
+async function deleteTeacher(id) {
+    const teacher = teachers.find(item => Number(item.id) === Number(id));
+
+    if (!teacher) return;
+
+    const confirmed = confirm(
+        'ایا غواړئ د استاد "' + teacher.name + '" معلومات حذف کړئ؟'
+    );
+
+    if (!confirmed) return;
+
+    try {
+        const response = await fetch(
+            API + '?id=eq.' + encodeURIComponent(id),
+            {
+                method: 'DELETE',
+                headers: headers({
+                    'Prefer': 'return=representation'
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                result.message ||
+                result.details ||
+                JSON.stringify(result)
+            );
+        }
+
+        if (!Array.isArray(result) || result.length === 0) {
+            throw new Error(
+                'استاد حذف نه شو؛ کېدای شي د حذف اجازه نه وي.'
+            );
+        }
+
+        showMessage(
+            tableMessage,
+            'د استاد معلومات حذف شول.',
+            'success'
+        );
+
+        await loadTeachers();
+
+    } catch (error) {
+        showMessage(
+            tableMessage,
+            'حذف ناکام شو: ' + showError(error),
+            'error'
+        );
+    }
+}
+
+function resetForm() {
+    editingId = null;
+    form.reset();
+
+    document.getElementById('formTitle').textContent =
+        '➕ نوی استاد ثبت کړئ';
+
+    saveBtn.textContent = 'استاد ثبت کړئ';
+    cancelBtn.style.display = 'none';
+}
+
+cancelBtn.addEventListener('click', function() {
+    resetForm();
+    hideMessage(formMessage);
+});
+
+document.getElementById('refreshBtn').addEventListener(
+    'click',
+    loadTeachers
+);
+
+document.getElementById('searchInput').addEventListener(
+    'input',
+    renderTeachers
+);
 
 loadTeachers();
-</script></body>
+</script>
+
+</body>
 </html>
