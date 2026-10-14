@@ -1,22 +1,16 @@
-<!DOCTYPE html>
-<html lang="ps" dir="rtl">
+<!DOCTYPE html><html lang="ps" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>د استادانو مدیریت | احمدزي عالي لېسه</title>
-
-<style>
+<title>د استادانو مدیریت | احمدزي عالي لېسه</title><style>
 *{box-sizing:border-box}
 body{
-  margin:0;
-  font-family:Tahoma,Arial,sans-serif;
-  background:#f1f5f9;
-  color:#1e293b
+  margin:0;font-family:Tahoma,Arial,sans-serif;
+  background:#f1f5f9;color:#1e293b
 }
 header{
   background:linear-gradient(135deg,#102a43,#2563eb);
-  color:white;
-  padding:25px 16px
+  color:white;padding:25px 16px
 }
 .container{max-width:1100px;margin:auto;padding:16px}
 .header-row{
@@ -27,13 +21,12 @@ h1{font-size:23px;margin:0}
 header p{color:#dbeafe}
 .back{
   color:white;text-decoration:none;
-  border:1px solid #ffffff80;
-  padding:10px 14px;border-radius:10px
+  border:1px solid #ffffff80;padding:10px 14px;
+  border-radius:10px
 }
 .card{
   background:white;border:1px solid #e2e8f0;
-  border-radius:16px;padding:20px;
-  margin-bottom:18px;
+  border-radius:16px;padding:20px;margin-bottom:18px;
   box-shadow:0 5px 18px #0f172a08
 }
 h2{font-size:19px;margin-top:0}
@@ -43,49 +36,51 @@ h2{font-size:19px;margin-top:0}
 }
 label{display:block;font-size:14px;font-weight:bold;margin-bottom:7px}
 input{
-  width:100%;padding:12px;
-  border:1px solid #cbd5e1;border-radius:9px;
-  font:inherit;outline:none
+  width:100%;padding:12px;border:1px solid #cbd5e1;
+  border-radius:9px;font:inherit;outline:none
 }
 input:focus{border-color:#2563eb}
 button{
   border:0;border-radius:9px;padding:11px 15px;
-  background:#2563eb;color:white;
-  font:inherit;cursor:pointer;font-weight:bold
+  background:#2563eb;color:white;font:inherit;
+  cursor:pointer;font-weight:bold
 }
-button:disabled{opacity:.6}
+button:disabled{opacity:.6;cursor:wait}
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
 .secondary{background:#e2e8f0;color:#1e293b}
 .edit{background:#059669}
 .delete{background:#dc2626}
 .small{padding:7px 9px;font-size:12px;margin:2px}
 .status{
-  background:#eff6ff;color:#1d4ed8;
-  border-radius:9px;padding:12px;margin-top:15px;
-  overflow-wrap:anywhere;font-size:13px
+  background:#eff6ff;color:#1d4ed8;border-radius:9px;
+  padding:12px;margin-top:15px;overflow-wrap:anywhere;
+  font-size:13px;white-space:pre-wrap
 }
 .stats{
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
   gap:12px;margin:15px 0
 }
-.stat{background:#f8fafc;border:1px solid #e2e8f0;padding:15px;border-radius:12px}
+.stat{
+  background:#f8fafc;border:1px solid #e2e8f0;
+  padding:15px;border-radius:12px
+}
 .stat span{display:block;color:#64748b;font-size:13px}
 .stat strong{display:block;color:#2563eb;font-size:24px;margin-top:8px}
 .table-wrap{overflow-x:auto}
 table{width:100%;min-width:650px;border-collapse:collapse}
-th,td{padding:12px;text-align:right;border-bottom:1px solid #e2e8f0;font-size:13px}
+th,td{
+  padding:12px;text-align:right;border-bottom:1px solid #e2e8f0;
+  font-size:13px
+}
 th{background:#f8fafc;white-space:nowrap}
 .empty{text-align:center;color:#64748b;padding:25px}
 footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
 @media(max-width:600px){
- .grid,.stats{grid-template-columns:1fr}
- .card{padding:14px}
- h1{font-size:20px}
+  .grid,.stats{grid-template-columns:1fr}
+  .card{padding:14px}
+  h1{font-size:20px}
 }
-</style>
-</head>
-
-<body>
+</style></head><body>
 <header>
   <div class="container header-row">
     <div>
@@ -94,44 +89,46 @@ footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
     </div>
     <a class="back" href="dashboard.html">← ډیشبورډ</a>
   </div>
-</header>
-
-<main class="container">
+</header><main class="container">
   <section class="card">
-    <h2 id="formTitle">📝 د استاد معلومات</h2>
-    <form id="teacherForm">
-      <div id="formFields" class="grid"></div>
-      <div class="actions">
-        <button id="saveButton" type="submit">➕ استاد ثبت کړئ</button>
-        <button id="clearButton" class="secondary" type="button">فورمه پاکه کړئ</button>
-      </div>
-    </form>
-    <div id="status" class="status">د ډیټابېس اتصال...</div>
+    <h2 id="formTitle">📝 د استاد معلومات</h2><form id="teacherForm">
+  <div id="formFields" class="grid"></div>
+  <div class="actions">
+    <button id="saveButton" type="submit">➕ استاد ثبت کړئ</button>
+    <button id="clearButton" class="secondary" type="button">فورمه پاکه کړئ</button>
+  </div>
+</form>
+
+<div id="status" class="status">د ډیټابېس اتصال...</div>
+
+  </section>  <section class="card">
+    <h2>📊 د استادانو لېست</h2><div class="stats">
+  <div class="stat">
+    <span>ټول استادان</span>
+    <strong id="total">0</strong>
+  </div>
+  <div class="stat">
+    <span>د لټون پایلې</span>
+    <strong id="shown">0</strong>
+  </div>
+</div>
+
+<label for="search">د استادانو لټون</label>
+<input id="search" placeholder="د استاد نوم یا نور معلومات ولیکئ">
+
+<br><br>
+
+<div class="table-wrap">
+  <table>
+    <thead id="tableHead"></thead>
+    <tbody id="teacherList">
+      <tr><td class="empty">معلومات لوډ کېږي...</td></tr>
+    </tbody>
+  </table>
+</div>
+
   </section>
-
-  <section class="card">
-    <h2>📊 د استادانو لېست</h2>
-    <div class="stats">
-      <div class="stat"><span>ټول استادان</span><strong id="total">0</strong></div>
-      <div class="stat"><span>د لټون پایلې</span><strong id="shown">0</strong></div>
-    </div>
-    <label for="search">د استادانو لټون</label>
-    <input id="search" placeholder="د استاد نوم یا نور معلومات ولیکئ">
-    <br><br>
-    <div class="table-wrap">
-      <table>
-        <thead id="tableHead"></thead>
-        <tbody id="teacherList">
-          <tr><td class="empty">معلومات لوډ کېږي...</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-</main>
-
-<footer>احمدزي عالي لېسه © ۲۰۲۶</footer>
-
-<script>
+</main><footer>احمدزي عالي لېسه © ۲۰۲۶</footer><script>
 'use strict';
 
 const SUPABASE_URL='https://oaxmnfnaqhdvnykawvyh.supabase.co';
@@ -145,15 +142,16 @@ const headers={
 };
 
 const $=id=>document.getElementById(id);
+
 let teachers=[];
 let columns=[];
 let editingId=null;
 
-/* د ډیټابېس د کالمونو احتمالي نومونه */
 const labels={
   name:'د استاد نوم',
   full_name:'د استاد بشپړ نوم',
   teacher_name:'د استاد نوم',
+  code:'د استاد کوډ',
   phone:'د اړیکې شمېره',
   phone_number:'د اړیکې شمېره',
   qualification:'تحصیلي درجه',
@@ -165,30 +163,28 @@ const labels={
   address:'پته',
   email:'برېښنالیک',
   gender:'جنسیت',
-  id:'پېژندشمېره',
-  teacher_id:'د استاد پېژندشمېره',
+  id:'د استاد اصلي ID',
+  teacher_id:'د استاد اصلي ID',
   created_at:'د ثبت نېټه'
 };
 
-const hiddenColumns=[
-  'id','teacher_id','created_at','updated_at'
-];
+const hiddenColumns=['id','teacher_id','created_at','updated_at'];
 
-function safe(v){
-  return String(v??'').replace(/[&<>"']/g,c=>({
+function safe(value){
+  return String(value??'').replace(/[&<>"']/g,c=>({
     '&':'&amp;','<':'&lt;','>':'&gt;',
     '"':'&quot;',"'":'&#39;'
   })[c]);
 }
 
-function showMessage(msg,error=false){
-  $('status').textContent=msg;
+function showMessage(message,error=false){
+  $('status').textContent=message;
   $('status').style.background=error?'#fef2f2':'#eff6ff';
   $('status').style.color=error?'#b91c1c':'#1d4ed8';
 }
 
-function labelFor(col){
-  return labels[col] || col.replace(/_/g,' ');
+function labelFor(column){
+  return labels[column]||column.replace(/_/g,' ');
 }
 
 function idColumn(){
@@ -199,133 +195,162 @@ function idColumn(){
 
 function findNameColumn(){
   return ['name','full_name','teacher_name']
-    .find(c=>columns.includes(c));
+    .find(column=>columns.includes(column));
+}
+
+function visibleColumns(){
+  return columns.filter(column=>
+    !hiddenColumns.includes(column)&&
+    !column.startsWith('created_')&&
+    !column.startsWith('updated_')
+  );
 }
 
 function makeForm(){
-  const visible=columns.filter(c=>
-    !hiddenColumns.includes(c) &&
-    !c.startsWith('created_') &&
-    !c.startsWith('updated_')
-  );
+  const idKey=idColumn();
+  const nameKey=findNameColumn();
 
-  $('formFields').innerHTML=visible.map(c=>`
+  const fields=visibleColumns().filter(column=>column!==idKey);
+
+  $('formFields').innerHTML=fields.map(column=>`
     <div>
-      <label for="field_${safe(c)}">${safe(labelFor(c))}${c===findNameColumn()?' *':''}</label>
+      <label for="field_${safe(column)}">
+        ${safe(labelFor(column))}${column===nameKey?' *':''}
+      </label>
       <input
-        id="field_${safe(c)}"
-        data-column="${safe(c)}"
-        ${c===findNameColumn()?'required':''}
-        placeholder="${safe(labelFor(c))} ولیکئ">
+        id="field_${safe(column)}"
+        data-column="${safe(column)}"
+        ${column===nameKey?'required':''}
+        placeholder="${safe(labelFor(column))} ولیکئ">
     </div>
   `).join('');
 
-  const shown=visible.filter(c=>c!==idColumn());
-
   $('tableHead').innerHTML='<tr>'+
-    '<th>شمېره</th>'+
-    shown.map(c=>`<th>${safe(labelFor(c))}</th>`).join('')+
+    '<th>اصلي ID</th>'+
+    visibleColumns().filter(c=>c!==idKey)
+      .map(c=>`<th>${safe(labelFor(c))}</th>`).join('')+
     '<th>کړنې</th></tr>';
 }
 
-async function loadTeachers(){
-  showMessage('د جدول جوړښت او معلومات ترلاسه کېږي...');
+async function request(url,options={}){
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),15000);
 
   try{
-    /*
-      د جدول معلومات ترلاسه کېږي.
-      که جدول خالي وي، PostgREST معمولاً د select=* ځواب
-      د [] په بڼه ورکوي؛ د خالي ځواب له مخې د کالمونو
-      نومونه نه شو معلومولای.
-    */
-    const response=await fetch(
-      `${SUPABASE_URL}/rest/v1/${TABLE}?select=*&limit=1`,
-      {headers}
+    const response=await fetch(url,{
+      ...options,
+      headers:{...headers,...options.headers},
+      signal:controller.signal
+    });
+
+    const text=await response.text();
+
+    if(!response.ok){
+      throw new Error(text||`HTTP ${response.status}`);
+    }
+
+    return text?JSON.parse(text):null;
+  }catch(error){
+    if(error.name==='AbortError'){
+      throw new Error('د اتصال وخت پای ته ورسېد؛ انټرنېټ او Supabase وګورئ.');
+    }
+    throw error;
+  }finally{
+    clearTimeout(timer);
+  }
+}
+
+async function loadTeachers(){
+  showMessage('د استادانو معلومات ترلاسه کېږي...');
+
+  try{
+    const result=await request(
+      `${SUPABASE_URL}/rest/v1/${TABLE}?select=*&limit=1`
     );
 
-    if(!response.ok)throw new Error(await response.text());
-
-    const sample=await response.json();
-
-    if(sample.length===0){
-      $('teacherList').innerHTML=
-        '<tr><td class="empty">جدول خالي دی. د کالمونو د دقیق معلومولو لپاره د Supabase د جدول سکرین‌شاټ ته اړتیا ده.</td></tr>';
+    if(!Array.isArray(result)||result.length===0){
+      teachers=[];
       $('total').textContent='0';
       $('shown').textContent='0';
-      showMessage('جدول خالي دی؛ د کالمونو نومونه په اتومات ډول نه شي معلومېدای.',true);
+      $('teacherList').innerHTML=
+        '<tr><td class="empty">د کالمونو د معلومولو لپاره د teachers جدول جوړښت ته اړتیا ده؛ که جدول خالي وي، د Supabase د کالمونو سکرین‌شاټ راولېږئ.</td></tr>';
+      showMessage('جدول خالي دی یا د کالمونو معلومات نه ترلاسه کېږي.',true);
       return;
     }
 
-    columns=Object.keys(sample[0]);
+    columns=Object.keys(result[0]);
+
+    if(!idColumn()){
+      throw new Error('په جدول کې id یا teacher_id کالم نشته.');
+    }
+
+    if(!findNameColumn()){
+      throw new Error('د استاد نوم کالم ونه موندل شو.');
+    }
+
     makeForm();
 
-    const all=await fetch(
-      `${SUPABASE_URL}/rest/v1/${TABLE}?select=*`,
-      {headers}
+    teachers=await request(
+      `${SUPABASE_URL}/rest/v1/${TABLE}?select=*&order=${idColumn()}.desc`
     );
 
-    if(!all.ok)throw new Error(await all.text());
-
-    teachers=await all.json();
     renderTeachers();
-    showMessage('د استادانو معلومات ترلاسه شول. د ثبت لپاره د کالمونو نومونه له ډیټابېس څخه اخیستل شوي.');
+    showMessage('د استادانو معلومات په بریالیتوب ترلاسه شول.');
 
   }catch(error){
     $('teacherList').innerHTML=
       `<tr><td class="empty">${safe(error.message)}</td></tr>`;
-    showMessage('د ډیټابېس ستونزه: '+error.message,true);
+    showMessage('ستونزه: '+error.message,true);
   }
 }
 
 function renderTeachers(){
-  const q=$('search').value.trim().toLowerCase();
-  const visible=columns.filter(c=>
-    !hiddenColumns.includes(c) &&
-    !c.startsWith('created_') &&
-    !c.startsWith('updated_')
-  );
+  const query=$('search').value.trim().toLowerCase();
+  const idKey=idColumn();
+  const visible=visibleColumns().filter(c=>c!==idKey);
 
-  const filtered=teachers.filter(t=>
-    Object.values(t).join(' ').toLowerCase().includes(q)
+  const filtered=teachers.filter(teacher=>
+    Object.values(teacher).some(value=>
+      String(value??'').toLowerCase().includes(query)
+    )
   );
 
   $('total').textContent=teachers.length;
   $('shown').textContent=filtered.length;
 
-  if(!filtered.length){
+  if(filtered.length===0){
     $('teacherList').innerHTML=
       `<tr><td colspan="${visible.length+2}" class="empty">استاد ونه موندل شو.</td></tr>`;
     return;
   }
 
-  $('teacherList').innerHTML=filtered.map((t,i)=>{
-    const original=teachers.indexOf(t);
+  $('teacherList').innerHTML=filtered.map(teacher=>{
+    const originalIndex=teachers.indexOf(teacher);
 
-    return '<tr><td>'+(i+1)+'</td>'+
-      visible.map(c=>`<td>${safe(t[c]??'—')}</td>`).join('')+
-      `<td>
-        <button class="small edit" onclick="editTeacher(${original})">اصلاح</button>
-        <button class="small delete" onclick="deleteTeacher(${original})">حذف</button>
-      </td></tr>`;
+    return `<tr>
+      <td>${safe(teacher[idKey]??'—')}</td>
+      ${visible.map(column=>`<td>${safe(teacher[column]??'—')}</td>`).join('')}
+      <td>
+        <button class="small edit" onclick="editTeacher(${originalIndex})">اصلاح</button>
+        <button class="small delete" onclick="deleteTeacher(${originalIndex})">حذف</button>
+      </td>
+    </tr>`;
   }).join('');
 }
 
 function editTeacher(index){
-  const t=teachers[index];
+  const teacher=teachers[index];
   const key=idColumn();
 
-  if(!t)return;
-
-  if(!key || t[key]==null){
-    showMessage('د جدول د ثبتونو لپاره د id یا teacher_id کالم ته اړتیا ده.',true);
+  if(!teacher||!key){
+    showMessage('د استاد ID ونه موندل شو.',true);
     return;
   }
 
-  editingId=t[key];
+  editingId=teacher[key];
 
-  columns.forEach(c=>{
-    const input=document.querySelector(`[data-column="${c}"]`);
-    if(input)input.value=t[c]??'';
+  document.querySelectorAll('[data-column]').forEach(input=>{
+    input.value=teacher[input.dataset.column]??'';
   });
 
   $('saveButton').textContent='💾 بدلونونه خوندي کړئ';
@@ -334,53 +359,47 @@ function editTeacher(index){
 }
 
 async function deleteTeacher(index){
-  const t=teachers[index];
+  const teacher=teachers[index];
   const key=idColumn();
 
-  if(!key || !t || t[key]==null){
-    showMessage('د استاد د پېژندنې کالم ونه موندل شو.',true);
+  if(!teacher||!key){
+    showMessage('د استاد ID ونه موندل شو.',true);
     return;
   }
 
-  if(!confirm('ایا غواړئ دا استاد حذف کړئ؟'))return;
+  if(!confirm(`ایا د ID ${teacher[key]} لرونکی استاد حذف کړئ؟`))return;
 
   try{
-    const r=await fetch(
-      `${SUPABASE_URL}/rest/v1/${TABLE}?${key}=eq.${encodeURIComponent(t[key])}`,
-      {method:'DELETE',headers:{...headers,Prefer:'return=minimal'}}
+    await request(
+      `${SUPABASE_URL}/rest/v1/${TABLE}?${key}=eq.${encodeURIComponent(teacher[key])}`,
+      {method:'DELETE',headers:{Prefer:'return=minimal'}}
     );
-
-    if(!r.ok)throw new Error(await r.text());
 
     resetForm();
     await loadTeachers();
-    showMessage('استاد حذف شو.');
-  }catch(e){
-    showMessage('حذف ناکام شو: '+e.message,true);
+    showMessage('استاد په بریالیتوب حذف شو.');
+  }catch(error){
+    showMessage('حذف ناکام شو: '+error.message,true);
   }
 }
 
-$('teacherForm').addEventListener('submit',async e=>{
-  e.preventDefault();
+$('teacherForm').addEventListener('submit',async event=>{
+  event.preventDefault();
 
   const payload={};
+  const key=idColumn();
 
   document.querySelectorAll('[data-column]').forEach(input=>{
-    const col=input.dataset.column;
-    if(col!==idColumn()){
-      payload[col]=input.value.trim()||null;
+    const column=input.dataset.column;
+    if(column!==key){
+      payload[column]=input.value.trim()||null;
     }
   });
 
-  const nameCol=findNameColumn();
+  const nameKey=findNameColumn();
 
-  if(nameCol && !payload[nameCol]){
+  if(!nameKey||!payload[nameKey]){
     showMessage('د استاد نوم ولیکئ.',true);
-    return;
-  }
-
-  if(!nameCol){
-    showMessage('د جدول د نوم کالم معلوم نه شو. د teachers جدول سکرین‌شاټ راولېږئ.',true);
     return;
   }
 
@@ -392,23 +411,26 @@ $('teacherForm').addEventListener('submit',async e=>{
     let method='POST';
 
     if(editingId!==null){
-      const key=idColumn();
-      if(!key)throw new Error('د id کالم ونه موندل شو.');
       url+=`?${key}=eq.${encodeURIComponent(editingId)}`;
       method='PATCH';
     }
 
-    const r=await fetch(url,{
+    /*
+      د نوي استاد په ثبت کې id نه لېږل کېږي.
+      د teachers.id DEFAULT nextval(...) له مخې
+      Supabase/PostgreSQL به ID په اتومات ډول جوړ کړي.
+    */
+    await request(url,{
       method,
-      headers:{...headers,Prefer:'return=representation'},
+      headers:{Prefer:'return=representation'},
       body:JSON.stringify(payload)
     });
 
-    if(!r.ok)throw new Error(await r.text());
-
     resetForm();
     await loadTeachers();
-    showMessage('د ثبت یا اصلاح غوښتنه بشپړه شوه.');
+    showMessage(editingId===null
+      ?'د استاد د ثبت غوښتنه بریالۍ شوه.'
+      :'د استاد معلومات اصلاح شول.');
 
   }catch(error){
     showMessage('ثبت یا اصلاح ناکام شو: '+error.message,true);
@@ -428,6 +450,5 @@ $('clearButton').addEventListener('click',resetForm);
 $('search').addEventListener('input',renderTeachers);
 
 loadTeachers();
-</script>
-</body>
+</script></body>
 </html>
