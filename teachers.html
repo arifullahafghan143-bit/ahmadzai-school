@@ -3,1001 +3,902 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#123c69">
 <title>د استادانو مدیریت | احمدزي عالي لېسه</title>
 
 <style>
 :root {
-  --primary: #123c69;
-  --secondary: #176b87;
-  --green: #087f5b;
-  --red: #dc2626;
-  --bg: #f1f5f9;
-  --border: #dbe3ec;
-  --text: #172033;
-  --muted: #64748b;
+  --navy: #10213a;
+  --navy2: #172f50;
+  --gold: #d5ad62;
+  --bg: #f3f6fb;
+  --white: #ffffff;
+  --text: #18283f;
+  --muted: #718096;
+  --border: #e1e8f0;
+  --green: #16865c;
+  --red: #c43d4b;
+  --shadow: 0 12px 35px rgba(16,33,58,.08);
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
+  font-family: Tahoma, Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
-  font-family: Tahoma, Arial, sans-serif;
-  line-height: 1.8;
 }
 
 button, input, select {
-  font: inherit;
+  font-family: inherit;
+  font-size: 14px;
 }
 
-button {
-  cursor: pointer;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 14px;
-  font-weight: bold;
-}
+button { cursor: pointer; }
 
-button:disabled {
-  opacity: .6;
-  cursor: wait;
-}
-
-header {
-  background: linear-gradient(135deg, #123c69, #176b87);
+.topbar {
+  background: linear-gradient(125deg, #0d1c32, #203e63);
   color: white;
-  padding: 23px 14px;
-  text-align: center;
+  padding: 25px 5%;
+  border-bottom: 4px solid var(--gold);
 }
 
-header h1 {
+.top-inner {
+  max-width: 1250px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  width: 57px;
+  height: 57px;
+  display: grid;
+  place-items: center;
+  background: rgba(213,173,98,.15);
+  border: 1px solid var(--gold);
+  border-radius: 17px;
+  font-size: 27px;
+}
+
+.brand h1 {
+  font-size: 22px;
+  margin: 0 0 7px;
+}
+
+.brand p {
+  color: #d6e1ef;
   margin: 0;
-  font-size: 25px;
+  font-size: 12px;
 }
 
-header p {
-  margin: 5px 0;
-}
-
-.back {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 7px 15px;
-  color: white;
-  text-decoration: none;
-  border: 1px solid #ffffff70;
-  border-radius: 9px;
+.status {
+  padding: 10px 15px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.1);
+  color: #fff;
+  font-size: 12px;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 22px auto;
-  padding: 0 13px;
+  max-width: 1250px;
+  margin: 28px auto;
+  padding: 0 18px 45px;
+}
+
+.page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.page-title h2 {
+  margin: 0 0 8px;
+  font-size: 23px;
+}
+
+.page-title p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 13px;
 }
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.stat, .card {
-  background: white;
-  border-radius: 14px;
-  box-shadow: 0 3px 14px #00000008;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 22px;
 }
 
 .stat {
-  padding: 14px 8px;
-  text-align: center;
+  background: white;
+  padding: 21px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 .stat span {
-  display: block;
   color: var(--muted);
   font-size: 13px;
 }
 
 .stat strong {
   display: block;
-  font-size: 21px;
-  color: var(--green);
+  margin-top: 12px;
+  font-size: 28px;
+  color: var(--navy);
 }
 
-.card {
-  padding: 20px;
-  margin-bottom: 20px;
+.panel {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  margin-bottom: 22px;
+  overflow: hidden;
 }
 
-.card h2 {
-  color: var(--primary);
-  font-size: 20px;
-  margin: 0 0 17px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e2e8f0;
+.panel-head {
+  padding: 20px 23px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.form-grid {
+.panel-head h3 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.panel-body { padding: 23px; }
+
+.grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 17px;
 }
 
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.field.full { grid-column: 1 / -1; }
+
 label {
-  display: block;
+  font-size: 13px;
   font-weight: bold;
-  margin-bottom: 5px;
+  color: #34465e;
 }
 
 input, select {
   width: 100%;
   min-width: 0;
-  padding: 11px;
-  background: white;
+  padding: 12px 13px;
+  background: #fbfcfe;
+  border: 1px solid #dbe3ed;
+  border-radius: 10px;
+  outline: none;
   color: var(--text);
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-}
-
-select {
-  cursor: pointer;
 }
 
 input:focus, select:focus {
-  outline: 2px solid #176b8725;
-  border-color: var(--secondary);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(213,173,98,.15);
 }
 
-.primary {
-  background: var(--green);
-  color: white;
-}
-
-.secondary {
-  background: var(--secondary);
-  color: white;
-}
-
-.edit {
-  background: #dbeafe;
-  color: #1d4ed8;
-}
-
-.delete {
-  background: #fee2e2;
-  color: #b91c1c;
-}
-
-.cancel {
-  background: #64748b;
-  color: white;
-}
-
-.add {
-  background: #dbeafe;
-  color: #1d4ed8;
-}
-
-.assignment-box {
-  margin-top: 20px;
-  padding: 14px;
+.assignment {
   border: 1px solid var(--border);
-  background: #f8fafc;
-  border-radius: 12px;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 15px;
+  background: #fbfcff;
 }
 
-.assignment-heading {
+.assignment-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-weight: bold;
 }
 
-.assignment-heading h3 {
-  margin: 0;
-  color: var(--primary);
-  font-size: 17px;
-}
-
-.assignment-row {
+.assignment-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 10px;
-  align-items: end;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 10px;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
 }
 
-.assignment-row label {
-  font-size: 13px;
+.class-picker {
+  display: grid;
+  gap: 8px;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 17px;
+  font-weight: bold;
+  transition: .2s;
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.btn-primary {
+  background: var(--navy);
+  color: white;
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: #17243a;
+}
+
+.btn-light {
+  background: #edf2f8;
+  color: var(--navy);
+}
+
+.btn-danger {
+  background: #fff0f1;
+  color: var(--red);
+}
+
+.btn-small {
+  padding: 8px 11px;
+  font-size: 12px;
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 17px;
-}
-
-#cancelBtn {
-  display: none;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .message {
   display: none;
-  padding: 12px;
-  margin-top: 12px;
-  border-radius: 8px;
+  padding: 13px 15px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.8;
   overflow-wrap: anywhere;
-  white-space: pre-wrap;
 }
 
 .message.success {
   display: block;
-  background: #dcfce7;
-  color: #166534;
+  background: #e9f8f0;
+  color: #126543;
 }
 
 .message.error {
   display: block;
-  background: #fee2e2;
-  color: #991b1b;
+  background: #fff0f1;
+  color: #a52735;
 }
 
 .message.info {
   display: block;
-  background: #dbeafe;
-  color: #1e40af;
+  background: #edf5ff;
+  color: #24517d;
 }
 
-.toolbar {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 14px;
+.table-search {
+  width: 100%;
+  max-width: 370px;
 }
 
-.toolbar input {
-  flex: 1;
-}
-
-.table-wrap {
-  overflow-x: auto;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-}
+.table-wrap { overflow-x: auto; }
 
 table {
   width: 100%;
-  min-width: 900px;
   border-collapse: collapse;
-  background: white;
+  min-width: 680px;
 }
 
 th, td {
-  padding: 10px;
-  text-align: center;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
+  padding: 15px 17px;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
 }
 
 th {
-  background: #eaf2f8;
-  color: var(--primary);
+  background: #f6f8fc;
+  color: #52627a;
+  font-weight: bold;
 }
+
+tbody tr:hover { background: #fafcff; }
 
 .badge {
   display: inline-block;
-  padding: 3px 8px;
+  padding: 6px 9px;
+  border-radius: 7px;
+  background: #edf2f8;
+  font-size: 11px;
   margin: 2px;
-  border-radius: 6px;
-  background: #e0f2fe;
-  color: #075985;
-  font-size: 12px;
 }
 
-.code {
-  direction: ltr;
-  display: inline-block;
-  color: #075985;
-  background: #e0f2fe;
-  padding: 2px 7px;
-  border-radius: 5px;
+.table-actions {
+  display: flex;
+  gap: 6px;
 }
 
 .empty {
   text-align: center;
-  padding: 22px;
+  padding: 30px;
   color: var(--muted);
 }
 
-.row-actions {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-}
-
-.footer {
+footer {
   text-align: center;
+  padding: 20px;
   color: var(--muted);
-  font-size: 13px;
-  padding: 10px 0 25px;
+  font-size: 12px;
 }
 
-@media(max-width:650px) {
-  header h1 {
-    font-size: 21px;
-  }
-
-  .container {
-    margin-top: 13px;
-  }
-
-  .card {
-    padding: 14px;
-  }
-
-  .form-grid,
-  .assignment-row {
-    grid-template-columns: 1fr;
-  }
-
-  .stats {
-    gap: 7px;
-  }
-
-  .stat {
-    padding: 11px 4px;
-  }
-
-  .stat strong {
-    font-size: 17px;
-  }
-
-  .toolbar {
-    flex-direction: column;
-  }
-
-  .toolbar button {
-    width: 100%;
-  }
+@media(max-width:700px) {
+  .topbar { padding: 20px 16px; }
+  .brand h1 { font-size: 17px; }
+  .container { margin-top: 20px; padding: 0 12px 30px; }
+  .stats { grid-template-columns: 1fr; gap: 10px; }
+  .stat { padding: 16px; }
+  .stat strong { font-size: 23px; }
+  .grid, .assignment-grid { grid-template-columns: 1fr; }
+  .panel-body { padding: 16px; }
+  .page-title h2 { font-size: 20px; }
+  .field.full { grid-column: auto; }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>احمدزي عالي لېسه</h1>
-  <p>د استادانو، صنفونو او مضامینو مدیریت</p>
-  <a class="back" href="dashboard.html">← ډشبورډ ته بېرته تلل</a>
+<header class="topbar">
+  <div class="top-inner">
+    <div class="brand">
+      <div class="logo">🎓</div>
+      <div>
+        <h1>احمدزي عالي لېسه</h1>
+        <p>د استادانو او تدریسي دندو مدیریت</p>
+      </div>
+    </div>
+    <div class="status" id="connectionStatus">د ډیټابېس اړیکه: د نښلېدو په حال کې...</div>
+  </div>
 </header>
 
 <main class="container">
 
+  <div class="page-title">
+    <div>
+      <h2>د استادانو مدیریت</h2>
+      <p>استادان ثبت کړئ او د هغوی صنفونه، مضمونونه او تدریسي دندې تنظیم کړئ.</p>
+    </div>
+    <button class="btn btn-light" onclick="loadAllData()">↻ معلومات تازه کړئ</button>
+  </div>
+
+  <div id="pageMessage" class="message"></div>
+
   <section class="stats">
     <div class="stat">
       <span>ټول استادان</span>
-      <strong id="totalTeachers">۰</strong>
+      <strong id="teacherCount">۰</strong>
     </div>
-
     <div class="stat">
-      <span>ټول مضامین</span>
-      <strong id="totalSubjects">۰</strong>
+      <span>ټول صنفونه</span>
+      <strong id="classCount">۰</strong>
     </div>
-
     <div class="stat">
-      <span>د اړیکې حالت</span>
-      <strong id="systemStatus" style="font-size:14px">نښلېدل...</strong>
+      <span>ټول مضمونونه</span>
+      <strong id="subjectCount">۰</strong>
     </div>
   </section>
 
-  <section class="card">
-    <h2 id="formTitle">➕ نوی استاد ثبت کړئ</h2>
+  <section class="panel" id="teacherFormPanel">
+    <div class="panel-head">
+      <h3 id="formTitle">＋ نوی استاد ثبت کړئ</h3>
+      <span class="badge">د استاد معلومات</span>
+    </div>
 
-    <form id="teacherForm">
+    <div class="panel-body">
+      <form id="teacherForm">
 
-      <div class="form-grid">
-        <div>
-          <label for="teacherName">د استاد نوم *</label>
-          <input id="teacherName" maxlength="150"
-                 required placeholder="د استاد بشپړ نوم">
+        <div class="grid">
+          <div class="field">
+            <label for="teacherCode">د استاد کوډ</label>
+            <input id="teacherCode" placeholder="مثلاً T-001">
+            <span class="hint">که کوډ خالي پرېږدې، سیستم به یې جوړ کړي.</span>
+          </div>
+
+          <div class="field">
+            <label for="teacherName">د استاد نوم *</label>
+            <input id="teacherName" required placeholder="د استاد بشپړ نوم">
+          </div>
+
+          <div class="field">
+            <label for="teacherFather">د پلار نوم</label>
+            <input id="teacherFather" placeholder="د پلار نوم">
+          </div>
+
+          <div class="field">
+            <label for="teacherPhone">د اړیکې شمېره</label>
+            <input id="teacherPhone" type="tel" placeholder="07XXXXXXXX">
+          </div>
         </div>
 
-        <div>
-          <label for="father">د پلار نوم</label>
-          <input id="father" maxlength="150"
-                 placeholder="د پلار نوم">
+        <div style="margin-top:28px">
+          <div class="assignment-title">
+            <span>📚 د استاد تدریسي دندې</span>
+            <button type="button" class="btn btn-gold btn-small"
+              onclick="addAssignmentRow()">＋ نوې دنده اضافه کړئ</button>
+          </div>
+
+          <div id="assignmentsContainer"></div>
+
+          <p class="hint">
+            د هرې دندې لپاره صنف ولټوئ، له ډراپ‌ډاون څخه یې انتخاب کړئ،
+            بیا د هماغه صنف مضمون او تدریسي دنده وټاکئ.
+          </p>
         </div>
 
-        <div>
-          <label for="phone">د ټیلیفون شمېره</label>
-          <input id="phone" type="tel" maxlength="30"
-                 placeholder="د اړیکې شمېره">
-        </div>
-      </div>
-
-      <div class="assignment-box">
-
-        <div class="assignment-heading">
-          <h3>📚 د استاد مضامین او صنفونه</h3>
-          <button type="button" class="add" id="addAssignmentBtn">
-            ＋ بل مضمون اضافه کړئ
+        <div class="actions">
+          <button class="btn btn-primary" id="saveButton" type="submit">
+            💾 استاد ثبت کړئ
+          </button>
+          <button class="btn btn-light" type="button" onclick="resetForm()">
+            فورمه پاکه کړئ
           </button>
         </div>
-
-        <p style="font-size:13px;color:#64748b">
-          لومړی صنف انتخاب کړئ، بیا د هماغه صنف مضمون انتخاب کړئ.
-        </p>
-
-        <div id="assignmentsContainer"></div>
-      </div>
-
-      <div class="actions">
-        <button class="primary" id="saveBtn" type="submit">
-          استاد ثبت کړئ
-        </button>
-
-        <button class="cancel" id="cancelBtn" type="button">
-          سمون لغوه کړئ
-        </button>
-      </div>
-
-      <div id="formMessage" class="message" role="status"></div>
-    </form>
+      </form>
+    </div>
   </section>
 
-  <section class="card">
-    <h2>📋 د استادانو لېست</h2>
-
-    <div class="toolbar">
-      <input id="searchInput" type="search"
-             placeholder="د نوم، کوډ، ټیلیفون، مضمون یا صنف لټون">
-
-      <button id="refreshBtn" class="secondary" type="button">
-        ↻ معلومات تازه کړئ
-      </button>
+  <section class="panel">
+    <div class="panel-head">
+      <h3>👨‍🏫 د ثبت شوو استادانو لېست</h3>
+      <input class="table-search" id="teacherSearch"
+        placeholder="د استاد نوم، کوډ یا شمېره ولټوئ...">
     </div>
-
-    <div id="tableMessage" class="message" role="status"></div>
 
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>د استاد کوډ</th>
+            <th>کوډ</th>
             <th>د استاد نوم</th>
             <th>د پلار نوم</th>
-            <th>ټیلیفون</th>
-            <th>مضامین او صنفونه</th>
+            <th>شمېره</th>
+            <th>تدریسي دندې</th>
             <th>عملیات</th>
           </tr>
         </thead>
-
-        <tbody id="teachersBody">
-          <tr>
-            <td colspan="7" class="empty">معلومات لوډ کېږي...</td>
-          </tr>
+        <tbody id="teachersTableBody">
+          <tr><td colspan="6" class="empty">معلومات لوډ کېږي...</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <div class="footer">د احمدزي عالي لېسې د مدیریت سیستم</div>
-
 </main>
 
+<footer>احمدزي عالي لېسه © د ښوونځي مدیریت سیستم</footer>
+
 <script>
-'use strict';
+"use strict";
 
-/*
-  د Supabase عامه publishable key کارول شوی.
-  د service_role یا secret key په HTML فایل کې مه کاروئ.
-*/
-const SUPABASE_URL =
-  'https://oaxmnfnaqhdvnykawvyh.supabase.co';
+/* د موجود Supabase پروژې معلومات */
+const SUPABASE_URL = "https://oaxmnfnaqhdvnykawvyh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
 
-const SUPABASE_KEY =
-  'sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7';
+const API = SUPABASE_URL + "/rest/v1";
 
-const REST = SUPABASE_URL + '/rest/v1/';
-
-let teachers = [];
-let classes = [];
-let subjects = [];
-let assignments = [];
-let editingId = null;
+let allTeachers = [];
+let allClasses = [];
+let allSubjects = [];
+let allAssignments = [];
+let editingTeacherId = null;
 let busy = false;
 
 const $ = id => document.getElementById(id);
 
-function showMessage(element, message, type) {
-  element.textContent = message;
-  element.className = 'message ' + type;
+function showMessage(message, type = "info") {
+  const box = $("pageMessage");
+  box.className = "message " + type;
+  box.textContent = message;
+  box.style.display = "block";
+  box.scrollIntoView({behavior:"smooth", block:"nearest"});
 }
 
-function hideMessage(element) {
-  element.textContent = '';
-  element.className = 'message';
+function hideMessage() {
+  $("pageMessage").style.display = "none";
 }
 
-function esc(value) {
-  return String(value ?? '').replace(/[&<>"']/g, ch => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;'
-  })[ch]);
+function setConnection(message, connected = false) {
+  $("connectionStatus").textContent = "د ډیټابېس اړیکه: " + message;
+  $("connectionStatus").style.background = connected
+    ? "rgba(22,134,92,.25)"
+    : "rgba(255,255,255,.1)";
 }
 
-function errorText(data, status) {
-  if (data && typeof data === 'object') {
-    return data.message || data.details || data.hint ||
-           data.error || ('HTTP ' + status);
-  }
+async function api(table, options = {}) {
+  const url = API + "/" + table + (options.query || "");
 
-  return data || ('HTTP ' + status);
-}
+  const headers = {
+    "apikey": SUPABASE_KEY,
+    "Authorization": "Bearer " + SUPABASE_KEY,
+    "Content-Type": "application/json"
+  };
 
-async function api(path, options = {}) {
-  const response = await fetch(REST + path, {
-    method: options.method || 'GET',
+  if (options.prefer) headers["Prefer"] = options.prefer;
 
-    headers: {
-      apikey: SUPABASE_KEY,
-      Authorization: 'Bearer ' + SUPABASE_KEY,
-      'Content-Type': 'application/json',
-      ...(options.headers || {})
-    },
-
+  const response = await fetch(url, {
+    method: options.method || "GET",
+    headers,
     body: options.body === undefined
       ? undefined
       : JSON.stringify(options.body)
   });
 
-  const raw = await response.text();
+  const text = await response.text();
   let data = null;
 
-  if (raw) {
-    try {
-      data = JSON.parse(raw);
-    } catch {
-      data = raw;
-    }
+  try {
+    data = text ? JSON.parse(text) : null;
+  } catch (_) {
+    data = text;
   }
 
   if (!response.ok) {
-    throw new Error(errorText(data, response.status));
+    const detail = data && typeof data === "object"
+      ? (data.message || data.details || data.hint || JSON.stringify(data))
+      : String(data || response.statusText);
+
+    throw new Error(table + ": " + detail);
   }
 
   return data;
 }
 
-async function getRows(path) {
-  const result = await api(path);
-
-  if (!Array.isArray(result)) {
-    throw new Error('له ډیټابېس څخه د معلوماتو بڼه سمه نه ده.');
-  }
-
-  return result;
+function safeText(value) {
+  return String(value ?? "");
 }
 
-function classLabel(cls) {
-  const code = cls.code ? cls.code + ' — ' : '';
-  return code + (cls.name || '');
+function compareText(a, b) {
+  return safeText(a).localeCompare(safeText(b), "ps");
 }
 
-/*
-  د هر صنف اړوند مضامین پیدا کوي.
-  په subjects جدول کې د class کالم د صنف کوډ ساتي،
-  لکه G1-A، G2-B او داسې نور.
-*/
-function getSubjectsForClass(classId) {
-  const selectedClass = classes.find(
-    c => String(c.id) === String(classId)
-  );
-
-  if (!selectedClass) return [];
-
-  const matching = subjects.filter(
-    s => String(s.class || '').trim() ===
-         String(selectedClass.code || '').trim()
-  );
-
-  /*
-    که د ډیټابېس د صنف کوډ له معلوماتو سره برابر نه وي،
-    د مضمونونو بشپړ لېست ښودل کېږي، څو فورمه تشه پاتې نه شي.
-  */
-  return matching.length ? matching : subjects;
-}
-
-function classOptions(selected = '') {
-  return '<option value="">صنف انتخاب کړئ</option>' +
-    classes.map(c => `
-      <option value="${esc(c.id)}"
-        ${String(c.id) === String(selected) ? 'selected' : ''}>
-        ${esc(classLabel(c))}
-      </option>
-    `).join('');
-}
-
-function subjectOptions(classId, selected = '') {
-  let availableSubjects = [];
-
-  if (classId) {
-    availableSubjects = getSubjectsForClass(classId);
-  }
-
-  let html = '<option value="">مضمون انتخاب کړئ</option>';
-
-  html += availableSubjects.map(s => `
-    <option value="${esc(s.id)}"
-      ${String(s.id) === String(selected) ? 'selected' : ''}>
-      ${esc(s.name)}
-    </option>
-  `).join('');
-
-  return html;
-}
-
-function updateSubjectSelect(row, selectedSubject = '') {
-  const classId = row.querySelector('.assignment-class').value;
-  const select = row.querySelector('.assignment-subject');
-
-  select.innerHTML = subjectOptions(classId, selectedSubject);
-
-  if (!classId) {
-    select.disabled = true;
-    select.innerHTML =
-      '<option value="">لومړی صنف انتخاب کړئ</option>';
-    return;
-  }
-
-  select.disabled = false;
-
-  if (!getSubjectsForClass(classId).length) {
-    select.innerHTML =
-      '<option value="">د دې صنف مضمون نشته</option>';
-  }
-}
-
-function addAssignmentRow(subjectId = '', classId = '') {
-  const row = document.createElement('div');
-  row.className = 'assignment-row';
-
-  row.innerHTML = `
-    <div>
-      <label>صنف *</label>
-      <select class="assignment-class" required>
-        ${classOptions(classId)}
-      </select>
-    </div>
-
-    <div>
-      <label>مضمون *</label>
-      <select class="assignment-subject" required>
-        <option value="">لومړی صنف انتخاب کړئ</option>
-      </select>
-    </div>
-
-    <div>
-      <button type="button"
-              class="delete remove-assignment">
-        لرې کول
-      </button>
-    </div>
-  `;
-
-  const classSelect = row.querySelector('.assignment-class');
-  const subjectSelect = row.querySelector('.assignment-subject');
-
-  classSelect.addEventListener('change', () => {
-    updateSubjectSelect(row);
-    hideMessage($('formMessage'));
-  });
-
-  subjectSelect.addEventListener('change', () => {
-    hideMessage($('formMessage'));
-  });
-
-  row.querySelector('.remove-assignment')
-    .addEventListener('click', () => {
-      if ($('assignmentsContainer').children.length <= 1) {
-        showMessage(
-          $('formMessage'),
-          'لږ تر لږه یوه کرښه وساتئ.',
-          'info'
-        );
-        return;
-      }
-
-      row.remove();
-      hideMessage($('formMessage'));
-    });
-
-  $('assignmentsContainer').appendChild(row);
-
-  if (classId) {
-    updateSubjectSelect(row, subjectId);
-  }
-}
-
-function selectedAssignments() {
-  const rows = [
-    ...$('assignmentsContainer').querySelectorAll('.assignment-row')
-  ];
-
-  const result = [];
-
-  for (const row of rows) {
-    const classId = row.querySelector('.assignment-class').value;
-    const subjectId = row.querySelector('.assignment-subject').value;
-
-    if (!classId) {
-      throw new Error('د استاد لپاره صنف انتخاب کړئ.');
-    }
-
-    if (!subjectId) {
-      throw new Error('د ټاکل شوي صنف لپاره مضمون انتخاب کړئ.');
-    }
-
-    result.push({
-      class_id: Number(classId),
-      subject_id: Number(subjectId)
-    });
-  }
-
-  if (!result.length) {
-    throw new Error('لږ تر لږه یو صنف او مضمون انتخاب کړئ.');
-  }
-
-  const keys = result.map(
-    x => x.class_id + ':' + x.subject_id
-  );
-
-  if (new Set(keys).size !== keys.length) {
-    throw new Error('یو مضمون په یوه صنف کې دوه ځله ټاکل شوی دی.');
-  }
-
-  return result;
-}
-
-function renderTeachers() {
-  const query = $('searchInput').value.trim().toLocaleLowerCase();
-
-  const filtered = teachers.filter(t => {
-    const links = assignments
-      .filter(a => String(a.teacher_id) === String(t.id))
-      .map(a => {
-        const s = subjects.find(
-          x => String(x.id) === String(a.subject_id)
-        );
-
-        const c = classes.find(
-          x => String(x.id) === String(a.class_id)
-        );
-
-        return (s?.name || '') + ' ' +
-               (c?.name || '') + ' ' +
-               (c?.code || '');
-      })
-      .join(' ');
-
-    return [
-      t.id, t.code, t.name, t.father, t.phone, t.subject, links
-    ].some(v =>
-      String(v ?? '').toLocaleLowerCase().includes(query)
-    );
-  });
-
-  if (!filtered.length) {
-    $('teachersBody').innerHTML = `
-      <tr>
-        <td colspan="7" class="empty">
-          ${query
-            ? 'د لټون له مخې استاد پیدا نه شو.'
-            : 'تر اوسه استاد نه دی ثبت شوی.'}
-        </td>
-      </tr>`;
-    return;
-  }
-
-  $('teachersBody').innerHTML = filtered.map(t => {
-    const links = assignments.filter(
-      a => String(a.teacher_id) === String(t.id)
-    );
-
-    let linkHtml = '';
-
-    if (links.length) {
-      linkHtml = links.map(a => {
-        const s = subjects.find(
-          x => String(x.id) === String(a.subject_id)
-        );
-
-        const c = classes.find(
-          x => String(x.id) === String(a.class_id)
-        );
-
-        return `
-          <span class="badge">
-            ${esc(s?.name || 'نامعلوم مضمون')}
-            — ${esc(c ? classLabel(c) : 'نامعلوم صنف')}
-          </span>`;
-      }).join('<br>');
-    } else {
-      linkHtml = esc(t.subject || 'مضمون نه دی ټاکل شوی');
-    }
-
-    return `
-      <tr>
-        <td>${esc(t.id)}</td>
-
-        <td>
-          <span class="code">${esc(t.code || '—')}</span>
-        </td>
-
-        <td>${esc(t.name)}</td>
-        <td>${esc(t.father || '—')}</td>
-        <td>${esc(t.phone || '—')}</td>
-        <td>${linkHtml}</td>
-
-        <td>
-          <div class="row-actions">
-            <button class="edit" type="button"
-              data-action="edit" data-id="${esc(t.id)}">
-              سمون
-            </button>
-
-            <button class="delete" type="button"
-              data-action="delete" data-id="${esc(t.id)}">
-              حذف
-            </button>
-          </div>
-        </td>
-      </tr>`;
-  }).join('');
-}
-
-function resetForm() {
-  $('teacherForm').reset();
-
-  editingId = null;
-
-  $('formTitle').textContent = '➕ نوی استاد ثبت کړئ';
-  $('saveBtn').textContent = 'استاد ثبت کړئ';
-  $('cancelBtn').style.display = 'none';
-
-  $('assignmentsContainer').innerHTML = '';
-
-  addAssignmentRow();
-
-  hideMessage($('formMessage'));
+function makeOption(value, label) {
+  const option = document.createElement("option");
+  option.value = value;
+  option.textContent = label;
+  return option;
 }
 
 async function loadAllData() {
-  $('systemStatus').textContent = 'لوډ کېږي...';
-  $('refreshBtn').disabled = true;
-
-  hideMessage($('tableMessage'));
+  setConnection("معلومات لوډ کېږي...");
 
   try {
-    const [
-      loadedTeachers,
-      loadedClasses,
-      loadedSubjects,
-      loadedAssignments
-    ] = await Promise.all([
-      getRows(
-        'teachers?select=id,code,name,father,phone,subject&order=id.asc'
-      ),
-      getRows(
-        'classes?select=id,code,name,grade_number,section&order=id.asc'
-      ),
-      getRows(
-        'subjects?select=id,code,name,class,teacher&order=id.asc'
-      ),
-      getRows(
-        'teacher_assignments?select=id,teacher_id,class_id,subject_id&order=id.asc'
-      )
+    const results = await Promise.all([
+      api("teachers", {
+        query: "?select=*&order=id.desc"
+      }),
+      api("classes", {
+        query: "?select=*&order=code.asc"
+      }),
+      api("subjects", {
+        query: "?select=*&order=code.asc"
+      }),
+      api("teacher_assignments", {
+        query: "?select=*"
+      })
     ]);
 
-    teachers = loadedTeachers;
-    classes = loadedClasses;
-    subjects = loadedSubjects;
-    assignments = loadedAssignments;
+    allTeachers = Array.isArray(results[0]) ? results[0] : [];
+    allClasses = Array.isArray(results[1]) ? results[1] : [];
+    allSubjects = Array.isArray(results[2]) ? results[2] : [];
+    allAssignments = Array.isArray(results[3]) ? results[3] : [];
 
-    $('totalTeachers').textContent = teachers.length;
-    $('totalSubjects').textContent = subjects.length;
-    $('systemStatus').textContent = 'وصل دی';
+    setConnection("وصل دی ✓", true);
+
+    $("teacherCount").textContent = allTeachers.length;
+    $("classCount").textContent = allClasses.length;
+    $("subjectCount").textContent = allSubjects.length;
 
     renderTeachers();
+  } catch (error) {
+    console.error(error);
+    setConnection("د معلوماتو لوستلو ستونزه");
+    showMessage(
+      "معلومات لوډ نه شول. د جدول نومونه، د API اجازه او RLS پالیسۍ وګورئ. تفصیل: " +
+      error.message,
+      "error"
+    );
+  }
+}
 
-    if (!$('assignmentsContainer').children.length) {
-      addAssignmentRow();
-    }
+function getClassLabel(cls) {
+  const code = safeText(cls.code);
+  const name = safeText(cls.name);
+  const grade = safeText(cls.grade_number);
+  const section = safeText(cls.section);
 
-    /*
-      د معلوماتو له لوډ کېدو وروسته د صنفونو لېست تازه کېږي.
-      که فورمه مخکې پرانیستې وي، د هغې انتخابونه هم تازه کېږي.
-    */
-    document.querySelectorAll('.assignment-row').forEach(row => {
-      const classSelect = row.querySelector('.assignment-class');
-      const subjectSelect = row.querySelector('.assignment-subject');
+  const parts = [code, name].filter(Boolean);
 
-      const currentClass = classSelect.value;
-      const currentSubject = subjectSelect.value;
+  if (!code && (grade || section)) {
+    parts.push([grade, section].filter(Boolean).join(" - "));
+  }
 
-      classSelect.innerHTML = classOptions(currentClass);
+  return parts.join(" — ") || ("صنف #" + cls.id);
+}
 
-      updateSubjectSelect(row, currentSubject);
+/*
+  د subjects.class کالم په موجوده ډیټابېس کې
+  د صنف کوډ ساتي، لکه G1-A.
+*/
+function getSubjectsForClass(classRecord) {
+  if (!classRecord) return [];
+
+  return allSubjects.filter(subject =>
+    safeText(subject.class).trim().toLowerCase() ===
+    safeText(classRecord.code).trim().toLowerCase()
+  );
+}
+
+function addAssignmentRow(initial = {}) {
+  const container = $("assignmentsContainer");
+  const row = document.createElement("div");
+  row.className = "assignment";
+
+  const rowId = "assignment-" + Date.now() + "-" +
+    Math.random().toString(36).slice(2, 8);
+
+  row.dataset.rowId = rowId;
+
+  const title = document.createElement("div");
+  title.className = "assignment-title";
+
+  const titleText = document.createElement("span");
+  titleText.textContent = "تدریسي دنده " +
+    (container.children.length + 1);
+
+  const removeButton = document.createElement("button");
+  removeButton.type = "button";
+  removeButton.className = "btn btn-danger btn-small";
+  removeButton.textContent = "حذف";
+  removeButton.onclick = () => {
+    row.remove();
+    renumberAssignments();
+  };
+
+  title.append(titleText, removeButton);
+
+  const grid = document.createElement("div");
+  grid.className = "assignment-grid";
+
+  const dutyField = document.createElement("div");
+  dutyField.className = "field";
+
+  const dutyLabel = document.createElement("label");
+  dutyLabel.textContent = "تدریسي دنده";
+
+  const dutySelect = document.createElement("select");
+  dutySelect.className = "duty-select";
+
+  [
+    "مضمون ښوونکی",
+    "د صنف ښوونکی",
+    "د مضمون مسؤل"
+  ].forEach(value => {
+    dutySelect.appendChild(makeOption(value, value));
+  });
+
+  dutySelect.value = initial.assignment_type || "مضمون ښوونکی";
+
+  dutyField.append(dutyLabel, dutySelect);
+
+  const classField = document.createElement("div");
+  classField.className = "field";
+
+  const classLabel = document.createElement("label");
+  classLabel.textContent = "صنف ولټوئ";
+
+  const picker = document.createElement("div");
+  picker.className = "class-picker";
+
+  const search = document.createElement("input");
+  search.type = "search";
+  search.className = "class-search";
+  search.placeholder = "د صنف نوم یا کوډ ولیکئ...";
+  search.autocomplete = "off";
+
+  const classSelect = document.createElement("select");
+  classSelect.className = "class-select";
+  classSelect.appendChild(makeOption("", "صنف له لېسته انتخاب کړئ"));
+
+  picker.append(search, classSelect);
+
+  const classHint = document.createElement("span");
+  classHint.className = "hint";
+  classHint.textContent = "لومړی صنف انتخاب کړئ.";
+
+  classField.append(classLabel, picker, classHint);
+
+  const subjectField = document.createElement("div");
+  subjectField.className = "field";
+
+  const subjectLabel = document.createElement("label");
+  subjectLabel.textContent = "مضمون";
+
+  const subjectSelect = document.createElement("select");
+  subjectSelect.className = "subject-select";
+  subjectSelect.appendChild(makeOption("", "لومړی صنف انتخاب کړئ"));
+
+  const subjectHint = document.createElement("span");
+  subjectHint.className = "hint";
+  subjectHint.textContent = "د ټاکل شوي صنف ثبت شوي مضمونونه ښکاري.";
+
+  subjectField.append(subjectLabel, subjectSelect, subjectHint);
+
+  grid.append(dutyField, classField, subjectField);
+
+  row.append(title, grid);
+  container.appendChild(row);
+
+  function renderClassOptions(searchTerm = "") {
+    const term = searchTerm.trim().toLowerCase();
+    const previous = classSelect.value;
+
+    classSelect.innerHTML = "";
+    classSelect.appendChild(makeOption("", "صنف له لېسته انتخاب کړئ"));
+
+    const filtered = allClasses.filter(cls => {
+      const text = [
+        cls.code,
+        cls.name,
+        cls.grade_number,
+        cls.section
+      ].map(safeText).join(" ").toLowerCase();
+
+      return text.includes(term);
     });
 
-    hideMessage($('tableMessage'));
+    filtered.forEach(cls => {
+      classSelect.appendChild(
+        makeOption(String(cls.id), getClassLabel(cls))
+      );
+    });
 
-  } catch (error) {
-    $('systemStatus').textContent = 'ستونزه';
-
-    showMessage(
-      $('tableMessage'),
-      'د معلوماتو د ترلاسه کولو ستونزه:\n' +
-      error.message +
-      '\n\nد Supabase اجازه، د جدولونو نومونه، کالمونه او انټرنېټ وګورئ.',
-      'error'
-    );
-
-    $('teachersBody').innerHTML = `
-      <tr>
-        <td colspan="7" class="empty">
-          معلومات لوډ نه شول. پورته د خطا پیغام وګورئ.
-        </td>
-      </tr>`;
-  } finally {
-    $('refreshBtn').disabled = false;
-  }
-}
-
-function generateTeacherCode() {
-  let max = 0;
-
-  for (const teacher of teachers) {
-    const match = String(teacher.code || '').match(/^T-(\d+)$/i);
-
-    if (match) {
-      max = Math.max(max, Number(match[1]));
+    if (previous && filtered.some(cls => String(cls.id) === previous)) {
+      classSelect.value = previous;
     }
   }
 
-  return 'T-' + String(max + 1).padStart(3, '0');
+  function renderSubjectOptions() {
+    const classId = classSelect.value;
+    const cls = allClasses.find(item =>
+      String(item.id) === String(classId)
+    );
+
+    subjectSelect.innerHTML = "";
+
+    if (!cls) {
+      subjectSelect.appendChild(
+        makeOption("", "لومړی صنف انتخاب کړئ")
+      );
+      subjectHint.textContent = "لومړی صنف انتخاب کړئ.";
+      return;
+    }
+
+    const subjects = getSubjectsForClass(cls);
+
+    subjectSelect.appendChild(
+      makeOption("", "مضمون له لېسته انتخاب کړئ")
+    );
+
+    subjects.forEach(subject => {
+      subjectSelect.appendChild(
+        makeOption(String(subject.id), safeText(subject.name))
+      );
+    });
+
+    if (subjects.length === 0) {
+      subjectHint.textContent =
+        "د دې صنف لپاره مضمون ونه موندل شو. د subjects جدول کې د class کالم وګورئ.";
+    } else {
+      subjectHint.textContent =
+        "د دې صنف لپاره " + subjects.length + " مضمونونه ثبت دي.";
+    }
+
+    if (initial.subject_id) {
+      subjectSelect.value = String(initial.subject_id);
+    }
+  }
+
+  search.addEventListener("input", () => {
+    renderClassOptions(search.value);
+  });
+
+  classSelect.addEventListener("change", () => {
+    const cls = allClasses.find(item =>
+      String(item.id) === String(classSelect.value)
+    );
+
+    search.value = cls ? getClassLabel(cls) : "";
+    classHint.textContent = cls
+      ? "انتخاب شوی صنف: " + getClassLabel(cls)
+      : "لومړی صنف انتخاب کړئ.";
+
+    renderSubjectOptions();
+  });
+
+  renderClassOptions();
+
+  if (initial.class_id) {
+    classSelect.value = String(initial.class_id);
+
+    const cls = allClasses.find(item =>
+      String(item.id) === String(initial.class_id)
+    );
+
+    if (cls) {
+      search.value = getClassLabel(cls);
+      classHint.textContent = "انتخاب شوی صنف: " + getClassLabel(cls);
+    }
+
+    renderSubjectOptions();
+  }
+
+  renumberAssignments();
 }
 
-async function insertAssignments(teacherId, selected) {
-  const payload = selected.map(item => ({
-    teacher_id: teacherId,
-    class_id: item.class_id,
-    subject_id: item.subject_id
-  }));
-
-  await api('teacher_assignments', {
-    method: 'POST',
-    headers: {
-      Prefer: 'return=minimal'
-    },
-    body: payload
+function renumberAssignments() {
+  document.querySelectorAll(".assignment").forEach((row, index) => {
+    const label = row.querySelector(".assignment-title span");
+    if (label) label.textContent = "تدریسي دنده " + (index + 1);
   });
 }
 
-async function saveTeacher(event) {
-  event.pr
+function getFormAssignments() {
+  const rows = [...document.querySelectorAll(".assignment")];
+  const assignments = [];
+
+  for (const row of rows) {
+    const duty = row.querySelector(".duty-select").value;
+    const classId = row.querySelector(".class-select").value;
+    const subjectId = row.querySelector(".subject-select").value;
+
+    if (!classId && !subjectId) continue;
+
+    if (!classId || !subjectId) {
+      throw new Error("په هرې تدریسي دنده کې صنف او مضمون دواړه انتخاب کړئ.");
+    }
+
+    const cls 
