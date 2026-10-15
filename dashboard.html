@@ -1169,4 +1169,794 @@ tbody tr:hover {
 
     </aside>
 
-    <div class="ov
+        <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <!-- Topbar -->
+        <header class="topbar">
+
+            <div class="topbar-right">
+
+                <button class="menu-toggle"
+                    onclick="toggleSidebar()"
+                    aria-label="مینو">
+                    ☰
+                </button>
+
+                <div class="page-title">
+                    <h1 id="pageHeading">ډشبورډ</h1>
+                    <p>د ښوونځي د چارو عمومي مدیریت</p>
+                </div>
+
+            </div>
+
+            <div class="topbar-left">
+
+                <div class="search-box">
+                    <span>⌕</span>
+                    <input
+                        type="search"
+                        id="globalSearch"
+                        placeholder="د معلوماتو لټون..."
+                        oninput="searchTable(this.value)">
+                </div>
+
+                <button class="icon-button"
+                    onclick="showToast('د خبرتیاوو برخه به د سیستم له معلوماتو سره وصل شي.')"
+                    aria-label="خبرتیاوې">
+                    ♧
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="profile">
+                    <div class="avatar">ا</div>
+                    <div class="profile-info">
+                        <strong>د ښوونځي اداره</strong>
+                        <span>مدیر سیستم</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- Welcome Banner -->
+        <section class="welcome">
+
+            <div class="welcome-content">
+                <h2>السلام علیکم! 👋</h2>
+
+                <p>
+                    د احمدزي عالي لېسې مدیریت سیستم ته ښه راغلاست.
+                    <br>
+                    دلته د ښوونځي مهم معلومات په یوه ځای کې لیدلی شئ.
+                </p>
+            </div>
+
+            <div class="welcome-date">
+                <span>نننۍ نېټه</span>
+                <strong id="currentDate">د نېټې معلومول...</strong>
+            </div>
+
+        </section>
+
+        <!-- Statistics -->
+        <div class="section-heading">
+            <div>
+                <h2>د ښوونځي عمومي معلومات</h2>
+                <p>د ښوونځي د مهمو برخو لنډیز</p>
+            </div>
+
+            <button class="text-button"
+                onclick="loadDashboard()">
+                ↻ تازه کول
+            </button>
+        </div>
+
+        <section class="stats-grid">
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon green">♙</span>
+                </div>
+                <div class="stat-label">ټول زده‌کوونکي</div>
+                <div class="stat-number" id="studentsCount">—</div>
+                <div class="stat-footer">
+                    <span>د زده‌کوونکو ثبت شوی شمېر</span>
+                    <button onclick="openPage('students.html','زده‌کوونکي')">
+                        تفصیل ←
+                    </button>
+                </div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon blue">♟</span>
+                </div>
+                <div class="stat-label">ټول استادان</div>
+                <div class="stat-number" id="teachersCount">—</div>
+                <div class="stat-footer">
+                    <span>ثبت شوي استادان</span>
+                    <button onclick="openPage('teachers.html','استادان')">
+                        تفصیل ←
+                    </button>
+                </div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon orange">▤</span>
+                </div>
+                <div class="stat-label">ټول ټولګي</div>
+                <div class="stat-number" id="classesCount">—</div>
+                <div class="stat-footer">
+                    <span>د ټولګیو ثبت شوی شمېر</span>
+                    <button onclick="openPage('classes.html','ټولګي')">
+                        تفصیل ←
+                    </button>
+                </div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon purple">▧</span>
+                </div>
+                <div class="stat-label">ټول مضامین</div>
+                <div class="stat-number" id="subjectsCount">—</div>
+                <div class="stat-footer">
+                    <span>ثبت شوي درسي مضامین</span>
+                    <button onclick="openPage('subjects.html','مضامین')">
+                        تفصیل ←
+                    </button>
+                </div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon cyan">✓</span>
+                </div>
+                <div class="stat-label">د حاضري ثبتونه</div>
+                <div class="stat-number" id="attendanceCount">—</div>
+                <div class="stat-footer">
+                    <span>ثبت شوي حاضري معلومات</span>
+                    <button onclick="openPage('attendance.html','حاضري')">
+                        تفصیل ←
+                    </button>
+                </div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon red">▥</span>
+                </div>
+                <div class="stat-label">د پایلو ثبتونه</div>
+                <div class="stat-number" id="resultsCount">—</div>
+                <div class="stat-footer">
+                    <span>ثبت شوې ازموینې او نمرې</span>
+                    <button onclick="openPage('results-report.html','د پایلو راپور')">
+                        تفصیل ←
+                    </button>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- Charts and Quick Actions -->
+        <section class="middle-grid">
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <div>
+                        <h3>د حاضري عمومي ګراف</h3>
+                        <p>د اونۍ د حاضري لیدیزه بڼه</p>
+                    </div>
+
+                    <span class="select-small">د اونۍ بڼه</span>
+                </div>
+
+                <div class="chart">
+
+                    <div class="chart-y">
+                        <span>۱۰۰٪</span>
+                        <span>۷۵٪</span>
+                        <span>۵۰٪</span>
+                        <span>۲۵٪</span>
+                        <span>۰٪</span>
+                    </div>
+
+                    <div class="chart-area">
+
+                        <div class="chart-bars">
+
+                            <div class="bar-group">
+                                <div class="bar present" style="height:78%"></div>
+                                <div class="bar absent" style="height:15%"></div>
+                            </div>
+
+                            <div class="bar-group">
+                                <div class="bar present" style="height:86%"></div>
+                                <div class="bar absent" style="height:10%"></div>
+                            </div>
+
+                            <div class="bar-group">
+                                <div class="bar present" style="height:72%"></div>
+                                <div class="bar absent" style="height:20%"></div>
+                            </div>
+
+                            <div class="bar-group">
+                                <div class="bar present" style="height:90%"></div>
+                                <div class="bar absent" style="height:7%"></div>
+                            </div>
+
+                            <div class="bar-group">
+                                <div class="bar present" style="height:82%"></div>
+                                <div class="bar absent" style="height:13%"></div>
+                            </div>
+
+                            <div class="bar-group">
+                                <div class="bar present" style="height:75%"></div>
+                                <div class="bar absent" style="height:17%"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="chart-labels">
+                            <span>شنبه</span>
+                            <span>یکشنبه</span>
+                            <span>دوشنبه</span>
+                            <span>سه‌شنبه</span>
+                            <span>چهارشنبه</span>
+                            <span>پنجشنبه</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div style="display:flex;gap:18px;margin-top:18px;flex-wrap:wrap">
+
+                    <span style="font-size:11px;color:#718096">
+                        <span style="color:#087f5b;font-size:16px">●</span>
+                        حاضر
+                    </span>
+
+                    <span style="font-size:11px;color:#718096">
+                        <span style="color:#f8c66b;font-size:16px">●</span>
+                        غیر حاضر
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <div>
+                        <h3>چټک لاسرسی</h3>
+                        <p>مهمو برخو ته مستقیم تګ</p>
+                    </div>
+                </div>
+
+                <div class="actions-grid">
+
+                    <button class="action-card"
+                        onclick="openPage('students.html','زده‌کوونکي')">
+                        <span class="action-icon green">♙</span>
+                        <span>
+                            <strong>زده‌کوونکي</strong>
+                            <span>ثبت او مدیریت</span>
+                        </span>
+                    </button>
+
+                    <button class="action-card"
+                        onclick="openPage('attendance.html','حاضري')">
+                        <span class="action-icon blue">✓</span>
+                        <span>
+                            <strong>حاضري</strong>
+                            <span>حاضر او غیر حاضر</span>
+                        </span>
+                    </button>
+
+                    <button class="action-card"
+                        onclick="openPage('results-new.html','د نمرو ثبت')">
+                        <span class="action-icon purple">✎</span>
+                        <span>
+                            <strong>د نمرو ثبت</strong>
+                            <span>ازموینې او نمرې</span>
+                        </span>
+                    </button>
+
+                    <button class="action-card"
+                        onclick="openPage('fees.html','فیسونه')">
+                        <span class="action-icon orange">؋</span>
+                        <span>
+                            <strong>فیسونه</strong>
+                            <span>مالي معلومات</span>
+                        </span>
+                    </button>
+
+                    <button class="action-card"
+                        onclick="openPage('teachers.html','استادان')">
+                        <span class="action-icon cyan">♟</span>
+                        <span>
+                            <strong>استادان</strong>
+                            <span>د استادانو معلومات</span>
+                        </span>
+                    </button>
+
+                    <button class="action-card"
+                        onclick="openPage('reports.html','راپورونه')">
+                        <span class="action-icon red">▣</span>
+                        <span>
+                            <strong>راپورونه</strong>
+                            <span>د معلوماتو راپورونه</span>
+                        </span>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Recent Activity -->
+        <section class="panel table-panel">
+
+            <div class="panel-title">
+                <div>
+                    <h3>وروستي زده‌کوونکي</h3>
+                    <p>د ثبت شویو زده‌کوونکو د معلوماتو لنډیز</p>
+                </div>
+
+                <button class="text-button"
+                    onclick="openPage('students.html','زده‌کوونکي')">
+                    ټول زده‌کوونکي ←
+                </button>
+            </div>
+
+            <div class="table-wrap">
+
+                <table id="studentsTable">
+
+                    <thead>
+                        <tr>
+                            <th>زده‌کوونکی</th>
+                            <th>د پلار نوم</th>
+                            <th>ټولګی</th>
+                            <th>حالت</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="studentsTableBody">
+
+                        <tr>
+                            <td colspan="4" class="empty-row">
+                                د معلوماتو د ترلاسه کولو په تمه...
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <span>© ۱۴۰۵ احمدزي عالي لېسه — ټول حقوق خوندي دي.</span>
+            <span>د ښوونځي مدیریت سیستم</span>
+        </footer>
+
+    </main>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==========================================
+   احمدزي عالي لېسه - Dashboard JavaScript
+   ========================================== */
+
+/*
+  که غواړې له Supabase سره ونښلول شي، لاندې
+  SUPABASE_URL او SUPABASE_ANON_KEY بدل کړه.
+
+  د Supabase یوازې عام anon/publishable key وکاروه.
+  د service_role یا secret key هېڅکله په HTML کې مه ږده.
+*/
+
+const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+
+/* ===== د موبایل مینو ===== */
+
+function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("open");
+    document.getElementById("overlay").classList.toggle("show");
+}
+
+function closeSidebar() {
+    document.getElementById("sidebar").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+}
+
+/* ===== خبرتیا ===== */
+
+let toastTimer;
+
+function showToast(message) {
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+    toast.style.display = "block";
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+        toast.style.display = "none";
+    }, 3500);
+}
+
+/* ===== د فایلونو ترمنځ تګ ===== */
+
+function openPage(file, title, clickedButton) {
+
+    /*
+      د dashboard.html پر ځای بل فایل ته ځي.
+      ټول فایلونه باید په یوه فولډر کې وي.
+    */
+
+    if (file === "dashboard.html") {
+        window.location.href = file;
+        return;
+    }
+
+    if (clickedButton) {
+        document.querySelectorAll(".nav-item").forEach(item => {
+            item.classList.remove("active");
+        });
+
+        clickedButton.classList.add("active");
+    }
+
+    window.location.href = file;
+
+    closeSidebar();
+}
+
+/* ===== د نن ورځې نېټه ===== */
+
+function updateDate() {
+    const now = new Date();
+
+    try {
+        const formatter = new Intl.DateTimeFormat("ps-AF", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+
+        document.getElementById("currentDate").textContent =
+            formatter.format(now);
+
+    } catch (error) {
+        document.getElementById("currentDate").textContent =
+            now.toLocaleDateString();
+    }
+}
+
+updateDate();
+
+/* ===== د Supabase تنظیمات ===== */
+
+function supabaseConfigured() {
+
+    return (
+        SUPABASE_URL.startsWith("https://") &&
+        !SUPABASE_URL.includes("YOUR_SUPABASE") &&
+        SUPABASE_ANON_KEY.length > 20 &&
+        !SUPABASE_ANON_KEY.includes("YOUR_SUPABASE")
+    );
+}
+
+/* ===== د Supabase څخه شمېر ترلاسه کول ===== */
+
+async function getTableCount(tableName) {
+
+    const url =
+        SUPABASE_URL.replace(/\/$/, "") +
+        "/rest/v1/" +
+        encodeURIComponent(tableName) +
+        "?select=*";
+
+    const response = await fetch(url, {
+        method: "GET",
+
+        headers: {
+            "apikey": SUPABASE_ANON_KEY,
+            "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+            "Prefer": "count=exact",
+            "Range": "0-0"
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(
+            "د " + tableName + " جدول معلومات ترلاسه نه شول."
+        );
+    }
+
+    const contentRange = response.headers.get("content-range");
+
+    if (contentRange) {
+        const total = contentRange.split("/").pop();
+
+        if (total !== "*") {
+            return Number(total);
+        }
+    }
+
+    const data = await response.json();
+
+    return Array.isArray(data) ? data.length : 0;
+}
+
+/* ===== د شمېرونو تازه کول ===== */
+
+async function updateCount(tableName, elementId) {
+
+    const element = document.getElementById(elementId);
+
+    try {
+        const count = await getTableCount(tableName);
+
+        element.textContent = count.toLocaleString("en-US");
+
+        return count;
+
+    } catch (error) {
+        element.textContent = "—";
+        console.error(error);
+
+        return null;
+    }
+}
+
+/* ===== د زده‌کوونکو وروستي معلومات ===== */
+
+async function loadRecentStudents() {
+
+    const tbody = document.getElementById("studentsTableBody");
+
+    if (!supabaseConfigured()) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="4" class="empty-row">
+                    د زده‌کوونکو د معلوماتو لپاره
+                    Supabase اتصال تنظیم کړئ.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    try {
+
+        const url =
+            SUPABASE_URL.replace(/\/$/, "") +
+            "/rest/v1/students?select=*&order=id.desc&limit=8";
+
+        const response = await fetch(url, {
+            headers: {
+                "apikey": SUPABASE_ANON_KEY,
+                "Authorization": "Bearer " + SUPABASE_ANON_KEY
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("د زده‌کوونکو معلومات ترلاسه نه شول.");
+        }
+
+        const students = await response.json();
+
+        if (!students.length) {
+
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="4" class="empty-row">
+                        تر اوسه زده‌کوونکي نه دي ثبت شوي.
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+        tbody.innerHTML = "";
+
+        students.forEach(student => {
+
+            const name =
+                student.name ||
+                student.student_name ||
+                "بې نومه";
+
+            const father =
+                student.father ||
+                student.father_name ||
+                "—";
+
+            const studentClass =
+                student.class ||
+                student.class_name ||
+                "—";
+
+            const inactive =
+                student.is_active === false;
+
+            const status = inactive
+                ? '<span class="badge badge-red">غیر فعال</span>'
+                : '<span class="badge badge-green">فعال</span>';
+
+            const row = document.createElement("tr");
+
+            const nameCell = document.createElement("td");
+            const nameWrapper = document.createElement("div");
+            nameWrapper.className = "student-cell";
+
+            const avatar = document.createElement("div");
+            avatar.className = "student-avatar";
+            avatar.textContent = String(name).trim().charAt(0) || "ز";
+
+            const info = document.createElement("div");
+
+            const nameStrong = document.createElement("strong");
+            nameStrong.textContent = name;
+
+            const codeSmall = document.createElement("small");
+            codeSmall.textContent = student.code || "زده‌کوونکی";
+
+            info.appendChild(nameStrong);
+            info.appendChild(codeSmall);
+
+            nameWrapper.appendChild(avatar);
+            nameWrapper.appendChild(info);
+            nameCell.appendChild(nameWrapper);
+
+            const fatherCell = document.createElement("td");
+            fatherCell.textContent = father;
+
+            const classCell = document.createElement("td");
+            classCell.textContent = studentClass;
+
+            const statusCell = document.createElement("td");
+            statusCell.innerHTML = status;
+
+            row.appendChild(nameCell);
+            row.appendChild(fatherCell);
+            row.appendChild(classCell);
+            row.appendChild(statusCell);
+
+            tbody.appendChild(row);
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="4" class="empty-row">
+                    معلومات ترلاسه نه شول.
+                    د Supabase اتصال او اجازې وګورئ.
+                </td>
+            </tr>
+        `;
+    }
+}
+
+/* ===== د ډشبورډ معلومات ===== */
+
+async function loadDashboard() {
+
+    if (!supabaseConfigured()) {
+
+        showToast(
+            "ډیزاین چمتو دی. د حقیقي معلوماتو لپاره Supabase تنظیم کړئ."
+        );
+
+        document.getElementById("studentsTableBody").innerHTML = `
+            <tr>
+                <td colspan="4" class="empty-row">
+                    د حقیقي معلوماتو لپاره Supabase اتصال ته اړتیا ده.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    showToast("د ښوونځي معلومات تازه کېږي...");
+
+    const tasks = [
+        ["students", "studentsCount"],
+        ["teachers", "teachersCount"],
+        ["classes", "classesCount"],
+        ["subjects", "subjectsCount"],
+        ["attendance", "attendanceCount"],
+        ["results", "resultsCount"]
+    ];
+
+    await Promise.all(
+        tasks.map(([table, element]) =>
+            updateCount(table, element)
+        )
+    );
+
+    await loadRecentStudents();
+
+    showToast("د معلوماتو د تازه کولو هڅه بشپړه شوه.");
+}
+
+/* ===== د جدول لټون ===== */
+
+function searchTable(query) {
+
+    const rows = document.querySelectorAll(
+        "#studentsTableBody tr"
+    );
+
+    const searchText = query.trim().toLowerCase();
+
+    rows.forEach(row => {
+
+        const text = row.textContent.toLowerCase();
+
+        row.style.display =
+            text.includes(searchText) ? "" : "none";
+
+    });
+}
+
+/* ===== د پاڼې پیل ===== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    if (supabaseConfigured()) {
+        loadDashboard();
+    } else {
+        document.getElementById("studentsTableBody").innerHTML = `
+            <tr>
+                <td colspan="4" class="empty-row">
+                    د معلوماتو د ښودلو لپاره
+                    Supabase اتصال تنظیم کړئ.
+                </td>
+            </tr>
+        `;
+    }
+
+});
+
+/* ===== د انټرنېټ ستونزه ===== */
+
+window.addEventListener("online", () => {
+    showToast("انټرنېټ بېرته وصل شو.");
+});
+
+window.addEventListener("offline", () => {
+    showToast("انټرنېټ نشته؛ آنلاین معلومات نه تازه کېږي.");
+});
+</script>
+
+</body>
+</html>
