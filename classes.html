@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>د صنفونو مدیریت</title>
+<title>د صنفونو مدیریت | احمدزي ښوونځی</title>
 
 <style>
 *{box-sizing:border-box}
@@ -17,7 +17,7 @@ body{
 }
 
 .header{
-    background:linear-gradient(135deg,#ea580c,#c2410c);
+    background:linear-gradient(135deg,#ea580c,#9a3412);
     color:white;
     padding:22px 18px;
     box-shadow:0 4px 15px #0002;
@@ -54,7 +54,7 @@ body{
     border-radius:20px;
     background:white;
     box-shadow:0 2px 8px #0001;
-    font-size:14px;
+    font-size:13px;
 }
 
 .online{color:#087f5b}
@@ -65,7 +65,7 @@ body{
     color:white;
     border:0;
     border-radius:10px;
-    padding:11px 16px;
+    padding:12px 16px;
     cursor:pointer;
     font-family:inherit;
     font-size:14px;
@@ -99,7 +99,8 @@ body{
 .stat strong{
     display:block;
     font-size:26px;
-    margin-top:5px;
+    margin-top:7px;
+    color:#ea580c;
 }
 
 .card{
@@ -109,9 +110,7 @@ body{
     overflow:hidden;
 }
 
-.table-wrap{
-    overflow-x:auto;
-}
+.table-wrap{overflow-x:auto}
 
 table{
     width:100%;
@@ -125,13 +124,11 @@ th,td{
     text-align:right;
 }
 
-th{
-    background:#f8fafc;
-}
+th{background:#fff7ed}
 
 .actions button{
     margin-left:5px;
-    padding:7px 10px;
+    padding:8px 10px;
     border:0;
     border-radius:8px;
     cursor:pointer;
@@ -152,6 +149,20 @@ th{
     text-align:center;
     padding:35px;
     color:#777;
+}
+
+.teacher-badge{
+    display:inline-block;
+    background:#ecfdf5;
+    color:#047857;
+    padding:7px 10px;
+    border-radius:8px;
+    font-size:13px;
+}
+
+.no-teacher{
+    background:#fff1f2;
+    color:#be123c;
 }
 
 .modal{
@@ -175,23 +186,30 @@ th{
     overflow:auto;
 }
 
-.modal-box h2{
-    margin-top:0;
-}
+.modal-box h2{margin-top:0}
 
-input{
+input,select{
     width:100%;
     padding:12px;
-    margin:6px 0 12px;
+    margin:7px 0 14px;
     border:1px solid #d8dee9;
     border-radius:9px;
     font-family:inherit;
     font-size:15px;
+    background:white;
 }
 
 label{
     font-size:14px;
     font-weight:bold;
+}
+
+.help{
+    font-size:12px;
+    color:#64748b;
+    margin-top:-8px;
+    margin-bottom:12px;
+    line-height:1.8;
 }
 
 .form-buttons{
@@ -233,14 +251,21 @@ label{
     word-break:break-word;
 }
 
-@media(max-width:700px){
-    .stats{
-        grid-template-columns:1fr;
-    }
+.notice{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    color:#9a3412;
+    padding:13px;
+    border-radius:10px;
+    margin-bottom:18px;
+    line-height:1.9;
+    font-size:13px;
+}
 
-    .header h1{
-        font-size:20px;
-    }
+@media(max-width:700px){
+    .stats{grid-template-columns:1fr}
+    .header h1{font-size:20px}
+    .container{padding:14px}
 }
 </style>
 </head>
@@ -250,17 +275,15 @@ label{
 <div class="header">
     <div class="container">
         <h1>احمدزي ښوونځی</h1>
-        <p>د صنفونو مدیریت سیستم</p>
+        <p>د صنفونو او نګران استادانو مدیریت</p>
     </div>
 </div>
 
 <div class="container">
 
     <div class="topbar">
-
         <div>
             <h2>د صنفونو مدیریت</h2>
-
             <div id="status" class="status">
                 ډیټابیس چک کېږي...
             </div>
@@ -269,19 +292,24 @@ label{
         <button class="add-btn" onclick="openModal()">
             ＋ نوی صنف
         </button>
+    </div>
 
+    <div class="notice">
+        <strong>د نګران استاد دنده:</strong>
+        د هر صنف لپاره یو استاد ټاکل کېږي.
+        د حاضري د ثبت سیستم به د همدې صنف د ټولو زده‌کوونکو
+        حاضري په یوه وار ثبتولو لپاره وکارول شي.
     </div>
 
     <input
         id="search"
         class="search"
         type="text"
-        placeholder="د صنف نوم، کوډ یا استاد ولټوئ..."
+        placeholder="د صنف نوم، کوډ یا نګران استاد ولټوئ..."
         oninput="render()"
     >
 
     <div class="stats">
-
         <div class="stat">
             ټول صنفونه
             <strong id="total">0</strong>
@@ -291,108 +319,85 @@ label{
             ټول ظرفیت
             <strong id="capacity">0</strong>
         </div>
-
     </div>
 
     <div class="card">
-
         <div class="table-wrap">
-
             <table>
-
                 <thead>
                     <tr>
                         <th>کوډ</th>
                         <th>صنف</th>
                         <th>ټولګی</th>
                         <th>ظرفیت</th>
-                        <th>استاد</th>
+                        <th>نګران استاد</th>
                         <th>عملیات</th>
                     </tr>
                 </thead>
 
                 <tbody id="classList">
-
                     <tr>
                         <td colspan="6" class="empty">
                             صنفونه لوډ کېږي...
                         </td>
                     </tr>
-
                 </tbody>
-
             </table>
-
         </div>
-
     </div>
-
 </div>
 
-
 <div class="modal" id="modal">
-
     <div class="modal-box">
 
         <h2 id="modalTitle">نوی صنف</h2>
 
         <input type="hidden" id="classId">
 
-        <label>د صنف کوډ — اختیاري</label>
-        <input
-            id="code"
-            placeholder="لکه C-001"
-        >
+        <label for="code">د صنف کوډ — اختیاري</label>
+        <input id="code" placeholder="لکه C-001">
 
-        <label>د صنف نوم</label>
-        <input
-            id="name"
-            placeholder="لکه A-10"
-        >
+        <label for="name">د صنف نوم *</label>
+        <input id="name" placeholder="لکه A-10" required>
 
-        <label>ټولګی</label>
-        <input
-            id="grade"
-            placeholder="لکه 10"
-        >
+        <label for="grade">ټولګی</label>
+        <input id="grade" placeholder="لکه 10">
 
-        <label>ظرفیت</label>
+        <label for="capacityInput">ظرفیت</label>
         <input
             id="capacityInput"
             type="number"
+            min="1"
+            step="1"
             placeholder="لکه 30"
         >
 
-        <label>استاد</label>
-        <input
-            id="teacher"
-            placeholder="لکه محمد اسلم"
-        >
+        <label for="teacher">د نګران استاد نوم *</label>
+        <select id="teacher" required>
+            <option value="">لومړی د استادانو لېست لوډ کړئ...</option>
+        </select>
+
+        <div class="help">
+            له لېست څخه د همدې صنف لپاره یو استاد وټاکئ.
+            د استادانو نومونه د teachers جدول څخه راځي.
+        </div>
 
         <div id="errorBox" class="error"></div>
 
         <div class="form-buttons">
-
-            <button
-                class="save"
-                onclick="saveClass()">
+            <button class="save" id="saveButton" onclick="saveClass()">
                 ذخیره کول
             </button>
 
-            <button
-                class="cancel"
-                onclick="closeModal()">
+            <button class="cancel" onclick="closeModal()">
                 لغوه
             </button>
-
         </div>
-
     </div>
-
 </div>
 
-
 <script>
+"use strict";
 
 const SUPABASE_URL =
 "https://oaxmnfnaqhdvnykawvyh.supabase.co";
@@ -403,33 +408,51 @@ const SUPABASE_KEY =
 const API =
 SUPABASE_URL + "/rest/v1/classes";
 
+const TEACHERS_API =
+SUPABASE_URL + "/rest/v1/teachers";
+
 const headers = {
     "apikey": SUPABASE_KEY,
-    "Authorization":"Bearer " + SUPABASE_KEY,
-    "Content-Type":"application/json"
+    "Authorization": "Bearer " + SUPABASE_KEY,
+    "Content-Type": "application/json"
 };
 
 let classes = [];
+let teachers = [];
+let classesOnline = false;
+let teachersOnline = false;
 
+async function fetchJSON(url, options = {}) {
+    const response = await fetch(url, {
+        ...options,
+        headers: {
+            ...headers,
+            ...(options.headers || {})
+        }
+    });
 
-async function loadClasses(){
+    const text = await response.text();
 
-    try{
+    if (!response.ok) {
+        throw new Error(text || "د ډیټابېس غوښتنه ناکامه شوه.");
+    }
 
-        const res = await fetch(
-            API + "?select=*&order=id.asc",
-            {
-                headers
-            }
+    if (!text.trim()) return [];
+
+    try {
+        return JSON.parse(text);
+    } catch {
+        throw new Error("د ډیټابېس ځواب د لوستلو وړ نه دی.");
+    }
+}
+
+async function loadClasses() {
+    try {
+        classes = await fetchJSON(
+            API + "?select=*&order=id.asc"
         );
 
-        const text = await res.text();
-
-        if(!res.ok){
-            throw new Error(text);
-        }
-
-        classes = JSON.parse(text);
+        classesOnline = true;
 
         localStorage.setItem(
             "ahmadzai_classes",
@@ -437,81 +460,161 @@ async function loadClasses(){
         );
 
         render();
+        updateStatus();
 
-        document.getElementById("status").textContent =
-            "آنلاین";
+    } catch (error) {
+        console.error("Classes error:", error);
 
-        document.getElementById("status").className =
-            "status online";
-
-    }catch(error){
-
-        console.error(error);
+        classesOnline = false;
 
         classes = JSON.parse(
-            localStorage.getItem(
-                "ahmadzai_classes"
-            ) || "[]"
+            localStorage.getItem("ahmadzai_classes") || "[]"
         );
 
         render();
-
-        document.getElementById("status").textContent =
-            "آفلاین";
-
-        document.getElementById("status").className =
-            "status offline";
+        updateStatus();
     }
 }
 
+async function loadTeachers() {
+    const select = document.getElementById("teacher");
 
-function render(){
+    select.innerHTML =
+        '<option value="">د استادانو لېست لوډ کېږي...</option>';
 
-    const list =
-        document.getElementById("classList");
+    try {
+        teachers = await fetchJSON(
+            TEACHERS_API + "?select=id,code,name&order=name.asc"
+        );
 
-    const search =
-        document.getElementById("search")
-        .value
-        .trim()
-        .toLowerCase();
+        teachersOnline = true;
 
-    const filtered =
-        classes.filter(c => {
+        /*
+          یوازې هغه استادان ښودل کېږي چې نوم لري.
+          که د teachers جدول کې is_active کالم نه وي،
+          نو دلته یې د کارولو هڅه نه کوو.
+        */
+        teachers = teachers.filter(t =>
+            String(t.name || "").trim() !== ""
+        );
 
-            return (
-                String(c.code || "")
-                    .toLowerCase()
-                    .includes(search)
+        populateTeacherDropdown();
 
-                ||
+    } catch (error) {
+        console.error("Teachers error:", error);
 
-                String(c.name || "")
-                    .toLowerCase()
-                    .includes(search)
+        teachersOnline = false;
 
-                ||
+        select.innerHTML =
+            '<option value="">د استادانو لېست نه شو لوډ کېدای</option>';
 
-                String(c.teacher || "")
-                    .toLowerCase()
-                    .includes(search)
-            );
-        });
+        showError(
+            "د استادانو لېست ترلاسه نه شو.\n\n" +
+            "مهرباني وکړئ د teachers جدول د SELECT/RLS اجازه وګورئ.\n\n" +
+            error.message
+        );
+    }
 
+    updateStatus();
+}
+
+function populateTeacherDropdown(selectedValue = "") {
+    const select = document.getElementById("teacher");
+
+    select.innerHTML = "";
+
+    const firstOption = document.createElement("option");
+    firstOption.value = "";
+    firstOption.textContent = "— نګران استاد وټاکئ —";
+    select.appendChild(firstOption);
+
+    if (!teachers.length) {
+        const option = document.createElement("option");
+        option.value = "";
+        option.textContent = "په ډیټابېس کې د نوم لرونکی استاد نشته";
+        option.disabled = true;
+        select.appendChild(option);
+        return;
+    }
+
+    teachers.forEach(teacher => {
+        const option = document.createElement("option");
+
+        /*
+          په classes.teacher کې د استاد نوم ساتل کېږي،
+          ځکه اوسنی ډیټابېس همدا کالم لري.
+        */
+        option.value = String(teacher.name).trim();
+
+        const code = String(teacher.code || "").trim();
+
+        option.textContent = code
+            ? `${teacher.name} (${code})`
+            : teacher.name;
+
+        if (
+            String(selectedValue).trim() ===
+            String(teacher.name).trim()
+        ) {
+            option.selected = true;
+        }
+
+        select.appendChild(option);
+    });
+
+    if (
+        selectedValue &&
+        !teachers.some(t =>
+            String(t.name).trim() === String(selectedValue).trim()
+        )
+    ) {
+        const oldOption = document.createElement("option");
+        oldOption.value = String(selectedValue);
+        oldOption.textContent =
+            String(selectedValue) + " (پخوانی ثبت شوی نوم)";
+        oldOption.selected = true;
+        select.appendChild(oldOption);
+    }
+}
+
+function updateStatus() {
+    const status = document.getElementById("status");
+
+    if (classesOnline && teachersOnline) {
+        status.textContent = "ډیټابېس او استادان آنلاین دي";
+        status.className = "status online";
+    } else if (classesOnline) {
+        status.textContent = "صنفونه آنلاین؛ د استادانو ستونزه";
+        status.className = "status offline";
+    } else {
+        status.textContent = "ډیټابېس سره اړیکه نشته";
+        status.className = "status offline";
+    }
+}
+
+function render() {
+    const list = document.getElementById("classList");
+
+    const search = document.getElementById("search")
+        .value.trim().toLowerCase();
+
+    const filtered = classes.filter(c =>
+        String(c.code || "").toLowerCase().includes(search) ||
+        String(c.name || "").toLowerCase().includes(search) ||
+        String(c.grade || "").toLowerCase().includes(search) ||
+        String(c.teacher || "").toLowerCase().includes(search)
+    );
 
     document.getElementById("total").textContent =
         classes.length;
 
     document.getElementById("capacity").textContent =
         classes.reduce(
-            (sum,c) =>
-                sum + Number(c.capacity || 0),
+            (sum, c) => sum + Number(c.capacity || 0),
             0
         );
 
-
-    if(filtered.length === 0){
-
+    if (!filtered.length) {
         list.innerHTML = `
             <tr>
                 <td colspan="6" class="empty">
@@ -519,310 +622,231 @@ function render(){
                 </td>
             </tr>
         `;
-
         return;
     }
 
+    list.innerHTML = filtered.map(c => {
+        const teacherName = String(c.teacher || "").trim();
 
-    list.innerHTML =
-        filtered.map(c => `
+        const teacherCell = teacherName
+            ? `<span class="teacher-badge">${escapeHTML(teacherName)}</span>`
+            : `<span class="teacher-badge no-teacher">استاد نه دی ټاکل شوی</span>`;
 
+        return `
             <tr>
-
                 <td>${escapeHTML(c.code || "—")}</td>
-
-                <td>
-                    <strong>
-                        ${escapeHTML(c.name || "—")}
-                    </strong>
-                </td>
-
+                <td><strong>${escapeHTML(c.name || "—")}</strong></td>
                 <td>${escapeHTML(c.grade || "—")}</td>
-
                 <td>${escapeHTML(c.capacity ?? "—")}</td>
-
-                <td>${escapeHTML(c.teacher || "—")}</td>
-
+                <td>${teacherCell}</td>
                 <td class="actions">
-
-                    <button
-                        class="edit"
-                        onclick="editClass(${c.id})">
+                    <button class="edit" onclick="editClass(${Number(c.id)})">
                         سمون
                     </button>
-
-                    <button
-                        class="delete"
-                        onclick="deleteClass(${c.id})">
+                    <button class="delete" onclick="deleteClass(${Number(c.id)})">
                         حذف
                     </button>
-
                 </td>
-
             </tr>
-
-        `).join("");
+        `;
+    }).join("");
 }
 
+async function openModal() {
+    hideError();
 
-function openModal(){
-
-    document.getElementById("modal").style.display =
-        "flex";
-
-    document.getElementById("modalTitle").textContent =
-        "نوی صنف";
+    document.getElementById("modal").style.display = "flex";
+    document.getElementById("modalTitle").textContent = "نوی صنف";
 
     document.getElementById("classId").value = "";
     document.getElementById("code").value = "";
     document.getElementById("name").value = "";
     document.getElementById("grade").value = "";
     document.getElementById("capacityInput").value = "";
+
+    if (!teachersOnline) {
+        await loadTeachers();
+    } else {
+        populateTeacherDropdown();
+    }
+
     document.getElementById("teacher").value = "";
+}
 
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
     hideError();
 }
 
-
-function closeModal(){
-
-    document.getElementById("modal").style.display =
-        "none";
-
-    hideError();
-}
-
-
-async function saveClass(){
-
+async function saveClass() {
     hideError();
 
-    const id =
-        document.getElementById("classId").value;
-
-    const data = {
-
-        code:
-            document.getElementById("code")
-            .value
-            .trim() || null,
-
-        name:
-            document.getElementById("name")
-            .value
-            .trim(),
-
-        grade:
-            document.getElementById("grade")
-            .value
-            .trim() || null,
-
-        capacity:
-            document.getElementById("capacityInput")
-            .value
-            ? Number(
-                document.getElementById("capacityInput")
-                .value
-            )
-            : null,
-
-        teacher:
-            document.getElementById("teacher")
-            .value
-            .trim() || null
-    };
-
-
-    if(!data.name){
-
+    if (!classesOnline) {
         showError(
-            "د صنف نوم ضروري دی."
+            "د صنفونو ډیټابېس آنلاین نه دی. لومړی انټرنېټ او Supabase اړیکه وګورئ."
         );
-
         return;
     }
 
+    if (!teachersOnline) {
+        showError(
+            "د استادانو لېست آنلاین نه دی. د استادانو له لېست پرته صنف نه شو ثبتولی."
+        );
+        return;
+    }
 
-    try{
+    const id = document.getElementById("classId").value;
 
-        let res;
+    const name = document.getElementById("name").value.trim();
+    const teacher = document.getElementById("teacher").value.trim();
+    const capacityText =
+        document.getElementById("capacityInput").value.trim();
 
-        if(id){
+    if (!name) {
+        showError("د صنف نوم ضروري دی.");
+        return;
+    }
 
-            res = await fetch(
-                API + "?id=eq." +
-                encodeURIComponent(id),
-                {
-                    method:"PATCH",
-                    headers:{
-                        ...headers,
-                        "Prefer":
-                            "return=representation"
-                    },
-                    body:JSON.stringify(data)
-                }
-            );
+    if (!teacher) {
+        showError("د دې صنف لپاره یو نګران استاد وټاکئ.");
+        return;
+    }
 
-        }else{
+    let capacity = null;
 
-            res = await fetch(
-                API,
-                {
-                    method:"POST",
-                    headers:{
-                        ...headers,
-                        "Prefer":
-                            "return=representation"
-                    },
-                    body:JSON.stringify(data)
-                }
-            );
-        }
+    if (capacityText !== "") {
+        capacity = Number(capacityText);
 
-
-        const text = await res.text();
-
-        if(!res.ok){
-
-            showError(
-                "Supabase خطا:\n\n" +
-                text
-            );
-
+        if (!Number.isInteger(capacity) || capacity < 1) {
+            showError("ظرفیت باید یو مثبت بشپړ عدد وي.");
             return;
         }
+    }
 
+    const data = {
+        code: document.getElementById("code").value.trim() || null,
+        name: name,
+        grade: document.getElementById("grade").value.trim() || null,
+        capacity: capacity,
+        teacher: teacher
+    };
 
-        alert(
-            id
-            ? "صنف سم شو."
-            : "صنف ثبت شو."
-        );
+    const saveButton = document.getElementById("saveButton");
+    saveButton.disabled = true;
+    saveButton.textContent = "ذخیره کېږي...";
+
+    try {
+        const url = id
+            ? API + "?id=eq." + encodeURIComponent(id)
+            : API;
+
+        const response = await fetch(url, {
+            method: id ? "PATCH" : "POST",
+            headers: {
+                ...headers,
+                "Prefer": "return=representation"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const text = await response.text();
+
+        if (!response.ok) {
+            throw new Error(text || "معلومات خوندي نه شول.");
+        }
+
+        alert(id ? "صنف په بریالیتوب اصلاح شو." : "صنف ثبت شو.");
 
         closeModal();
-
         await loadClasses();
 
-    }catch(error){
-
-        showError(
-            "د انټرنېټ ستونزه:\n" +
-            error.message
-        );
+    } catch (error) {
+        showError("د ذخیره کولو ستونزه:\n\n" + error.message);
+    } finally {
+        saveButton.disabled = false;
+        saveButton.textContent = "ذخیره کول";
     }
 }
 
-
-function editClass(id){
-
-    const c =
-        classes.find(
-            x => String(x.id) === String(id)
-        );
-
-    if(!c) return;
-
-    document.getElementById("modal").style.display =
-        "flex";
-
-    document.getElementById("modalTitle").textContent =
-        "د صنف سمون";
-
-    document.getElementById("classId").value =
-        c.id;
-
-    document.getElementById("code").value =
-        c.code || "";
-
-    document.getElementById("name").value =
-        c.name || "";
-
-    document.getElementById("grade").value =
-        c.grade || "";
-
-    document.getElementById("capacityInput").value =
-        c.capacity ?? "";
-
-    document.getElementById("teacher").value =
-        c.teacher || "";
-
+async function editClass(id) {
     hideError();
-}
 
+    const c = classes.find(x => String(x.id) === String(id));
+    if (!c) return;
 
-async function deleteClass(id){
+    document.getElementById("modal").style.display = "flex";
+    document.getElementById("modalTitle").textContent = "د صنف سمون";
 
-    if(!confirm("ایا دا صنف حذف کول غواړئ؟")){
-        return;
+    document.getElementById("classId").value = c.id;
+    document.getElementById("code").value = c.code || "";
+    document.getElementById("name").value = c.name || "";
+    document.getElementById("grade").value = c.grade || "";
+    document.getElementById("capacityInput").value = c.capacity ?? "";
+
+    if (!teachersOnline) {
+        await loadTeachers();
     }
 
-    try{
+    populateTeacherDropdown(c.teacher || "");
+}
 
-        const res = await fetch(
-            API + "?id=eq." +
-            encodeURIComponent(id),
+async function deleteClass(id) {
+    const c = classes.find(x => String(x.id) === String(id));
+
+    if (!c) return;
+
+    const confirmed = confirm(
+        `ایا غواړئ د "${c.name || "دغه صنف"}" صنف حذف کړئ؟\n\n` +
+        "که په نورو جدولونو کې له دې صنف سره اړیکې وي، ډیټابېس ښايي حذف رد کړي."
+    );
+
+    if (!confirmed) return;
+
+    try {
+        const response = await fetch(
+            API + "?id=eq." + encodeURIComponent(id),
             {
-                method:"DELETE",
+                method: "DELETE",
                 headers
             }
         );
 
-        const text = await res.text();
+        const text = await response.text();
 
-        if(!res.ok){
-
-            alert(
-                "حذف ناکام شو:\n" +
-                text
-            );
-
+        if (!response.ok) {
+            alert("حذف ناکام شو:\n\n" + text);
             return;
         }
 
         alert("صنف حذف شو.");
-
         await loadClasses();
 
-    }catch(error){
-
-        alert(
-            "د حذف ستونزه:\n" +
-            error.message
-        );
+    } catch (error) {
+        alert("د حذف ستونزه:\n" + error.message);
     }
 }
 
-
-function showError(message){
-
-    const box =
-        document.getElementById("errorBox");
-
+function showError(message) {
+    const box = document.getElementById("errorBox");
     box.textContent = message;
     box.style.display = "block";
 }
 
-
-function hideError(){
-
-    document.getElementById("errorBox")
-        .style.display = "none";
+function hideError() {
+    document.getElementById("errorBox").style.display = "none";
 }
 
-
-function escapeHTML(value){
-
+function escapeHTML(value) {
     return String(value ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 }
-
 
 loadClasses();
-
+loadTeachers();
 </script>
 
 </body>
