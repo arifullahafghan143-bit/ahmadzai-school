@@ -4,12 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>حاضري - احمدزي ښوونځی</title>
+<title>د زده‌کوونکو حاضري | احمدزي ښوونځی</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -53,7 +51,7 @@ body{
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(2,1fr);
   gap:15px;
 }
 
@@ -63,21 +61,29 @@ label{
   margin-bottom:7px;
 }
 
-input,
-select{
+input,select{
   width:100%;
   padding:13px;
   border:1px solid #d7deea;
   border-radius:12px;
   font-size:15px;
   background:white;
+  font-family:inherit;
 }
 
-input:focus,
-select:focus{
+input:focus,select:focus{
   outline:none;
   border-color:#2563eb;
   box-shadow:0 0 0 3px #2563eb18;
+}
+
+.supervisor{
+  margin-top:15px;
+  padding:13px;
+  border-radius:12px;
+  background:#eff6ff;
+  color:#1d4ed8;
+  line-height:1.9;
 }
 
 .students{
@@ -112,12 +118,13 @@ select:focus{
   gap:7px;
 }
 
-.status{
+.status-btn{
   border:0;
   padding:10px 14px;
   border-radius:10px;
   cursor:pointer;
   font-weight:bold;
+  font-family:inherit;
 }
 
 .present{
@@ -135,9 +142,9 @@ select:focus{
   color:#92400e;
 }
 
-.status.active{
+.status-btn.active{
   outline:3px solid #2563eb35;
-  transform:scale(1.04);
+  transform:scale(1.03);
 }
 
 .save{
@@ -151,10 +158,12 @@ select:focus{
   font-weight:bold;
   cursor:pointer;
   margin-top:15px;
+  font-family:inherit;
 }
 
-.save:hover{
-  background:#1d4ed8;
+.save:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
 .message{
@@ -162,6 +171,9 @@ select:focus{
   border-radius:12px;
   margin-top:15px;
   display:none;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  line-height:1.8;
 }
 
 .success{
@@ -178,6 +190,7 @@ select:focus{
   color:#2563eb;
   font-weight:bold;
   margin-bottom:12px;
+  line-height:2;
 }
 
 .loading{
@@ -185,23 +198,20 @@ select:focus{
 }
 
 @media(max-width:700px){
-
-  .grid{
-    grid-template-columns:1fr;
-  }
+  .grid{grid-template-columns:1fr}
 
   .student{
     flex-direction:column;
     align-items:stretch;
   }
 
-  .buttons{
-    width:100%;
-  }
+  .buttons{width:100%}
 
-  .status{
-    flex:1;
-  }
+  .status-btn{flex:1}
+
+  .container{padding:12px}
+
+  .header h1{font-size:21px}
 }
 </style>
 </head>
@@ -212,82 +222,61 @@ select:focus{
 
   <div class="header">
     <h1>📋 د زده‌کوونکو حاضري</h1>
-    <p>احمدزي ښوونځی</p>
+    <p>احمدزي ښوونځی — د ټول صنف حاضري</p>
   </div>
-
-
-  <!-- انتخابونه -->
 
   <div class="card">
 
     <div class="grid">
 
       <div>
-        <label>📅 نېټه</label>
+        <label for="date">📅 د حاضري نېټه</label>
         <input type="date" id="date">
       </div>
 
       <div>
-        <label>🏫 صنف</label>
-
+        <label for="classSelect">🏫 صنف انتخاب کړئ</label>
         <select id="classSelect">
           <option value="">صنف انتخاب کړئ</option>
         </select>
-
       </div>
 
-      <div>
-        <label>📚 مضمون</label>
+    </div>
 
-        <select id="subjectSelect">
-          <option value="">مضمون انتخاب کړئ</option>
-        </select>
-
-      </div>
-
+    <div id="supervisor" class="supervisor">
+      👨‍🏫 د صنف نګران استاد به دلته ښکاره شي.
     </div>
 
   </div>
 
-
-  <!-- زده کوونکي -->
-
   <div class="card">
 
-    <h3>👨‍🎓 زده‌کوونکي</h3>
+    <h3>👨‍🎓 د صنف د زده‌کوونکو حاضري</h3>
 
     <div id="count" class="count"></div>
 
     <div id="students" class="students">
-      <p class="loading">
-        لومړی صنف انتخاب کړئ.
-      </p>
+      <p class="loading">معلومات لوډ کېږي...</p>
     </div>
-
 
     <button
       class="save"
+      id="saveButton"
       onclick="saveAttendance()">
-
-      💾 حاضري آنلاین ثبت کړئ
-
+      💾 د ټول صنف حاضري ثبت کړئ
     </button>
 
-
-    <div
-      id="message"
-      class="message">
-    </div>
+    <div id="message" class="message"></div>
 
   </div>
 
 </div>
 
-
 <script>
+"use strict";
 
 /* =========================
-   SUPABASE
+   SUPABASE SETTINGS
 ========================= */
 
 const SUPABASE_URL =
@@ -296,12 +285,8 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
 
-
 const CLASS_API =
 `${SUPABASE_URL}/rest/v1/classes`;
-
-const SUBJECT_API =
-`${SUPABASE_URL}/rest/v1/subjects`;
 
 const STUDENT_API =
 `${SUPABASE_URL}/rest/v1/students`;
@@ -309,843 +294,626 @@ const STUDENT_API =
 const ATTENDANCE_API =
 `${SUPABASE_URL}/rest/v1/attendance`;
 
-
 const headers = {
-
   "apikey": SUPABASE_KEY,
-
-  "Authorization":
-  `Bearer ${SUPABASE_KEY}`,
-
-  "Content-Type":
-  "application/json"
-
+  "Authorization": `Bearer ${SUPABASE_KEY}`,
+  "Content-Type": "application/json"
 };
 
+let classes = [];
+let students = [];
+let attendanceColumns = new Set();
+
+/*
+  د attendance جدول دوه‌ګوني کالمونه لري.
+  د جدول جوړښت په اتومات ډول لوستل کېږي.
+*/
 
 /* =========================
    ELEMENTS
 ========================= */
 
-const dateInput =
-document.getElementById("date");
-
-const classSelect =
-document.getElementById("classSelect");
-
-const subjectSelect =
-document.getElementById("subjectSelect");
-
-const studentsDiv =
-document.getElementById("students");
-
-const countDiv =
-document.getElementById("count");
-
-
-let classes = [];
-let subjects = [];
-let students = [];
-
+const dateInput = document.getElementById("date");
+const classSelect = document.getElementById("classSelect");
+const studentsDiv = document.getElementById("students");
+const countDiv = document.getElementById("count");
+const supervisorDiv = document.getElementById("supervisor");
+const messageDiv = document.getElementById("message");
+const saveButton = document.getElementById("saveButton");
 
 /* =========================
-   TODAY
+   LOCAL DATE
 ========================= */
 
-const today =
-new Date();
+function getLocalDate(){
+  const now = new Date();
 
-const yyyy =
-today.getFullYear();
+  const year = now.getFullYear();
+  const month = String(now.getMonth()+1).padStart(2,"0");
+  const day = String(now.getDate()).padStart(2,"0");
 
-const mm =
-String(today.getMonth()+1)
-.padStart(2,"0");
+  return `${year}-${month}-${day}`;
+}
 
-const dd =
-String(today.getDate())
-.padStart(2,"0");
+dateInput.value = getLocalDate();
 
-dateInput.value =
-`${yyyy}-${mm}-${dd}`;
+/* =========================
+   API HELPERS
+========================= */
 
+async function apiFetch(url, options = {}) {
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      ...headers,
+      ...(options.headers || {})
+    }
+  });
+
+  const text = await response.text();
+
+  if (!response.ok) {
+    throw new Error(text || `HTTP ${response.status}`);
+  }
+
+  if (!text.trim()) {
+    return [];
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    return [];
+  }
+}
+
+function quoteFilter(value){
+  /*
+    PostgREST د text filter لپاره.
+    د عامو صنفونو نومونه لکه A-10 پکې خوندي دي.
+  */
+  return String(value).replace(/[%_]/g, "\\$&");
+}
+
+/* =========================
+   LOAD ATTENDANCE SCHEMA
+========================= */
+
+async function loadAttendanceSchema(){
+  /*
+    د صفر قطارونو غوښتنه یوازې د کالمونو
+    نومونه ترلاسه کوي؛ معلومات نه بدلوي.
+  */
+  const response = await fetch(
+    `${ATTENDANCE_API}?select=*`,
+    {headers}
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      "د حاضري جدول نه شو لوستلای:\n" +
+      await response.text()
+    );
+  }
+
+  /*
+    PostgREST په خالي جدول کې د کالمونو
+    نومونه د JSON له لارې نه ښيي.
+    نو د موجودې حاضري یو ریکارډ هم لوستلی شو.
+  */
+  const rows = await response.json();
+
+  if (rows.length) {
+    attendanceColumns = new Set(
+      Object.keys(rows[0])
+    );
+    return;
+  }
+
+  /*
+    که جدول خالي وي، د معلومو کالمونو
+    لېست د اوسني schema له مخې کاروو.
+  */
+  attendanceColumns = new Set([
+    "id",
+    "Date",
+    "Student ID",
+    "Class",
+    "Subject",
+    "Status",
+    "date",
+    "student_id",
+    "class",
+    "subject",
+    "status"
+  ]);
+}
 
 /* =========================
    LOAD CLASSES
 ========================= */
 
 async function loadClasses(){
+  const rows = await apiFetch(
+    `${CLASS_API}?select=id,code,name,grade,capacity,teacher&order=id.asc`
+  );
 
-  try{
+  classes = rows;
 
-    const response =
-    await fetch(
+  classSelect.innerHTML =
+    '<option value="">صنف انتخاب کړئ</option>';
 
-      `${CLASS_API}?select=id,code,name,grade,capacity,teacher&order=id.asc`,
+  classes.forEach(item => {
+    const name = String(item.name || "").trim();
+    const code = String(item.code || "").trim();
 
-      {
-        headers
-      }
+    if (!name && !code) return;
 
-    );
+    const option = document.createElement("option");
 
-
-    if(!response.ok){
-
-      throw new Error(
-        await response.text()
-      );
-
-    }
-
-
-    classes =
-    await response.json();
-
-
-    classSelect.innerHTML =
-    `<option value="">
-      صنف انتخاب کړئ
-    </option>`;
-
-
-    classes.forEach(item => {
-
-      const code =
-      String(item.code || "").trim();
-
-      const name =
-      String(item.name || "").trim();
-
-
-      if(!name && !code){
-        return;
-      }
-
-
-      const option =
-      document.createElement("option");
-
-
-      /*
-       اصلي value د صنف نوم دی
-       مثال:
-       A-10
-       A-11
-      */
-
-      option.value =
-      name || code;
-
-
-      option.textContent =
-      code
+    option.value = name || code;
+    option.textContent = code
       ? `${code} - ${name}`
       : name;
 
+    option.dataset.name = name || code;
+    option.dataset.teacher = String(item.teacher || "").trim();
+    option.dataset.code = code;
 
-      option.dataset.code =
-      code;
-
-      option.dataset.name =
-      name;
-
-
-      classSelect.appendChild(option);
-
-    });
-
-
-  }catch(error){
-
-    console.error(error);
-
-    showMessage(
-      "د صنفونو لوستلو ستونزه: " +
-      error.message,
-      "error"
-    );
-
-  }
-
+    classSelect.appendChild(option);
+  });
 }
-
-
-/* =========================
-   LOAD SUBJECTS
-========================= */
-
-async function loadSubjects(){
-
-  try{
-
-    const response =
-    await fetch(
-
-      `${SUBJECT_API}?select=id,code,name,teacher,class&order=id.asc`,
-
-      {
-        headers
-      }
-
-    );
-
-
-    if(!response.ok){
-
-      throw new Error(
-        await response.text()
-      );
-
-    }
-
-
-    subjects =
-    await response.json();
-
-
-    subjectSelect.innerHTML =
-    `<option value="">
-      مضمون انتخاب کړئ
-    </option>`;
-
-
-    subjects.forEach(item => {
-
-      const code =
-      String(item.code || "").trim();
-
-      const name =
-      String(item.name || "").trim();
-
-      const teacher =
-      String(item.teacher || "").trim();
-
-      const className =
-      String(item.class || "").trim();
-
-
-      if(!name){
-        return;
-      }
-
-
-      const option =
-      document.createElement("option");
-
-
-      option.value =
-      name;
-
-
-      option.textContent =
-      code
-      ? `${code} - ${name}`
-      : name;
-
-
-      option.dataset.code =
-      code;
-
-      option.dataset.name =
-      name;
-
-      option.dataset.teacher =
-      teacher;
-
-      option.dataset.class =
-      className;
-
-
-      subjectSelect.appendChild(option);
-
-    });
-
-
-  }catch(error){
-
-    console.error(error);
-
-    showMessage(
-      "د مضمونونو لوستلو ستونزه: " +
-      error.message,
-      "error"
-    );
-
-  }
-
-}
-
 
 /* =========================
    LOAD STUDENTS
 ========================= */
 
 async function loadStudents(){
-
-  try{
-
-    const response =
-    await fetch(
-
-      `${STUDENT_API}?select=id,code,name,father,class,phone,gender,address&order=id.asc`,
-
-      {
-        headers
-      }
-
-    );
-
-
-    if(!response.ok){
-
-      throw new Error(
-        await response.text()
-      );
-
-    }
-
-
-    students =
-    await response.json();
-
-
-    console.log(
-      "Students:",
-      students
-    );
-
-
-  }catch(error){
-
-    console.error(error);
-
-    showMessage(
-      "د زده‌کوونکو لوستلو ستونزه: " +
-      error.message,
-      "error"
-    );
-
-  }
-
+  /*
+    د اضافي gender/address کالمونو غوښتنه نه کوو،
+    ځکه د جدول په schema کې یې شتون تایید شوی نه دی.
+  */
+  students = await apiFetch(
+    `${STUDENT_API}?select=id,code,name,father,class&order=id.asc`
+  );
 }
 
+/* =========================
+   SELECTED CLASS
+========================= */
+
+function getSelectedClass(){
+  const option =
+    classSelect.options[classSelect.selectedIndex];
+
+  if (!option || !option.value) return null;
+
+  return {
+    name: String(option.dataset.name || option.value).trim(),
+    code: String(option.dataset.code || "").trim(),
+    teacher: String(option.dataset.teacher || "").trim()
+  };
+}
 
 /* =========================
    SHOW STUDENTS
 ========================= */
 
-function showStudents(){
+async function showStudents(){
+  clearMessage();
 
-  const selected =
-  classSelect.options[
-    classSelect.selectedIndex
-  ];
+  const selected = getSelectedClass();
 
-
-  if(
-    !selected ||
-    !selected.value
-  ){
-
+  if (!selected) {
     studentsDiv.innerHTML =
-    `<p>
-      لومړی صنف انتخاب کړئ.
-    </p>`;
+      "<p>لومړی صنف انتخاب کړئ.</p>";
 
     countDiv.textContent = "";
+    supervisorDiv.textContent =
+      "👨‍🏫 د صنف نګران استاد به دلته ښکاره شي.";
 
     return;
   }
 
+  supervisorDiv.textContent = selected.teacher
+    ? `👨‍🏫 نګران استاد: ${selected.teacher}`
+    : "⚠️ د دې صنف لپاره نګران استاد نه دی ټاکل شوی.";
 
-  const className =
-  String(
-    selected.dataset.name ||
-    selected.value ||
-    ""
-  ).trim();
+  studentsDiv.innerHTML =
+    '<p class="loading">زده‌کوونکي لوډ کېږي...</p>';
 
+  try {
+    const className = selected.name;
+    const classCode = selected.code;
 
-  const classCode =
-  String(
-    selected.dataset.code ||
-    ""
-  ).trim();
+    const filtered = students.filter(student => {
+      const studentClass =
+        String(student.class || "").trim();
 
+      return (
+        studentClass === className ||
+        (classCode && studentClass === classCode)
+      );
+    });
 
-  console.log(
-    "Selected class:",
-    className,
-    classCode
-  );
+    if (!filtered.length) {
+      countDiv.textContent = "۰ زده‌کوونکي";
 
+      studentsDiv.innerHTML = `
+        <p>
+          په "${escapeHtml(className)}" کې زده‌کوونکي پیدا نه شول.
+          د students جدول کې د class کالم ارزښت وګورئ.
+        </p>
+      `;
 
-  /*
-    د زده‌کوونکو class معلومول
-  */
+      return;
+    }
 
-  const filtered =
-  students.filter(student => {
-
-    const studentClass =
-    String(
-      student.class || ""
-    ).trim();
-
-
-    return (
-
-      studentClass === className ||
-
-      (
-        classCode &&
-        studentClass === classCode
-      )
-
+    /*
+      د ټاکل شوې نېټې موجوده حاضري ولولئ،
+      څو د اصلاح پر وخت پخواني حالتونه وساتل شي.
+    */
+    const existing = await loadExistingAttendance(
+      dateInput.value,
+      className
     );
 
-  });
+    studentsDiv.innerHTML = "";
 
+    filtered.forEach(student => {
+      const oldRecord = existing.find(row =>
+        String(row.student_id ?? row["Student ID"] ?? "") ===
+        String(student.id)
+      );
 
-  countDiv.textContent =
-  `${filtered.length} زده‌کوونکي`;
+      const oldStatus = oldRecord
+        ? String(oldRecord.status ?? oldRecord.Status ?? "حاضر")
+        : "حاضر";
 
+      const div = document.createElement("div");
 
-  if(filtered.length === 0){
+      div.className = "student";
+      div.dataset.studentId = student.id;
+      div.dataset.status = oldStatus;
+
+      div.innerHTML = `
+        <div class="student-info">
+          <strong>${escapeHtml(student.name || "بې‌نومه")}</strong>
+          <span>
+            کوډ: ${escapeHtml(student.code || "—")}
+            | د پلار نوم: ${escapeHtml(student.father || "—")}
+          </span>
+        </div>
+
+        <div class="buttons">
+          <button type="button"
+            class="status-btn present"
+            onclick="setStatus(this,'حاضر')">حاضر</button>
+
+          <button type="button"
+            class="status-btn absent"
+            onclick="setStatus(this,'غیرحاضر')">غیرحاضر</button>
+
+          <button type="button"
+            class="status-btn late"
+            onclick="setStatus(this,'ناوخته')">ناوخته</button>
+        </div>
+      `;
+
+      studentsDiv.appendChild(div);
+
+      const button = [...div.querySelectorAll(".status-btn")]
+        .find(btn => btn.textContent.trim() === oldStatus);
+
+      if (button) {
+        button.classList.add("active");
+      } else {
+        div.dataset.status = "حاضر";
+        div.querySelector(".present").classList.add("active");
+      }
+    });
+
+    countDiv.textContent =
+      `ټول زده‌کوونکي: ${filtered.length}` +
+      (existing.length
+        ? ` | د دې نېټې پخوانۍ حاضري: ${existing.length}`
+        : "");
+
+  } catch (error) {
+    console.error(error);
 
     studentsDiv.innerHTML =
-    `<p>
-      په "${className}" کې
-      زده‌کوونکی پیدا نه شو.
-    </p>`;
+      "<p>د زده‌کوونکو یا پخوانۍ حاضري په لوستلو کې ستونزه رامنځته شوه.</p>";
 
-    return;
-
+    showMessage(error.message, "error");
   }
-
-
-  studentsDiv.innerHTML = "";
-
-
-  filtered.forEach(student => {
-
-    const div =
-    document.createElement("div");
-
-
-    div.className =
-    "student";
-
-
-    div.dataset.studentId =
-    student.id;
-
-
-    div.dataset.status =
-    "حاضر";
-
-
-    div.innerHTML = `
-
-      <div class="student-info">
-
-        <strong>
-          ${escapeHtml(
-            student.name || ""
-          )}
-        </strong>
-
-        <span>
-          ${escapeHtml(
-            student.code || ""
-          )}
-        </span>
-
-      </div>
-
-
-      <div class="buttons">
-
-        <button
-          class="status present active"
-          onclick="setStatus(this,'حاضر')">
-
-          حاضر
-
-        </button>
-
-
-        <button
-          class="status absent"
-          onclick="setStatus(this,'غیرحاضر')">
-
-          غیرحاضر
-
-        </button>
-
-
-        <button
-          class="status late"
-          onclick="setStatus(this,'ناوخته')">
-
-          ناوخته
-
-        </button>
-
-      </div>
-
-    `;
-
-
-    studentsDiv.appendChild(div);
-
-  });
-
 }
 
-
 /* =========================
-   STATUS
+   READ EXISTING ATTENDANCE
 ========================= */
 
-function setStatus(
-  button,
-  status
-){
+async function loadExistingAttendance(date, className){
+  /*
+    دواړه د نېټې او صنف احتمالي کالمونه
+    د schema له مخې هڅه کېږي.
+  */
+  const dateColumn = attendanceColumns.has("date")
+    ? "date"
+    : "Date";
 
-  const parent =
-  button.parentElement;
+  const classColumn = attendanceColumns.has("class")
+    ? "class"
+    : "Class";
 
+  const url =
+    `${ATTENDANCE_API}?select=*&` +
+    `${encodeURIComponent(dateColumn)}=eq.${encodeURIComponent(date)}&` +
+    `${encodeURIComponent(classColumn)}=eq.${encodeURIComponent(className)}`;
 
-  parent
-  .querySelectorAll(".status")
-  .forEach(btn => {
-
-    btn.classList.remove(
-      "active"
+  try {
+    return await apiFetch(url);
+  } catch (error) {
+    console.error("Existing attendance:", error);
+    throw new Error(
+      "د پخوانۍ حاضري لوستل ناکام شول. معلومات نه دي بدل شوي.\n" +
+      error.message
     );
-
-  });
-
-
-  button.classList.add(
-    "active"
-  );
-
-
-  const student =
-  button.closest(".student");
-
-
-  student.dataset.status =
-  status;
-
+  }
 }
 
+/* =========================
+   SET STATUS
+========================= */
+
+function setStatus(button, status){
+  const parent = button.parentElement;
+
+  parent.querySelectorAll(".status-btn")
+    .forEach(btn => btn.classList.remove("active"));
+
+  button.classList.add("active");
+
+  button.closest(".student").dataset.status = status;
+}
 
 /* =========================
-   SAVE ATTENDANCE
+   SAVE / UPDATE ATTENDANCE
 ========================= */
 
 async function saveAttendance(){
+  clearMessage();
 
-  const date =
-  dateInput.value;
+  const date = dateInput.value;
+  const selected = getSelectedClass();
 
-
-  const className =
-  classSelect.value;
-
-
-  const subject =
-  subjectSelect.value;
-
-
-  if(!date){
-
-    showMessage(
-      "مهرباني وکړئ نېټه انتخاب کړئ.",
-      "error"
-    );
-
+  if (!date) {
+    showMessage("مهرباني وکړئ نېټه انتخاب کړئ.", "error");
     return;
-
   }
 
-
-  if(!className){
-
-    showMessage(
-      "مهرباني وکړئ صنف انتخاب کړئ.",
-      "error"
-    );
-
+  if (!selected) {
+    showMessage("مهرباني وکړئ صنف انتخاب کړئ.", "error");
     return;
-
   }
 
+  const rows = [...document.querySelectorAll("#students .student")];
 
-  if(!subject){
-
-    showMessage(
-      "مهرباني وکړئ مضمون انتخاب کړئ.",
-      "error"
-    );
-
+  if (!rows.length) {
+    showMessage("د ثبت لپاره زده‌کوونکي نشته.", "error");
     return;
-
   }
 
+  /*
+    لومړی ټول معلومات جوړوو.
+    مضمون په هېڅ ریکارډ کې نه ټاکل کېږي.
+  */
+  const dateColumn = attendanceColumns.has("date")
+    ? "date"
+    : "Date";
 
-  const rows =
-  document.querySelectorAll(
-    ".student"
-  );
+  const studentColumn = attendanceColumns.has("student_id")
+    ? "student_id"
+    : "Student ID";
 
+  const classColumn = attendanceColumns.has("class")
+    ? "class"
+    : "Class";
 
-  if(rows.length === 0){
+  const statusColumn = attendanceColumns.has("status")
+    ? "status"
+    : "Status";
 
-    showMessage(
-      "د ثبت لپاره زده‌کوونکي نشته.",
-      "error"
-    );
+  const data = rows.map(row => {
+    const record = {};
 
-    return;
+    record[dateColumn] = date;
+    record[studentColumn] = Number(row.dataset.studentId);
+    record[classColumn] = selected.name;
+    record[statusColumn] = row.dataset.status || "حاضر";
 
-  }
+    return record;
+  });
 
+  saveButton.disabled = true;
+  saveButton.textContent = "حاضري ثبتېږي...";
 
-  try{
-
+  try {
     /*
-      پخوانۍ حاضري پاکول
+      د موجودو ریکارډونو پېژندنه.
+      د پخوانۍ حاضري حذف نه کېږي.
+      که ریکارډ موجود وي، PATCH کېږي.
+      که نه وي، POST کېږي.
     */
-
-    const deleteResponse =
-    await fetch(
-
-      `${ATTENDANCE_API}?Date=eq.${encodeURIComponent(date)}&class=eq.${encodeURIComponent(className)}`,
-
-      {
-        method:"DELETE",
-        headers
-      }
-
+    const existing = await loadExistingAttendance(
+      date,
+      selected.name
     );
 
+    const existingByStudent = new Map();
 
-    if(!deleteResponse.ok){
+    existing.forEach(record => {
+      const sid = record.student_id ?? record["Student ID"];
 
-      throw new Error(
-        await deleteResponse.text()
-      );
-
-    }
-
-
-    const data = [];
-
-
-    rows.forEach(row => {
-
-      data.push({
-
-        Date:
-        date,
-
-        student_id:
-        Number(
-          row.dataset.studentId
-        ),
-
-        class:
-        className,
-
-        subject:
-        subject,
-
-        status:
-        row.dataset.status ||
-        "حاضر"
-
-      });
-
+      if (sid !== null && sid !== undefined) {
+        existingByStudent.set(String(sid), record);
+      }
     });
 
+    const toInsert = [];
+    const updates = [];
 
-    console.log(
-      "Attendance data:",
-      data
-    );
+    data.forEach(record => {
+      const sid = String(record[studentColumn]);
+      const oldRecord = existingByStudent.get(sid);
 
-
-    const response =
-    await fetch(
-
-      ATTENDANCE_API,
-
-      {
-
-        method:"POST",
-
-        headers:{
-          ...headers,
-
-          "Prefer":
-          "return=representation"
-        },
-
-        body:
-        JSON.stringify(data)
-
+      if (oldRecord && oldRecord.id !== undefined) {
+        updates.push({
+          id: oldRecord.id,
+          data: record
+        });
+      } else {
+        toInsert.push(record);
       }
+    });
 
-    );
-
-
-    if(!response.ok){
-
-      throw new Error(
-        await response.text()
+    /*
+      موجود ریکارډونه یو په یو تازه کېږي،
+      څو د څو زده‌کوونکو معلومات یوځای غلط نه شي.
+    */
+    for (const item of updates) {
+      const response = await fetch(
+        `${ATTENDANCE_API}?id=eq.${encodeURIComponent(item.id)}`,
+        {
+          method: "PATCH",
+          headers: {
+            ...headers,
+            "Prefer": "return=representation"
+          },
+          body: JSON.stringify(item.data)
+        }
       );
 
+      if (!response.ok) {
+        throw new Error(
+          "د پخوانۍ حاضري تازه کول ناکام شول:\n" +
+          await response.text()
+        );
+      }
     }
 
+    if (toInsert.length) {
+      const response = await fetch(
+        ATTENDANCE_API,
+        {
+          method: "POST",
+          headers: {
+            ...headers,
+            "Prefer": "return=representation"
+          },
+          body: JSON.stringify(toInsert)
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "د نوې حاضري ثبت ناکام شو:\n" +
+          await response.text()
+        );
+      }
+    }
 
     showMessage(
-      "✅ حاضري په بریالیتوب آنلاین ثبت شوه.",
+      `✅ حاضري ثبت/تازه شوه.\n` +
+      `صنف: ${selected.name}\n` +
+      `نېټه: ${date}\n` +
+      `زده‌کوونکي: ${rows.length}\n` +
+      `نوي ریکارډونه: ${toInsert.length}\n` +
+      `تازه شوي ریکارډونه: ${updates.length}`,
       "success"
     );
 
+    countDiv.textContent =
+      `ټول زده‌کوونکي: ${rows.length} | حاضري ثبت شوې`;
 
-  }catch(error){
-
+  } catch (error) {
     console.error(error);
 
     showMessage(
-      "❌ د حاضري ثبتولو ستونزه: " +
-      error.message,
+      "❌ د حاضري ثبتولو ستونزه:\n" + error.message,
       "error"
     );
 
+  } finally {
+    saveButton.disabled = false;
+    saveButton.textContent = "💾 د ټول صنف حاضري ثبت کړئ";
   }
-
 }
 
-
 /* =========================
-   MESSAGE
+   MESSAGES
 ========================= */
 
-function showMessage(
-  text,
-  type
-){
-
-  const message =
-  document.getElementById(
-    "message"
-  );
-
-
-  message.textContent =
-  text;
-
-
-  message.className =
-  `message ${type}`;
-
-
-  message.style.display =
-  "block";
-
+function showMessage(text, type){
+  messageDiv.textContent = text;
+  messageDiv.className = `message ${type}`;
+  messageDiv.style.display = "block";
 }
 
+function clearMessage(){
+  messageDiv.textContent = "";
+  messageDiv.style.display = "none";
+  messageDiv.className = "message";
+}
 
 /* =========================
-   SECURITY
+   HTML ESCAPING
 ========================= */
 
 function escapeHtml(value){
-
-  return String(value)
-
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
-
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
-
 /* =========================
-   IMPORTANT
-   صنف انتخاب شي
-   زده کوونکي راوستل شي
+   EVENTS
 ========================= */
 
-classSelect.addEventListener(
-  "change",
-  showStudents
-);
+classSelect.addEventListener("change", showStudents);
 
+dateInput.addEventListener("change", () => {
+  if (classSelect.value) showStudents();
+});
 
 /* =========================
    START
 ========================= */
 
 async function start(){
-
   studentsDiv.innerHTML =
-  `<p class="loading">
-    معلومات لوډ کېږي...
-  </p>`;
+    '<p class="loading">معلومات لوډ کېږي...</p>';
 
+  try {
+    await loadAttendanceSchema();
+    await Promise.all([
+      loadClasses(),
+      loadStudents()
+    ]);
+  } catch (error) {
+    console.error(error);
 
-  await Promise.all([
-
-    loadClasses(),
-
-    loadSubjects(),
-
-    loadStudents()
-
-  ]);
-
-
-  /*
-    که صنف انتخاب شوی وي،
-    زده کوونکي ښکاره کړه
-  */
-
-  showStudents();
-
+    showMessage(
+      "د معلوماتو لوډ کولو ستونزه:\n" + error.message,
+      "error"
+    );
+  }
 }
 
-
 start();
-
 </script>
 
 </body>
