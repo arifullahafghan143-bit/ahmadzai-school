@@ -1,4 +1,705 @@
+<!DOCTYPE html>
+<html lang="ps" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>د زده‌کوونکو حاضري | احمدزي ښوونځی</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Tahoma, Arial, sans-serif;
+  background: linear-gradient(135deg, #eef4ff, #f8fbff);
+  color: #172033;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+.header {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  padding: 24px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 30px #2563eb30;
+}
+
+.header h1 {
+  margin: 0 0 8px;
+  font-size: 25px;
+}
+
+.header p {
+  margin: 0;
+  opacity: .9;
+  line-height: 1.8;
+}
+
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 25px #0000000d;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d7deea;
+  border-radius: 12px;
+  font-size: 15px;
+  background: white;
+  font-family: inherit;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px #2563eb18;
+}
+
+.supervisor {
+  margin-top: 15px;
+  padding: 13px;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  line-height: 1.9;
+}
+
+.count {
+  color: #2563eb;
+  font-weight: bold;
+  margin-bottom: 12px;
+  line-height: 2;
+}
+
+.students {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.student {
+  border: 1px solid #e1e7f0;
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.student-info {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.student-info strong {
+  display: block;
+  font-size: 17px;
+  margin-bottom: 7px;
+}
+
+.student-info span {
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.buttons {
+  display: flex;
+  gap: 7px;
+}
+
+.status-btn {
+  border: 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.present {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.absent {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.late {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-btn.active {
+  outline: 3px solid #2563eb45;
+  transform: scale(1.03);
+}
+
+.save {
+  width: 100%;
+  border: 0;
+  background: #2563eb;
+  color: white;
+  padding: 15px;
+  border-radius: 13px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+  font-family: inherit;
+}
+
+.save:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.message {
+  padding: 13px;
+  border-radius: 12px;
+  margin-top: 15px;
+  display: none;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.9;
+}
+
+.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.loading {
+  color: #64748b;
+  line-height: 2;
+}
+
+.empty {
+  text-align: center;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  line-height: 2;
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .student {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .buttons {
+    width: 100%;
+  }
+
+  .status-btn {
+    flex: 1;
+    padding: 10px 5px;
+    font-size: 13px;
+  }
+
+  .container {
+    padding: 12px;
+  }
+
+  .header {
+    padding: 20px;
+  }
+
+  .header h1 {
+    font-size: 21px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>📋 د زده‌کوونکو حاضري</h1>
+    <p>احمدزي ښوونځی — د ټول صنف حاضري</p>
+  </div>
+
+  <div class="card">
+
+    <div class="grid">
+
+      <div>
+        <label for="date">📅 د حاضري نېټه</label>
+        <input type="date" id="date">
+      </div>
+
+      <div>
+        <label for="classSelect">🏫 صنف انتخاب کړئ</label>
+        <select id="classSelect">
+          <option value="">صنف انتخاب کړئ</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div id="supervisor" class="supervisor">
+      👨‍🏫 د صنف نګران استاد به دلته ښکاره شي.
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h3>👨‍🎓 د صنف د زده‌کوونکو حاضري</h3>
+
+    <div id="count" class="count"></div>
+
+    <div id="students" class="students">
+      <p class="loading">معلومات لوډ کېږي...</p>
+    </div>
+
+    <button
+      type="button"
+      class="save"
+      id="saveButton">
+      💾 د ټول صنف حاضري ثبت کړئ
+    </button>
+
+    <div id="message" class="message"></div>
+
+  </div>
+
+</div>
+
+<script>
+"use strict";
+
+/* =================================
+   SUPABASE SETTINGS
+================================= */
+
+const SUPABASE_URL =
+  "https://oaxmnfnaqhdvnykawvyh.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
+
+const CLASS_API =
+  `${SUPABASE_URL}/rest/v1/classes`;
+
+const STUDENT_API =
+  `${SUPABASE_URL}/rest/v1/students`;
+
+const ATTENDANCE_API =
+  `${SUPABASE_URL}/rest/v1/attendance`;
+
+const headers = {
+  "apikey": SUPABASE_KEY,
+  "Authorization": `Bearer ${SUPABASE_KEY}`,
+  "Content-Type": "application/json"
+};
+
+let classes = [];
+let students = [];
+let isLoadingStudents = false;
+
+/* =================================
+   HTML ELEMENTS
+================================= */
+
+const dateInput = document.getElementById("date");
+const classSelect = document.getElementById("classSelect");
+const studentsDiv = document.getElementById("students");
+const countDiv = document.getElementById("count");
+const supervisorDiv = document.getElementById("supervisor");
+const messageDiv = document.getElementById("message");
+const saveButton = document.getElementById("saveButton");
+
+/* =================================
+   LOCAL DATE
+================================= */
+
+function getLocalDate() {
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+dateInput.value = getLocalDate();
+
+/* =================================
+   API HELPER
+================================= */
+
+async function apiFetch(url, options = {}) {
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      ...headers,
+      ...(options.headers || {})
+    }
+  });
+
+  const text = await response.text();
+
+  if (!response.ok) {
+    throw new Error(
+      `HTTP ${response.status}\n${text || "نامعلومه تېروتنه"}`
+    );
+  }
+
+  if (!text.trim()) {
+    return [];
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    return [];
+  }
+}
+
+/* =================================
+   MESSAGE HELPERS
+================================= */
+
+function showMessage(text, type) {
+  messageDiv.textContent = text;
+  messageDiv.className = `message ${type}`;
+  messageDiv.style.display = "block";
+}
+
+function clearMessage() {
+  messageDiv.textContent = "";
+  messageDiv.className = "message";
+  messageDiv.style.display = "none";
+}
+
+/* =================================
+   ESCAPE HTML
+================================= */
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+/* =================================
+   LOAD CLASSES
+================================= */
+
+async function loadClasses() {
+  const data = await apiFetch(
+    `${CLASS_API}?select=id,code,name,grade,capacity,teacher&order=id.asc`
+  );
+
+  classes = data;
+
+  classSelect.innerHTML =
+    '<option value="">صنف انتخاب کړئ</option>';
+
+  classes.forEach(item => {
+    const name = String(item.name || "").trim();
+    const code = String(item.code || "").trim();
+
+    if (!name && !code) {
+      return;
+    }
+
+    const option = document.createElement("option");
+
+    option.value = name || code;
+
+    option.textContent = code
+      ? `${code} - ${name}`
+      : name;
+
+    option.dataset.name = name || code;
+    option.dataset.code = code;
+    option.dataset.teacher = String(item.teacher || "").trim();
+
+    classSelect.appendChild(option);
+  });
+
+  if (classes.length === 0) {
+    showMessage("په ډیټابېس کې صنفونه پیدا نه شول.", "error");
+  }
+}
+
+/* =================================
+   LOAD STUDENTS
+================================= */
+
+async function loadStudents() {
+  students = await apiFetch(
+    `${STUDENT_API}?select=id,code,name,father,class&order=id.asc`
+  );
+}
+
+/* =================================
+   GET SELECTED CLASS
+================================= */
+
+function getSelectedClass() {
+  const option = classSelect.options[classSelect.selectedIndex];
+
+  if (!option || !option.value) {
+    return null;
+  }
+
+  return {
+    name: String(option.dataset.name || option.value).trim(),
+    code: String(option.dataset.code || "").trim(),
+    teacher: String(option.dataset.teacher || "").trim()
+  };
+}
+
+/* =================================
+   READ EXISTING ATTENDANCE
+================================= */
+
+async function loadExistingAttendance(date, className) {
+  const url =
+    `${ATTENDANCE_API}?select=*&` +
+    `date=eq.${encodeURIComponent(date)}&` +
+    `class=eq.${encodeURIComponent(className)}&` +
+    `order=id.asc`;
+
+  return await apiFetch(url);
+}
+
+/* =================================
+   SHOW STUDENTS
+================================= */
+
+async function showStudents() {
+  clearMessage();
+
+  const selected = getSelectedClass();
+
+  if (!selected) {
+    studentsDiv.innerHTML =
+      '<p class="empty">لومړی صنف انتخاب کړئ.</p>';
+
+    countDiv.textContent = "";
+
+    supervisorDiv.textContent =
+      "👨‍🏫 د صنف نګران استاد به دلته ښکاره شي.";
+
+    return;
+  }
+
+  supervisorDiv.textContent = selected.teacher
+    ? `👨‍🏫 نګران استاد: ${selected.teacher}`
+    : "⚠️ د دې صنف لپاره نګران استاد نه دی ټاکل شوی.";
+
+  studentsDiv.innerHTML =
+    '<p class="loading">زده‌کوونکي او پخوانۍ حاضري لوډ کېږي...</p>';
+
+  try {
+    const filtered = students.filter(student => {
+      const studentClass = String(student.class || "").trim();
+
+      return (
+        studentClass === selected.name ||
+        (selected.code && studentClass === selected.code)
+      );
+    });
+
+    if (filtered.length === 0) {
+      countDiv.textContent = "ټول زده‌کوونکي: ۰";
+
+      studentsDiv.innerHTML = `
+        <p class="empty">
+          په "${escapeHtml(selected.name)}" کې زده‌کوونکي پیدا نه شول.
+          <br>
+          د students جدول کې د class کالم ارزښت وګورئ.
+        </p>
+      `;
+
+      return;
+    }
+
+    const existing = await loadExistingAttendance(
+      dateInput.value,
+      selected.name
+    );
+
+    /*
+      که په یوه نېټه او صنف کې تکراري ریکارډونه وي،
+      وروستی ریکارډ د ښودلو لپاره انتخابوو.
+      د ډیټابېس ریکارډونه نه حذف کېږي.
+    */
+
+    const existingByStudent = new Map();
+
+    existing.forEach(record => {
+      const sid = record.student_id ?? record["Student ID"];
+
+      if (sid !== null && sid !== undefined) {
+        existingByStudent.set(String(sid), record);
+      }
+    });
+
+    studentsDiv.innerHTML = "";
+
+    filtered.forEach(student => {
+      const oldRecord = existingByStudent.get(
+        String(student.id)
+      );
+
+      const oldStatus = oldRecord
+        ? String(oldRecord.status ?? oldRecord.Status ?? "حاضر")
+        : "حاضر";
+
+      const div = document.createElement("div");
+
+      div.className = "student";
+      div.dataset.studentId = String(student.id);
+      div.dataset.status = oldStatus;
+
+      div.innerHTML = `
+        <div class="student-info">
+          <strong>${escapeHtml(student.name || "بې‌نومه")}</strong>
+          <span>
+            کوډ: ${escapeHtml(student.code || "—")}
+            <br>
+            د پلار نوم: ${escapeHtml(student.father || "—")}
+          </span>
+        </div>
+
+        <div class="buttons">
+
+          <button type="button"
+            class="status-btn present"
+            data-status="حاضر">
+            حاضر
+          </button>
+
+          <button type="button"
+            class="status-btn absent"
+            data-status="غیرحاضر">
+            غیرحاضر
+          </button>
+
+          <button type="button"
+            class="status-btn late"
+            data-status="ناوخته">
+            ناوخته
+          </button>
+
+        </div>
+      `;
+
+      const buttons = div.querySelectorAll(".status-btn");
+
+      buttons.forEach(button => {
+        button.addEventListener("click", () => {
+          div.dataset.status = button.dataset.status;
+
+          buttons.forEach(item => {
+            item.classList.remove("active");
+          });
+
+          button.classList.add("active");
+        });
+
+        if (button.dataset.status === oldStatus) {
+          button.classList.add("active");
+        }
+      });
+
+      // که پخوانی حالت ناسم یا تش وي، حاضر وټاکئ
+      if (!["حاضر", "غیرحاضر", "ناوخته"].includes(oldStatus)) {
+        div.dataset.status = "حاضر";
+
+        buttons.forEach(button => {
+          button.classList.toggle(
+            "active",
+            button.dataset.status === "حاضر"
+          );
+        });
+      }
+
+      studentsDiv.appendChild(div);
+    });
+
+    countDiv.textContent =
+      `ټول زده‌کوونکي: ${filtered.length}` +
+      ` | پخواني ریکارډونه: ${existing.length}`;
+
+  } catch (error) {
+    console.error(error);
+
+    studentsDiv.innerHTML =
+      '<p class="empty">د زده‌کوونکو د معلوماتو په لوستلو کې ستونزه رامنځته شوه.</p>';
+
+    showMessage(
+      "د حاضري د معلوماتو لوستل ناکام شول:\n" + error.message,
+      "error"
+    );
+  }
+}
+
+/* =================================
+   SAVE ATTENDANCE
+================================= */
+
 async function saveAttendance() {
+  if (isLoadingStudents) {
+    return;
+  }
+
   clearMessage();
 
   const date = dateInput.value;
@@ -18,7 +719,7 @@ async function saveAttendance() {
     ...document.querySelectorAll("#students .student")
   ];
 
-  if (!rows.length) {
+  if (rows.length === 0) {
     showMessage("د ثبت لپاره زده‌کوونکي نشته.", "error");
     return;
   }
@@ -27,13 +728,16 @@ async function saveAttendance() {
   saveButton.textContent = "حاضري ثبتېږي...";
 
   try {
-    // د ټاکلې نېټې او صنف پخوانۍ حاضري ولولئ
+    /*
+      د ټاکلې نېټې او صنف پخوانۍ حاضري ولولئ.
+      د موجودو ریکارډونو د ID له مخې تازه کول کېږي.
+    */
+
     const existing = await loadExistingAttendance(
       date,
       selected.name
     );
 
-    // د زده‌کوونکي ID له مخې پخوانۍ حاضري پیدا کړئ
     const existingByStudent = new Map();
 
     existing.forEach(record => {
@@ -51,7 +755,13 @@ async function saveAttendance() {
       const studentId = Number(row.dataset.studentId);
       const status = row.dataset.status || "حاضر";
 
-      // دواړه بڼې ډکوو، ځکه په جدول کې دواړه کالمونه شته
+      /*
+        مهم:
+        "Date" اجباري دی.
+        دواړه د نېټې کالمونه ډکوو.
+        دواړه د زده‌کوونکي ID، صنف او حالت کالمونه هم برابروو.
+      */
+
       const record = {
         "Date": date,
         "Student ID": studentId,
@@ -78,7 +788,11 @@ async function saveAttendance() {
       }
     });
 
-    // پخوانۍ حاضري تازه کړئ؛ حذف یې مه کوئ
+    /*
+      لومړی موجود ریکارډونه تازه کېږي.
+      پخوانۍ حاضري نه حذف کېږي.
+    */
+
     for (const item of updates) {
       const response = await fetch(
         `${ATTENDANCE_API}?id=eq.${encodeURIComponent(item.id)}`,
@@ -100,7 +814,11 @@ async function saveAttendance() {
       }
     }
 
-    // نوې حاضري ثبت کړئ
+    /*
+      که نوی ریکارډ وي، ثبت یې کړئ.
+      د id لپاره ډیفالټ sequence په لومړي SQL کې جوړ شوی.
+    */
+
     if (toInsert.length > 0) {
       const response = await fetch(
         ATTENDANCE_API,
@@ -123,7 +841,7 @@ async function saveAttendance() {
     }
 
     showMessage(
-      `✅ د حاضري ثبت بریالی شو!\n` +
+      "✅ د حاضري ثبت بریالی شو!\n" +
       `صنف: ${selected.name}\n` +
       `نېټه: ${date}\n` +
       `ټول زده‌کوونکي: ${rows.length}\n` +
@@ -148,3 +866,58 @@ async function saveAttendance() {
     saveButton.textContent = "💾 د ټول صنف حاضري ثبت کړئ";
   }
 }
+
+/* =================================
+   EVENTS
+================================= */
+
+classSelect.addEventListener("change", showStudents);
+
+dateInput.addEventListener("change", () => {
+  if (classSelect.value) {
+    showStudents();
+  }
+});
+
+saveButton.addEventListener("click", saveAttendance);
+
+/* =================================
+   START APPLICATION
+================================= */
+
+async function start() {
+  studentsDiv.innerHTML =
+    '<p class="loading">د ښوونځي معلومات لوډ کېږي...</p>';
+
+  isLoadingStudents = true;
+
+  try {
+    await Promise.all([
+      loadClasses(),
+      loadStudents()
+    ]);
+
+    studentsDiv.innerHTML =
+      '<p class="empty">لومړی صنف انتخاب کړئ.</p>';
+
+  } catch (error) {
+    console.error(error);
+
+    studentsDiv.innerHTML =
+      '<p class="empty">د معلوماتو لوډ کول ناکام شول.</p>';
+
+    showMessage(
+      "د معلوماتو لوډ کولو ستونزه:\n" + error.message,
+      "error"
+    );
+
+  } finally {
+    isLoadingStudents = false;
+  }
+}
+
+start();
+</script>
+
+</body>
+</html>
