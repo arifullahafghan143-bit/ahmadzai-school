@@ -3,547 +3,1302 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>احمدزي ښوونځی - د نمرو راپور</title>
+<title>احمدزي ښوونځی | د نمرو ثبت</title>
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;padding:12px;font-family:Arial,sans-serif;background:#f1f5f9;color:#1e293b}
-.container{max-width:1100px;margin:auto}
-header{background:#075985;color:white;padding:20px;text-align:center;border-radius:12px;margin-bottom:15px}
-header h2{margin:12px 0}
-.back{display:inline-block;color:white;text-decoration:none;background:#0369a1;padding:9px 13px;border-radius:7px}
-.card{background:white;padding:16px;border-radius:12px;margin-bottom:16px;box-shadow:0 2px 10px #0000000c}
-h3{color:#075985;margin-top:0}
-label{display:block;font-weight:bold;margin:12px 0 6px}
-input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;background:white;font-size:15px}
-button{border:0;padding:11px 14px;border-radius:8px;cursor:pointer;font-size:15px;margin-top:10px}
-.primary{background:#0284c7;color:white;width:100%}
-.secondary{background:#475569;color:white}
-.danger{background:#dc2626;color:white;margin:0}
-.info{background:#f0f9ff;border:1px solid #bae6fd;padding:12px;border-radius:8px;line-height:1.8;overflow-wrap:anywhere}
-.error{color:#b91c1c}
-.success{color:#15803d}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.table-wrap{overflow-x:auto}
-table{width:100%;min-width:850px;border-collapse:collapse;margin-top:12px}
-th,td{padding:10px;border:1px solid #e2e8f0;text-align:center}
-th{background:#075985;color:white}
-tr:nth-child(even){background:#f8fafc}
-#gradePreview{font-weight:bold;margin-top:12px;font-size:17px}
-@media(max-width:600px){.grid{grid-template-columns:1fr}.card{padding:12px}}
-@media print{.no-print,button,.back{display:none!important}body{background:white}.card{box-shadow:none}}
+:root {
+  --primary: #123c69;
+  --secondary: #1d5b91;
+  --gold: #d4a843;
+  --bg: #f2f5fa;
+  --white: #ffffff;
+  --text: #172b4d;
+  --muted: #718096;
+  --border: #e0e7f0;
+  --success: #15803d;
+  --danger: #dc2626;
+  --shadow: 0 12px 35px rgba(18,60,105,.10);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Tahoma, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.topbar {
+  background: linear-gradient(135deg, #102d50, #1d5b91);
+  color: white;
+  padding: 25px 18px;
+  border-bottom: 4px solid var(--gold);
+}
+
+.topbar-inner {
+  max-width: 1050px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.25);
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+}
+
+.school-title h1 {
+  font-size: 23px;
+  margin-bottom: 7px;
+}
+
+.school-title p {
+  font-size: 13px;
+  color: #dbeafe;
+  line-height: 1.8;
+}
+
+.container {
+  max-width: 900px;
+  margin: 28px auto;
+  padding: 0 15px 35px;
+}
+
+.page-heading {
+  margin-bottom: 22px;
+}
+
+.page-heading h2 {
+  font-size: 22px;
+  margin-bottom: 9px;
+  color: var(--primary);
+}
+
+.page-heading p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 25px;
+  margin-bottom: 22px;
+}
+
+.card-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 13px;
+  background: #eaf2fc;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+}
+
+.card-heading h3 {
+  font-size: 17px;
+  margin-bottom: 5px;
+}
+
+.card-heading p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.form-group {
+  min-width: 0;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 9px;
+}
+
+.required {
+  color: var(--danger);
+}
+
+select,
+input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid #d4deea;
+  border-radius: 11px;
+  background: #fbfcff;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: .2s;
+}
+
+select:focus,
+input:focus {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(29,91,145,.10);
+  background: white;
+}
+
+select:disabled,
+input:disabled {
+  background: #edf0f5;
+  cursor: not-allowed;
+  color: #8a96a8;
+}
+
+.exam-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.exam-option {
+  position: relative;
+}
+
+.exam-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.exam-option label {
+  display: block;
+  padding: 18px 12px;
+  margin: 0;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  text-align: center;
+  transition: .2s;
+  background: #fbfcff;
+}
+
+.exam-option input:checked + label {
+  border-color: var(--secondary);
+  background: #edf5ff;
+  box-shadow: 0 5px 16px rgba(29,91,145,.09);
+}
+
+.exam-option strong {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 9px;
+}
+
+.exam-option span {
+  color: var(--secondary);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.exam-option .exam-icon {
+  font-size: 25px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.info-box {
+  background: #f0f7ff;
+  border: 1px solid #d7e8ff;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 12px;
+  line-height: 2;
+  color: #234a75;
+  margin-top: 18px;
+}
+
+.score-box {
+  background: linear-gradient(135deg, #f8fafc, #edf4fc);
+  border: 1px solid #dce7f5;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.score-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 14px;
+}
+
+.score-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  align-items: center;
+}
+
+.max-score {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 2;
+}
+
+.max-score strong {
+  display: block;
+  font-size: 27px;
+  color: var(--primary);
+}
+
+.score-input-wrap {
+  position: relative;
+}
+
+.score-input-wrap input {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  min-height: 58px;
+  background: white;
+}
+
+.score-input-wrap small {
+  display: block;
+  color: var(--muted);
+  margin-top: 7px;
+  font-size: 11px;
+  text-align: center;
+}
+
+.score-preview {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 13px;
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+.score-preview strong {
+  color: var(--primary);
+  font-size: 18px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.btn {
+  border: 0;
+  border-radius: 11px;
+  min-height: 49px;
+  padding: 13px 18px;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  flex: 1;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  box-shadow: 0 6px 16px rgba(18,60,105,.18);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+}
+
+.btn-light {
+  background: #edf2f8;
+  color: var(--primary);
+}
+
+.message {
+  display: none;
+  padding: 14px;
+  border-radius: 11px;
+  font-size: 13px;
+  line-height: 1.9;
+  margin-bottom: 18px;
+  overflow-wrap: anywhere;
+}
+
+.message.success {
+  display: block;
+  background: #ecfdf3;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.message.error {
+  display: block;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.message.info {
+  display: block;
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px 10px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
+}
+
+@media (max-width: 600px) {
+  .topbar {
+    padding: 20px 14px;
+  }
+
+  .school-title h1 {
+    font-size: 19px;
+  }
+
+  .school-title p {
+    font-size: 12px;
+  }
+
+  .container {
+    margin-top: 20px;
+    padding-left: 11px;
+    padding-right: 11px;
+  }
+
+  .page-heading h2 {
+    font-size: 19px;
+  }
+
+  .card {
+    padding: 17px;
+    border-radius: 16px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 17px;
+  }
+
+  .exam-options {
+    gap: 10px;
+  }
+
+  .exam-option label {
+    padding: 15px 7px;
+  }
+
+  .exam-option strong {
+    font-size: 13px;
+  }
+
+  .score-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .score-box {
+    padding: 14px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
 </style>
 </head>
 
 <body>
-<div class="container">
 
-<header>
-<a href="dashboard.html" class="back no-print">← ډشبورډ ته بېرته تلل</a>
-<h2>احمدزي ښوونځی</h2>
-<div>د ازموینو د نمرو ثبت او راپور</div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="logo">🏫</div>
+
+    <div class="school-title">
+      <h1>احمدزي ښوونځی</h1>
+      <p>د زده‌کوونکو د ازموینو او تحصیلي پایلو مدیریت</p>
+    </div>
+  </div>
 </header>
 
-<div class="card">
-<h3>د سیستم حالت</h3>
-<div id="status" class="info">سیستم چمتو کېږي...</div>
-<button type="button" class="secondary no-print" id="refreshBtn">معلومات تازه کړه</button>
-</div>
+<main class="container">
 
-<div class="card">
-<h3>د زده‌کوونکي او ازموینې معلومات</h3>
+  <section class="page-heading">
+    <h2>د زده‌کوونکو د نمرو ثبت</h2>
+    <p>
+      صنف، مضمون، ازموینه او زده‌کوونکی انتخاب کړئ،
+      بیا د ترلاسه شویو نمرو ثبتولو لپاره لاندې فورمه ډکه کړئ.
+    </p>
+  </section>
 
-<form id="resultForm">
+  <div id="message" class="message"></div>
 
-<label for="classSelect">صنف</label>
-<select id="classSelect" required>
-<option value="">صنفونه لوډ کېږي...</option>
-</select>
+  <section class="card">
 
-<label for="studentSelect">زده‌کوونکی</label>
-<select id="studentSelect" required>
-<option value="">لومړی صنف انتخاب کړه</option>
-</select>
+    <div class="card-heading">
+      <div class="card-icon">📋</div>
+      <div>
+        <h3>د ازموینې معلومات</h3>
+        <p>لومړی د صنف او مضمون معلومات انتخاب کړئ.</p>
+      </div>
+    </div>
 
-<label for="subjectSelect">مضمون</label>
-<select id="subjectSelect" required>
-<option value="">لومړی صنف انتخاب کړه</option>
-</select>
+    <div class="form-grid">
 
-<label for="examName">د ازموینې ډول</label>
-<select id="examName" required>
-<option value="میاشتنۍ ازموینه">میاشتنۍ ازموینه</option>
-<option value="منځنۍ ازموینه">منځنۍ ازموینه</option>
-<option value="څلور نیم‌میاشتنۍ ازموینه">څلور نیم‌میاشتنۍ ازموینه</option>
-<option value="کلنۍ ازموینه">کلنۍ ازموینه</option>
-<option value="ازمایښتي ازموینه">ازمایښتي ازموینه</option>
-</select>
+      <div class="form-group">
+        <label for="classSelect">
+          صنف انتخاب کړئ <span class="required">*</span>
+        </label>
 
-<label for="examDate">د ازموینې نېټه</label>
-<input type="date" id="examDate" required>
+        <select id="classSelect" required>
+          <option value="">صنفونه لوډ کېږي...</option>
+        </select>
+      </div>
 
-<div class="grid">
-<div>
-<label for="marks">ترلاسه شوې نمرې</label>
-<input type="number" id="marks" min="0" step="any" placeholder="مثلاً 85" required>
-</div>
-<div>
-<label for="totalMarks">ټولې نمرې</label>
-<input type="number" id="totalMarks" min="1" step="any" value="100" required>
-</div>
-</div>
+      <div class="form-group">
+        <label for="subjectSelect">
+          مضمون انتخاب کړئ <span class="required">*</span>
+        </label>
 
-<div id="gradePreview">سلنه: — | درجه: —</div>
-<button type="submit" class="primary" id="saveBtn">نمرې ثبت کړه</button>
-</form>
-</div>
+        <select id="subjectSelect" required disabled>
+          <option value="">لومړی صنف انتخاب کړئ</option>
+        </select>
+      </div>
 
-<div class="card">
-<h3>ثبت شوې نمرې</h3>
+      <div class="form-group full">
+        <label>
+          د ازموینې ډول انتخاب کړئ <span class="required">*</span>
+        </label>
 
-<div class="grid no-print">
-<div>
-<label for="filterClass">د صنف فلټر</label>
-<select id="filterClass"><option value="">ټول صنفونه</option></select>
-</div>
-<div>
-<label for="filterExam">د ازموینې فلټر</label>
-<select id="filterExam">
-<option value="">ټولې ازموینې</option>
-<option value="میاشتنۍ ازموینه">میاشتنۍ ازموینه</option>
-<option value="منځنۍ ازموینه">منځنۍ ازموینه</option>
-<option value="څلور نیم‌میاشتنۍ ازموینه">څلور نیم‌میاشتنۍ ازموینه</option>
-<option value="کلنۍ ازموینه">کلنۍ ازموینه</option>
-<option value="ازمایښتي ازموینه">ازمایښتي ازموینه</option>
-</select>
-</div>
-</div>
+        <div class="exam-options">
 
-<button type="button" class="secondary no-print" id="reportBtn">راپور تازه کړه</button>
-<button type="button" class="secondary no-print" onclick="window.print()">راپور چاپ کړه</button>
+          <div class="exam-option">
+            <input
+              type="radio"
+              name="examType"
+              id="halfExam"
+              value="څلور نیم میاشتنی"
+              checked
+            >
 
-<div id="tableStatus" class="info">د نمرو معلومات لوډ کېږي...</div>
+            <label for="halfExam">
+              <span class="exam-icon">📝</span>
+              <strong>څلور نیم میاشتنی ازموینه</strong>
+              <span>له ۴۰ نمرو څخه</span>
+            </label>
+          </div>
 
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>شمېره</th><th>زده‌کوونکی ID</th><th>صنف</th><th>مضمون</th>
-<th>ازموینه</th><th>نېټه</th><th>نمرې</th><th>ټولې نمرې</th>
-<th>سلنه</th><th>درجه</th><th class="no-print">عملیات</th>
-</tr>
-</thead>
-<tbody id="resultsBody">
-<tr><td colspan="11">معلومات لوډ کېږي...</td></tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
+          <div class="exam-option">
+            <input
+              type="radio"
+              name="examType"
+              id="annualExam"
+              value="کلنۍ"
+            >
 
+            <label for="annualExam">
+              <span class="exam-icon">🎓</span>
+              <strong>کلنۍ ازموینه</strong>
+              <span>له ۶۰ نمرو څخه</span>
+            </label>
+          </div>
+
+        </div>
+
+        <div class="info-box">
+          <strong>یادونه:</strong>
+          د څلور نیم میاشتني ازموینې اعظمي نمرې ۴۰ دي
+          او د کلنۍ ازموینې اعظمي نمرې ۶۰ دي.
+          د ازموینې له انتخاب سره د نمرو حد په اتومات ډول بدلېږي.
+        </div>
+      </div>
+
+      <div class="form-group full">
+        <label for="studentSelect">
+          زده‌کوونکی انتخاب کړئ <span class="required">*</span>
+        </label>
+
+        <select id="studentSelect" required disabled>
+          <option value="">لومړی صنف انتخاب کړئ</option>
+        </select>
+      </div>
+
+      <div class="form-group full">
+        <div class="score-box">
+
+          <div class="score-title">
+            🔢 د زده‌کوونکي ترلاسه شوې نمرې
+          </div>
+
+          <div class="score-grid">
+
+            <div class="max-score">
+              د ازموینې ټولې نمرې
+              <strong id="maxMarks">40</strong>
+              اعظمي نمرې
+            </div>
+
+            <div class="score-input-wrap">
+              <input
+                type="number"
+                id="marksInput"
+                min="0"
+                max="40"
+                step="0.5"
+                placeholder="0"
+                inputmode="decimal"
+                required
+                disabled
+              >
+
+              <small>ترلاسه شوې نمرې ولیکئ</small>
+            </div>
+
+          </div>
+
+          <div class="score-preview">
+            <span>د زده‌کوونکي سلنه</span>
+            <strong id="percentagePreview">۰٪</strong>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="actions">
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="saveButton"
+        disabled
+      >
+        💾 نمرې ثبت کړئ
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-light"
+        id="resetButton"
+      >
+        ↺ فورمه پاکه کړئ
+      </button>
+    </div>
+
+  </section>
+
+  <footer class="footer">
+    <p>احمدزي ښوونځی</p>
+    <p>د زده‌کوونکو د نمرو او تحصیلي پایلو مدیریت</p>
+  </footer>
+
+</main>
 <script>
-"use strict";
+/* ==========================================
+   AHMADZAI SCHOOL - RESULTS SYSTEM
+========================================== */
 
-/* Supabase تنظیمات */
-const SUPABASE_URL = "https://oaxmnfnaqhdvnykawvyh.supabase.co";
-const SUPABASE_KEY = "sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
+const SUPABASE_URL =
+  "https://oaxmnfnaqhdvnykawvyh.supabase.co";
 
-const $ = id => document.getElementById(id);
+const SUPABASE_KEY =
+  "sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
+
+const API = SUPABASE_URL + "/rest/v1/";
+
+const headers = {
+  "apikey": SUPABASE_KEY,
+  "Authorization": "Bearer " + SUPABASE_KEY,
+  "Content-Type": "application/json"
+};
 
 let classesData = [];
-let studentsData = [];
 let subjectsData = [];
+let studentsData = [];
 let resultsData = [];
-let loading = false;
 
-function setStatus(message, type="") {
-    $("status").textContent = message;
-    $("status").className = "info " + type;
+let selectedMaxMarks = 40;
+let saving = false;
+
+/* ==========================================
+   HTML ELEMENTS
+========================================== */
+
+const classSelect = document.getElementById("classSelect");
+const subjectSelect = document.getElementById("subjectSelect");
+const studentSelect = document.getElementById("studentSelect");
+const marksInput = document.getElementById("marksInput");
+const maxMarksElement = document.getElementById("maxMarks");
+const percentagePreview = document.getElementById("percentagePreview");
+const saveButton = document.getElementById("saveButton");
+const resetButton = document.getElementById("resetButton");
+const messageBox = document.getElementById("message");
+
+/* ==========================================
+   HELPERS
+========================================== */
+
+function showMessage(message, type = "info") {
+  messageBox.textContent = message;
+  messageBox.className = "message " + type;
+  messageBox.style.display = "block";
 }
 
-function getName(item) {
-    return String(item.name ?? item.Name ?? "");
+function hideMessage() {
+  messageBox.textContent = "";
+  messageBox.className = "message";
+  messageBox.style.display = "none";
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+async function getTable(table, query = "") {
+  const response = await fetch(
+    API + table + "?select=*" + query,
+    { headers }
+  );
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(
+      table + " جدول: " + error
+    );
+  }
+
+  return response.json();
+}
+
+async function postResult(data) {
+  const response = await fetch(API + "results", {
+    method: "POST",
+    headers: {
+      ...headers,
+      "Prefer": "return=representation"
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(error);
+  }
+
+  return response.json();
 }
 
 function getClassName(item) {
-    return String(item.class ?? item.Class ?? "");
+  return String(
+    item.name ||
+    item.class_name ||
+    item.class ||
+    item.code ||
+    ""
+  ).trim();
 }
 
-function today() {
-    const d = new Date();
-    return d.getFullYear() + "-" +
-        String(d.getMonth()+1).padStart(2,"0") + "-" +
-        String(d.getDate()).padStart(2,"0");
+function getSubjectName(item) {
+  return String(
+    item.name ||
+    item.subject_name ||
+    item.subject ||
+    item.code ||
+    ""
+  ).trim();
 }
 
-async function api(table, options={}) {
-    const url = new URL(SUPABASE_URL + "/rest/v1/" + table);
-
-    Object.entries(options.params || {}).forEach(([key,value]) => {
-        url.searchParams.set(key, value);
-    });
-
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 15000);
-
-    const headers = {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY,
-        "Content-Type": "application/json"
-    };
-
-    if (options.prefer) headers["Prefer"] = options.prefer;
-
-    try {
-        const response = await fetch(url, {
-            method: options.method || "GET",
-            headers,
-            body: options.body !== undefined ? JSON.stringify(options.body) : undefined,
-            signal: controller.signal
-        });
-
-        const text = await response.text();
-        let data;
-
-        try {
-            data = text ? JSON.parse(text) : null;
-        } catch {
-            data = text;
-        }
-
-        if (!response.ok) {
-            throw new Error(data?.message || data?.hint || ("HTTP " + response.status + ": " + text));
-        }
-
-        return data;
-    } catch (error) {
-        if (error.name === "AbortError") {
-            throw new Error("د ډیټابېس غوښتنه وخت واخیست. انټرنېټ وګوره.");
-        }
-        throw error;
-    } finally {
-        clearTimeout(timer);
-    }
+function getStudentName(item) {
+  return String(
+    item.name ||
+    item.student_name ||
+    ""
+  ).trim();
 }
 
-function fillSelect(select, items, placeholder, getValue, getLabel) {
-    select.replaceChildren();
-
-    const first = document.createElement("option");
-    first.value = "";
-    first.textContent = placeholder;
-    select.appendChild(first);
-
-    items.forEach(item => {
-        const value = getValue(item);
-        if (value === null || value === undefined || value === "") return;
-
-        const option = document.createElement("option");
-        option.value = String(value);
-        option.textContent = String(getLabel(item));
-        select.appendChild(option);
-    });
+function getStudentClass(item) {
+  return String(
+    item.class ||
+    item.class_name ||
+    item.className ||
+    ""
+  ).trim();
 }
 
-function loadClassOptions() {
-    fillSelect($("classSelect"), classesData,
-        classesData.length ? "صنف انتخاب کړه" : "صنفونه ونه موندل شول",
-        item => getName(item),
-        item => getName(item));
-
-    fillSelect($("filterClass"), classesData, "ټول صنفونه",
-        item => getName(item),
-        item => getName(item));
+function getSubjectClass(item) {
+  return String(
+    item.class ||
+    item.class_name ||
+    item.className ||
+    ""
+  ).trim();
 }
 
-function updateDependentOptions() {
-    const selectedClass = $("classSelect").value;
+function getExamType() {
+  const selected = document.querySelector(
+    'input[name="examType"]:checked'
+  );
 
-    const students = studentsData.filter(item =>
-        getClassName(item).trim() === selectedClass.trim()
+  return selected ? selected.value : "";
+}
+
+function getExamMaxMarks() {
+  return getExamType() === "کلنۍ" ? 60 : 40;
+}
+
+function normalize(value) {
+  return String(value ?? "")
+    .trim()
+    .toLowerCase();
+}
+
+function formatPercent(value) {
+  return Number(value).toLocaleString("en-US", {
+    maximumFractionDigits: 2
+  }) + "%";
+}
+
+/* ==========================================
+   LOAD DATABASE
+========================================== */
+
+async function loadDatabase() {
+  showMessage(
+    "د ښوونځي معلومات لوډ کېږي...",
+    "info"
+  );
+
+  try {
+    const [classes, subjects, students, results] =
+      await Promise.all([
+        getTable("classes"),
+        getTable("subjects"),
+        getTable("students"),
+        getTable("results")
+      ]);
+
+    classesData = classes || [];
+    subjectsData = subjects || [];
+
+    studentsData = (students || []).filter(
+      student => student.is_active !== false
     );
 
-    const subjects = subjectsData.filter(item =>
-        getClassName(item).trim() === selectedClass.trim()
+    resultsData = results || [];
+
+    fillClasses();
+
+    showMessage(
+      "معلومات په بریالیتوب سره ترلاسه شول. صنف انتخاب کړئ.",
+      "success"
     );
 
-    fillSelect($("studentSelect"), students,
-        selectedClass
-            ? (students.length ? "زده‌کوونکی انتخاب کړه" : "په دې صنف کې زده‌کوونکي نشته")
-            : "لومړی صنف انتخاب کړه",
-        item => item.id,
-        item => getName(item));
+  } catch (error) {
+    console.error(error);
 
-    fillSelect($("subjectSelect"), subjects,
-        selectedClass
-            ? (subjects.length ? "مضمون انتخاب کړه" : "په دې صنف کې مضمون نشته")
-            : "لومړی صنف انتخاب کړه",
-        item => getName(item),
-        item => getName(item));
+    showMessage(
+      "د ډیټابېس د معلوماتو په لوډولو کې ستونزه ده. " +
+      error.message,
+      "error"
+    );
+  }
 }
 
-function calculateGrade(p) {
-    if (p >= 90) return "A";
-    if (p >= 80) return "B";
-    if (p >= 70) return "C";
-    if (p >= 60) return "D";
-    if (p >= 40) return "E";
-    return "F";
+/* ==========================================
+   CLASS DROPDOWN
+========================================== */
+
+function fillClasses() {
+  classSelect.innerHTML =
+    '<option value="">صنف انتخاب کړئ</option>';
+
+  classesData.forEach(item => {
+    const name = getClassName(item);
+
+    if (!name) return;
+
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+
+    classSelect.appendChild(option);
+  });
+
+  subjectSelect.disabled = true;
+  studentSelect.disabled = true;
+  marksInput.disabled = true;
+  saveButton.disabled = true;
 }
 
-function updatePreview() {
-    const marks = Number($("marks").value);
-    const total = Number($("totalMarks").value);
+/* ==========================================
+   SUBJECT DROPDOWN
+========================================== */
 
-    if ($("marks").value === "" || $("totalMarks").value === "" ||
-        total <= 0 || marks < 0 || marks > total) {
-        $("gradePreview").textContent = "سلنه: — | درجه: —";
-        return;
+function fillSubjects() {
+  const className = classSelect.value;
+
+  subjectSelect.innerHTML =
+    '<option value="">مضمون انتخاب کړئ</option>';
+
+  const filtered = subjectsData.filter(subject => {
+    const subjectClass = getSubjectClass(subject);
+
+    // که مضمون صنف ولري، باید له ټاکل شوي صنف سره برابر وي.
+    // که د مضمون صنف تش وي، د موجودو معلوماتو له مخې یې ښکاره کوو.
+    return (
+      !subjectClass ||
+      normalize(subjectClass) === normalize(className)
+    );
+  });
+
+  const uniqueSubjects = new Set();
+
+  filtered.forEach(subject => {
+    const name = getSubjectName(subject);
+
+    if (!name || uniqueSubjects.has(normalize(name))) {
+      return;
     }
 
-    const p = marks / total * 100;
-    $("gradePreview").textContent =
-        "سلنه: " + p.toFixed(2) + "% | درجه: " + calculateGrade(p);
+    uniqueSubjects.add(normalize(name));
+
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+
+    subjectSelect.appendChild(option);
+  });
+
+  subjectSelect.disabled = filtered.length === 0;
+
+  if (!filtered.length) {
+    subjectSelect.innerHTML =
+      '<option value="">د دې صنف مضمونونه ونه موندل شول</option>';
+  }
 }
 
-$("marks").addEventListener("input", updatePreview);
-$("totalMarks").addEventListener("input", updatePreview);
-$("classSelect").addEventListener("change", updateDependentOptions);
-$("filterClass").addEventListener("change", renderResults);
-$("filterExam").addEventListener("change", renderResults);
-$("refreshBtn").addEventListener("click", initialize);
-$("reportBtn").addEventListener("click", loadResults);
+/* ==========================================
+   STUDENT DROPDOWN
+========================================== */
 
-async function initialize() {
-    if (loading) return;
-    loading = true;
+function fillStudents() {
+  const className = classSelect.value;
 
-    setStatus("د صنفونو، زده‌کوونکو او مضامینو معلومات لوډ کېږي...");
+  studentSelect.innerHTML =
+    '<option value="">زده‌کوونکی انتخاب کړئ</option>';
 
-    $("classSelect").innerHTML = '<option value="">لوډ کېږي...</option>';
-    $("studentSelect").innerHTML = '<option value="">لوډ کېږي...</option>';
-    $("subjectSelect").innerHTML = '<option value="">لوډ کېږي...</option>';
+  const filtered = studentsData.filter(student => {
+    return normalize(getStudentClass(student)) ===
+      normalize(className);
+  });
 
-    try {
-        const [classes, students, subjects] = await Promise.all([
-            api("classes", {params:{select:"*"}}),
-            api("students", {params:{select:"*"}}),
-            api("subjects", {params:{select:"*"}})
-        ]);
+  filtered.forEach(student => {
+    const option = document.createElement("option");
 
-        classesData = Array.isArray(classes) ? classes : [];
-        studentsData = Array.isArray(students) ? students : [];
-        subjectsData = Array.isArray(subjects) ? subjects : [];
+    option.value = String(student.id);
 
-        loadClassOptions();
-        updateDependentOptions();
+    option.textContent =
+      getStudentName(student) +
+      (
+        student.father ||
+        student.father_name
+          ? " — " + (student.father || student.father_name)
+          : ""
+      );
 
-        setStatus(
-            "نښلون بریالی شو — صنفونه: " + classesData.length +
-            "، زده‌کوونکي: " + studentsData.length +
-            "، مضامین: " + subjectsData.length,
-            "success"
-        );
-    } catch (error) {
-        $("classSelect").innerHTML = '<option value="">د صنفونو لوډ ناکام شو</option>';
-        $("studentSelect").innerHTML = '<option value="">معلومات نشته</option>';
-        $("subjectSelect").innerHTML = '<option value="">معلومات نشته</option>';
+    studentSelect.appendChild(option);
+  });
 
-        setStatus("معلومات لوډ نه شول: " + error.message, "error");
-    } finally {
-        loading = false;
-    }
+  studentSelect.disabled = filtered.length === 0;
 
-    await loadResults();
+  if (!filtered.length) {
+    studentSelect.innerHTML =
+      '<option value="">په دې صنف کې زده‌کوونکي نشته</option>';
+  }
+
+  updateSaveState();
 }
 
-async function findExisting(record) {
-    const rows = await api("results", {
-        params:{
-            select:"id",
-            student_id:"eq." + record.student_id,
-            class:"eq." + record.class,
-            subject:"eq." + record.subject,
-            exam_name:"eq." + record.exam_name,
-            exam_date:"eq." + record.exam_date,
-            order:"id.asc",
-            limit:"1"
-        }
-    });
+/* ==========================================
+   EXAM TYPE AND MARKS
+========================================== */
 
-    return Array.isArray(rows) && rows.length ? rows[0] : null;
+function updateExamType() {
+  selectedMaxMarks = getExamMaxMarks();
+
+  maxMarksElement.textContent = selectedMaxMarks;
+
+  marksInput.max = String(selectedMaxMarks);
+  marksInput.value = "";
+
+  updatePercentage();
+  updateSaveState();
 }
 
-$("resultForm").addEventListener("submit", async event => {
-    event.preventDefault();
+function updatePercentage() {
+  const rawValue = marksInput.value;
 
-    const student = $("studentSelect").value;
-    const className = $("classSelect").value;
-    const subject = $("subjectSelect").value;
-    const exam = $("examName").value;
-    const date = $("examDate").value;
-    const marks = Number($("marks").value);
-    const total = Number($("totalMarks").value);
+  if (rawValue === "") {
+    percentagePreview.textContent = "۰٪";
+    return;
+  }
 
-    if (!student || !className || !subject || !exam || !date) {
-        alert("مهرباني وکړه ټول معلومات انتخاب کړه.");
-        return;
-    }
+  const marks = Number(rawValue);
 
-    if (!Number.isFinite(marks) || !Number.isFinite(total) ||
-        total <= 0 || marks < 0 || marks > total) {
-        alert("نمرې باید له صفر څخه کمې او له ټولو نمرو زیاتې نه وي.");
-        return;
-    }
+  if (!Number.isFinite(marks) || marks < 0) {
+    percentagePreview.textContent = "۰٪";
+    return;
+  }
 
-    const percentage = Number((marks / total * 100).toFixed(2));
+  const percentage = (marks / selectedMaxMarks) * 100;
 
-    const record = {
-        student_id:Number(student),
-        class:className,
-        subject:subject,
-        exam_name:exam,
-        exam_date:date,
-        marks:marks,
-        total_marks:total,
-        percentage:percentage,
-        grade:calculateGrade(percentage)
-    };
+  percentagePreview.textContent =
+    formatPercent(percentage);
+}
 
-    $("saveBtn").disabled = true;
-    $("saveBtn").textContent = "ثبت کېږي...";
+/* ==========================================
+   CHECK EXISTING RESULTS
+========================================== */
 
-    try {
-        const existing = await findExisting(record);
+function resultStudentId(row) {
+  return String(
+    row.student_id ??
+    row.studentId ??
+    ""
+  );
+}
 
-        if (existing) {
-            await api("results", {
-                method:"PATCH",
-                params:{id:"eq." + existing.id},
-                body:record
-            });
-            alert("پخوانۍ نمرې تازه شوې.");
-        } else {
-            await api("results", {
-                method:"POST",
-                params:{select:"*"},
-                prefer:"return=representation",
-                body:record
-            });
-            alert("نمرې په بریالیتوب ثبت شوې.");
-        }
+function resultClassName(row) {
+  return String(
+    row.class ||
+    row.class_name ||
+    row.className ||
+    ""
+  );
+}
 
-        $("marks").value = "";
-        updatePreview();
-        await loadResults();
+function resultSubjectName(row) {
+  return String(
+    row.subject ||
+    row.subject_name ||
+    row.subjectName ||
+    ""
+  );
+}
 
-    } catch (error) {
-        alert("نمرې ثبت نه شوې:\n" + error.message);
-    } finally {
-        $("saveBtn").disabled = false;
-        $("saveBtn").textContent = "نمرې ثبت کړه";
-    }
+function resultExamName(row) {
+  return String(
+    row.exam_type ||
+    row.exam ||
+    row.exam_name ||
+    row.examName ||
+    ""
+  );
+}
+
+function isSameResult(row) {
+  return (
+    resultStudentId(row) === studentSelect.value &&
+    normalize(resultClassName(row)) === normalize(classSelect.value) &&
+    normalize(resultSubjectName(row)) === normalize(subjectSelect.value) &&
+    normalize(resultExamName(row)) === normalize(getExamType())
+  );
+}
+
+/* ==========================================
+   SAVE BUTTON STATE
+========================================== */
+
+function updateSaveState() {
+  const marks = marksInput.value;
+
+  const validMarks =
+    marks !== "" &&
+    Number.isFinite(Number(marks)) &&
+    Number(marks) >= 0 &&
+    Number(marks) <= selectedMaxMarks;
+
+  const ready =
+    Boolean(classSelect.value) &&
+    Boolean(subjectSelect.value) &&
+    Boolean(studentSelect.value) &&
+    Boolean(getExamType()) &&
+    validMarks;
+
+  saveButton.disabled = !ready || saving;
+}
+
+/* ==========================================
+   SAVE RESULT
+========================================== */
+
+async function saveMarks() {
+  if (saving) return;
+
+  hideMessage();
+
+  const className = classSelect.value;
+  const subjectName = subjectSelect.value;
+  const studentId = studentSelect.value;
+  const examType = getExamType();
+  const marks = Number(marksInput.value);
+
+  selectedMaxMarks = getExamMaxMarks();
+
+  if (!className || !subjectName || !studentId || !examType) {
+    showMessage(
+      "مهرباني وکړئ صنف، مضمون، ازموینه او زده‌کوونکی انتخاب کړئ.",
+      "error"
+    );
+    return;
+  }
+
+  if (
+    marksInput.value === "" ||
+    !Number.isFinite(marks) ||
+    marks < 0 ||
+    marks > selectedMaxMarks
+  ) {
+    showMessage(
+      "نمرې باید له صفر څخه تر " +
+      selectedMaxMarks +
+      " پورې وي.",
+      "error"
+    );
+    return;
+  }
+
+  if (isSameResultInDatabase()) {
+    showMessage(
+      "د دې زده‌کوونکي، مضمون او ازموینې نمرې مخکې ثبت شوې دي. د تکراري ثبت مخه ونیول شوه.",
+      "error"
+    );
+    return;
+  }
+
+  const student = studentsData.find(
+    item => String(item.id) === studentId
+  );
+
+  if (!student) {
+    showMessage(
+      "زده‌کوونکی ونه موندل شو. صنف بیا انتخاب کړئ.",
+      "error"
+    );
+    return;
+  }
+
+  /*
+    د موجود results جدول لپاره عام کالمونه.
+    که ستاسو په جدول کې د کالمونو نومونه توپیر ولري،
+    د جدول د جوړښت له مخې یې باید بدل کړو.
+  */
+
+  const data = {
+    student_id: Number(studentId),
+    class: className,
+    subject: subjectName,
+    exam_type: examType,
+    exam_date: new Date().toISOString().slice(0, 10),
+    marks_obtained: marks,
+    total_marks: selectedMaxMarks
+  };
+
+  saving = true;
+  saveButton.disabled = true;
+  saveButton.textContent = "⏳ نمرې ثبتېږي...";
+
+  try {
+    const savedRows = await postResult(data);
+
+    resultsData.push(
+      ...(Array.isArray(savedRows) ? savedRows : [data])
+    );
+
+    showMessage(
+      "✅ د " + getStudentName(student) +
+      " نمرې په بریالیتوب سره ثبت شوې.\n" +
+      "ازموینه: " + examType + "\n" +
+      "نمرې: " + marks + " / " + selectedMaxMarks + "\n" +
+      "سلنه: " + formatPercent(
+        (marks / selectedMaxMarks) * 100
+      ),
+      "success"
+    );
+
+    marksInput.value = "";
+    updatePercentage();
+
+  } catch (error) {
+    console.error(error);
+
+    showMessage(
+      "د نمرو ثبت ناکام شو. د results جدول کالمونه او د Supabase اجازه وګورئ.\n" +
+      error.message,
+      "error"
+    );
+
+  } finally {
+    saving = false;
+    saveButton.textContent = "💾 نمرې ثبت کړئ";
+    updateSaveState();
+  }
+}
+
+/* ==========================================
+   DUPLICATE CHECK
+========================================== */
+
+function isSameResultInDatabase() {
+  return resultsData.some(isSameResult);
+}
+
+/* ==========================================
+   RESET FORM
+========================================== */
+
+function resetForm() {
+  classSelect.value = "";
+
+  subjectSelect.innerHTML =
+    '<option value="">لومړی صنف انتخاب کړئ</option>';
+
+  studentSelect.innerHTML =
+    '<option value="">لومړی صنف انتخاب کړئ</option>';
+
+  subjectSelect.disabled = true;
+  studentSelect.disabled = true;
+  marksInput.disabled = true;
+
+  document.getElementById("halfExam").checked = true;
+
+  marksInput.value = "";
+
+  updateExamType();
+  updatePercentage();
+  updateSaveState();
+  hideMessage();
+}
+
+/* ==========================================
+   EVENT LISTENERS
+========================================== */
+
+classSelect.addEventListener("change", () => {
+  hideMessage();
+
+  marksInput.value = "";
+  subjectSelect.value = "";
+  studentSelect.value = "";
+
+  fillSubjects();
+  fillStudents();
+
+  marksInput.disabled = false;
+  updatePercentage();
+  updateSaveState();
 });
 
-async function loadResults() {
-    $("tableStatus").textContent = "د نمرو معلومات لوډ کېږي...";
+subjectSelect.addEventListener("change", () => {
+  hideMessage();
+  marksInput.value = "";
 
-    try {
-        const rows = await api("results", {
-            params:{select:"*",order:"id.desc"}
-        });
+  updatePercentage();
+  updateSaveState();
+});
 
-        resultsData = Array.isArray(rows) ? rows : [];
-        renderResults();
-        $("tableStatus").textContent = "ټول ثبت شوي ریکارډونه: " + resultsData.length;
-    } catch (error) {
-        $("tableStatus").textContent = "معلومات لوډ نه شول: " + error.message;
-        $("resultsBody").innerHTML = "";
+studentSelect.addEventListener("change", () => {
+  hideMessage();
+  marksInput.value = "";
 
-        const tr = document.createElement("tr");
-        const td = document.createElement("td");
-        td.colSpan = 11;
-        td.textContent = error.message;
-        tr.appendChild(td);
-        $("resultsBody").appendChild(tr);
-    }
-}
+  updatePercentage();
+  updateSaveState();
+});
 
-function renderResults() {
-    const selectedClass = $("filterClass").value;
-    const selectedExam = $("filterExam").value;
+document.querySelectorAll(
+  'input[name="examType"]'
+).forEach(input => {
+  input.addEventListener("change", () => {
+    hideMessage();
+    updateExamType();
+  });
+});
 
-    const filtered = resultsData.filter(item =>
-        (!selectedClass || item.class === selectedClass) &&
-        (!selectedExam || item.exam_name === selectedExam)
-    );
+marksInput.addEventListener("input", () => {
+  updatePercentage();
+  updateSaveState();
+});
 
-    $("resultsBody").innerHTML = "";
+saveButton.addEventListener("click", saveMarks);
+resetButton.addEventListener("click", resetForm);
 
-    if (!filtered.length) {
-        const tr = document.createElement("tr");
-        const td = document.createElement("td");
-        td.colSpan = 11;
-        td.textContent = "د ښودلو لپاره نمرې نشته.";
-        tr.appendChild(td);
-        $("resultsBody").appendChild(tr);
-        return;
-    }
+/* ==========================================
+   START
+========================================== */
 
-    filtered.forEach((item, index) => {
-        const tr = document.createElement("tr");
-
-        [
-            index + 1,
-            item.student_id ?? "",
-            item.class ?? "",
-            item.subject ?? "",
-            item.exam_name ?? "",
-            item.exam_date ?? "",
-            item.marks ?? "",
-            item.total_marks ?? "",
-            item.percentage == null ? "" : item.percentage + "%",
-            item.grade ?? ""
-        ].forEach(value => {
-            const td = document.createElement("td");
-            td.textContent = String(value);
-            tr.appendChild(td);
-        });
-
-        const action = document.createElement("td");
-        action.className = "no-print";
-
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "danger";
-        button.textContent = "حذف";
-        button.addEventListener("click", () => deleteResult(item.id));
-
-        action.appendChild(button);
-        tr.appendChild(action);
-        $("resultsBody").appendChild(tr);
-    });
-}
-
-async function deleteResult(id) {
-    if (!confirm("ایا دا ریکارډ حذف کړې؟")) return;
-
-    try {
-        await api("results", {
-            method:"DELETE",
-            params:{id:"eq." + id}
-        });
-
-        alert("ریکارډ حذف شو.");
-        await loadResults();
-    } catch (error) {
-        alert("حذف ناکام شو:\n" + error.message);
-    }
-}
-
-$("examDate").value = today();
-initialize();
+updateExamType();
+loadDatabase();
 </script>
 
 </body>
-  </html>
+</html>
