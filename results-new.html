@@ -3,721 +3,655 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#102b55">
-<title>احمدزي ښوونځی | د ازموینو راپورونه</title>
+<title>احمدزي ښوونځی | د نمرو ثبت</title>
 
 <style>
 :root {
-    --primary: #123b70;
-    --primary-light: #1e5ba5;
-    --secondary: #eaf2ff;
-    --background: #f4f7fc;
-    --surface: #ffffff;
-    --text: #172b4d;
-    --muted: #66758b;
-    --border: #dfe7f1;
-    --success: #13845e;
-    --warning: #a15c00;
-    --danger: #c43232;
-    --radius: 16px;
-    --shadow: 0 8px 28px rgba(18, 59, 112, .07);
+  --primary: #123c69;
+  --secondary: #1d5b91;
+  --gold: #d4a843;
+  --bg: #f2f5fa;
+  --white: #ffffff;
+  --text: #172b4d;
+  --muted: #718096;
+  --border: #e0e7f0;
+  --success: #15803d;
+  --danger: #dc2626;
+  --shadow: 0 12px 35px rgba(18,60,105,.10);
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    margin: 0;
-    background: var(--background);
-    color: var(--text);
-    font-family: Tahoma, Arial, sans-serif;
-    line-height: 1.8;
+  font-family: Tahoma, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
 }
 
-button,
-select,
-input {
-    font: inherit;
+.topbar {
+  background: linear-gradient(135deg, #102d50, #1d5b91);
+  color: white;
+  padding: 25px 18px;
+  border-bottom: 4px solid var(--gold);
 }
 
-button {
-    cursor: pointer;
+.topbar-inner {
+  max-width: 1050px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-.header {
-    background: linear-gradient(130deg, #102b55, #1e5ba5);
-    color: white;
-    padding: 26px 16px;
+.logo {
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.25);
+  display: grid;
+  place-items: center;
+  font-size: 30px;
 }
 
-.header-inner {
-    max-width: 1250px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    flex-wrap: wrap;
+.school-title h1 {
+  font-size: 23px;
+  margin-bottom: 7px;
 }
 
-.brand h1 {
-    margin: 0;
-    font-size: 26px;
-}
-
-.brand p {
-    margin: 4px 0 0;
-    color: #dceaff;
-    font-size: 14px;
-}
-
-.header-label {
-    padding: 8px 14px;
-    border: 1px solid #ffffff50;
-    border-radius: 30px;
-    font-size: 13px;
-    background: #ffffff12;
+.school-title p {
+  font-size: 13px;
+  color: #dbeafe;
+  line-height: 1.8;
 }
 
 .container {
-    max-width: 1250px;
-    padding: 20px 14px 35px;
-    margin: auto;
+  max-width: 900px;
+  margin: 28px auto;
+  padding: 0 15px 35px;
+}
+
+.page-heading {
+  margin-bottom: 22px;
+}
+
+.page-heading h2 {
+  font-size: 22px;
+  margin-bottom: 9px;
+  color: var(--primary);
+}
+
+.page-heading p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.9;
 }
 
 .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    margin-bottom: 18px;
-    box-shadow: var(--shadow);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 25px;
+  margin-bottom: 22px;
 }
 
 .card-heading {
-    margin: 0 0 5px;
-    font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--border);
 }
 
-.description {
-    margin: 0 0 18px;
-    color: var(--muted);
-    font-size: 13px;
+.card-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 13px;
+  background: #eaf2fc;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
 }
 
-.tabs {
-    display: flex;
-    gap: 9px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+.card-heading h3 {
+  font-size: 17px;
+  margin-bottom: 5px;
 }
 
-.tab {
-    background: #f4f7fc;
-    color: var(--text);
-    border: 1px solid var(--border);
-    padding: 11px 16px;
-    border-radius: 11px;
-    font-weight: bold;
+.card-heading p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
 }
 
-.tab.active {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: white;
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
 }
 
-.filters {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 14px;
-    align-items: end;
+.form-group {
+  min-width: 0;
 }
 
-.field label {
-    display: block;
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 6px;
+.form-group.full {
+  grid-column: 1 / -1;
 }
 
-.field select,
-.field input {
-    width: 100%;
-    min-height: 46px;
-    border: 1px solid #ccd7e5;
-    border-radius: 10px;
-    padding: 10px 12px;
-    background: white;
-    color: var(--text);
-    outline: none;
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 9px;
 }
 
-.field select:focus,
-.field input:focus {
-    border-color: var(--primary-light);
-    box-shadow: 0 0 0 3px #1e5ba51a;
+.required {
+  color: var(--danger);
 }
 
-.btn {
-    min-height: 45px;
-    border: 0;
-    border-radius: 10px;
-    padding: 10px 17px;
-    background: var(--primary);
-    color: white;
-    font-weight: bold;
-    transition: .2s;
+select,
+input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid #d4deea;
+  border-radius: 11px;
+  background: #fbfcff;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: .2s;
 }
 
-.btn:hover {
-    background: var(--primary-light);
+select:focus,
+input:focus {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(29,91,145,.10);
+  background: white;
 }
 
-.btn.secondary {
-    background: var(--secondary);
-    color: var(--primary);
-    border: 1px solid #d6e4fb;
+select:disabled,
+input:disabled {
+  background: #edf0f5;
+  cursor: not-allowed;
+  color: #8a96a8;
 }
 
-.btn.success {
-    background: var(--success);
+.exam-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
 }
 
-.status {
-    display: none;
-    padding: 12px 14px;
-    margin-top: 16px;
-    border-radius: 10px;
-    font-size: 13px;
-    overflow-wrap: anywhere;
+.exam-option {
+  position: relative;
 }
 
-.status.info {
-    display: block;
-    background: #edf4ff;
-    color: #174a8a;
+.exam-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
-.status.ok {
-    display: block;
-    background: #e9f8f0;
-    color: #116747;
+.exam-option label {
+  display: block;
+  padding: 18px 12px;
+  margin: 0;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  text-align: center;
+  transition: .2s;
+  background: #fbfcff;
 }
 
-.status.error {
-    display: block;
-    background: #fff0ef;
-    color: var(--danger);
+.exam-option input:checked + label {
+  border-color: var(--secondary);
+  background: #edf5ff;
+  box-shadow: 0 5px 16px rgba(29,91,145,.09);
 }
 
-.hidden {
-    display: none !important;
+.exam-option strong {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 9px;
 }
 
-.metrics {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px;
-    margin: 18px 0;
+.exam-option span {
+  color: var(--secondary);
+  font-size: 13px;
+  font-weight: bold;
 }
 
-.metric {
-    background: #f8faff;
-    border: 1px solid var(--border);
-    border-radius: 13px;
-    padding: 15px;
+.exam-option .exam-icon {
+  font-size: 25px;
+  display: block;
+  margin-bottom: 10px;
 }
 
-.metric-label {
-    color: var(--muted);
-    font-size: 12px;
-    display: block;
+.info-box {
+  background: #f0f7ff;
+  border: 1px solid #d7e8ff;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 12px;
+  line-height: 2;
+  color: #234a75;
+  margin-top: 18px;
 }
 
-.metric-value {
-    font-size: 25px;
-    font-weight: bold;
-    color: var(--primary);
-    overflow-wrap: anywhere;
+.score-box {
+  background: linear-gradient(135deg, #f8fafc, #edf4fc);
+  border: 1px solid #dce7f5;
+  border-radius: 15px;
+  padding: 20px;
 }
 
-.table-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 13px;
+.score-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 14px;
 }
 
-.table-title h2 {
-    font-size: 18px;
-    margin: 0;
+.score-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  align-items: center;
 }
 
-.table-wrap {
-    width: 100%;
-    overflow: auto;
-    border: 1px solid var(--border);
-    border-radius: 12px;
+.max-score {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 2;
 }
 
-table {
-    width: 100%;
-    min-width: 1000px;
-    border-collapse: collapse;
-    background: white;
+.max-score strong {
+  display: block;
+  font-size: 27px;
+  color: var(--primary);
 }
 
-th,
-td {
-    text-align: center;
-    padding: 12px 10px;
-    border-bottom: 1px solid var(--border);
-    white-space: nowrap;
-    font-size: 13px;
+.score-input-wrap {
+  position: relative;
 }
 
-th {
-    background: #edf3fc;
-    color: #163d70;
-    font-weight: bold;
+.score-input-wrap input {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  min-height: 58px;
+  background: white;
 }
 
-tbody tr:nth-child(even) {
-    background: #f9fbfe;
+.score-input-wrap small {
+  display: block;
+  color: var(--muted);
+  margin-top: 7px;
+  font-size: 11px;
+  text-align: center;
 }
 
-tbody tr:hover {
-    background: #f0f6ff;
+.score-preview {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 13px;
+  margin-top: 15px;
+  font-size: 13px;
 }
 
-tfoot td {
-    background: #eaf2ff;
-    font-weight: bold;
-}
-
-.badge {
-    display: inline-block;
-    padding: 3px 9px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: bold;
-}
-
-.badge.success {
-    background: #e5f7ed;
-    color: #116747;
-}
-
-.badge.warning {
-    background: #fff3d7;
-    color: #8a5600;
-}
-
-.badge.danger {
-    background: #ffeded;
-    color: #ad2929;
-}
-
-.empty {
-    text-align: center;
-    padding: 30px 12px;
-    color: var(--muted);
+.score-preview strong {
+  color: var(--primary);
+  font-size: 18px;
 }
 
 .actions {
-    display: flex;
-    gap: 9px;
-    flex-wrap: wrap;
-    margin-top: 15px;
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
 }
 
-.note {
-    padding: 12px 14px;
-    background: #f5f8fd;
-    border-right: 4px solid var(--primary-light);
-    border-radius: 8px;
-    color: var(--muted);
-    font-size: 12px;
-    margin-top: 16px;
+.btn {
+  border: 0;
+  border-radius: 11px;
+  min-height: 49px;
+  padding: 13px 18px;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  flex: 1;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  box-shadow: 0 6px 16px rgba(18,60,105,.18);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+}
+
+.btn-light {
+  background: #edf2f8;
+  color: var(--primary);
+}
+
+.message {
+  display: none;
+  padding: 14px;
+  border-radius: 11px;
+  font-size: 13px;
+  line-height: 1.9;
+  margin-bottom: 18px;
+  overflow-wrap: anywhere;
+}
+
+.message.success {
+  display: block;
+  background: #ecfdf3;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.message.error {
+  display: block;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.message.info {
+  display: block;
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
 }
 
 .footer {
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    padding: 20px 10px;
+  text-align: center;
+  padding: 20px 10px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
 }
 
 @media (max-width: 600px) {
-    .header {
-        padding: 21px 14px;
-    }
+  .topbar {
+    padding: 20px 14px;
+  }
 
-    .brand h1 {
-        font-size: 22px;
-    }
+  .school-title h1 {
+    font-size: 19px;
+  }
 
-    .container {
-        padding: 13px 9px 25px;
-    }
+  .school-title p {
+    font-size: 12px;
+  }
 
-    .card {
-        padding: 14px;
-        border-radius: 13px;
-    }
+  .container {
+    margin-top: 20px;
+    padding-left: 11px;
+    padding-right: 11px;
+  }
 
-    .card-heading {
-        font-size: 18px;
-    }
+  .page-heading h2 {
+    font-size: 19px;
+  }
 
-    .tab {
-        width: 100%;
-        text-align: right;
-    }
+  .card {
+    padding: 17px;
+    border-radius: 16px;
+  }
 
-    .metrics {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
-    }
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 17px;
+  }
 
-    .metric {
-        padding: 11px;
-    }
+  .exam-options {
+    gap: 10px;
+  }
 
-    .metric-value {
-        font-size: 21px;
-    }
-}
+  .exam-option label {
+    padding: 15px 7px;
+  }
 
-@media print {
-    body {
-        background: white;
-        color: black;
-    }
+  .exam-option strong {
+    font-size: 13px;
+  }
 
-    .header {
-        background: white;
-        color: black;
-        border-bottom: 2px solid black;
-        padding: 12px;
-    }
+  .score-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
 
-    .brand p {
-        color: #333;
-    }
+  .score-box {
+    padding: 14px;
+  }
 
-    .header-label,
-    .tabs,
-    .filters,
-    .actions,
-    .no-print,
-    .status,
-    .note {
-        display: none !important;
-    }
+  .actions {
+    flex-direction: column;
+  }
 
-    .container {
-        max-width: none;
-        padding: 0;
-    }
-
-    .card {
-        box-shadow: none;
-        border: 0;
-        padding: 8px 0;
-        margin: 0;
-    }
-
-    .table-wrap {
-        overflow: visible;
-        border: 0;
-    }
-
-    table {
-        min-width: 0;
-        font-size: 9px;
-    }
-
-    th,
-    td {
-        white-space: normal;
-        padding: 5px 3px;
-        font-size: 9px;
-    }
-
-    .metrics {
-        grid-template-columns: repeat(4, 1fr);
-    }
-
-    .metric {
-        padding: 6px;
-    }
-
-    .metric-value {
-        font-size: 15px;
-    }
-
-    @page {
-        size: landscape;
-        margin: 10mm;
-    }
+  .btn {
+    width: 100%;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header class="header">
-    <div class="header-inner">
-        <div class="brand">
-            <h1>احمدزي ښوونځی</h1>
-            <p>د زده‌کوونکو د ازموینو او تحصیلي پایلو مدیریت</p>
-        </div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="logo">🏫</div>
 
-        <div class="header-label">
-            د پایلو راپور • تعلیمي کال ۱۴۰۵
-        </div>
+    <div class="school-title">
+      <h1>احمدزي ښوونځی</h1>
+      <p>د زده‌کوونکو د ازموینو او تحصیلي پایلو مدیریت</p>
     </div>
+  </div>
 </header>
 
 <main class="container">
 
-<section class="card">
+  <section class="page-heading">
+    <h2>د زده‌کوونکو د نمرو ثبت</h2>
+    <p>
+      صنف، مضمون، ازموینه او زده‌کوونکی انتخاب کړئ،
+      بیا د ترلاسه شویو نمرو ثبتولو لپاره لاندې فورمه ډکه کړئ.
+    </p>
+  </section>
 
-    <div class="tabs no-print">
-        <button class="tab active"
-                id="tabCombined"
-                onclick="showMode('combined')">
-            د صنف ګډ راپور
-        </button>
+  <div id="message" class="message"></div>
 
-        <button class="tab"
-                id="tabStudent"
-                onclick="showMode('student')">
-            د یوه زده‌کوونکي بشپړ راپور
-        </button>
+  <section class="card">
+
+    <div class="card-heading">
+      <div class="card-icon">📋</div>
+      <div>
+        <h3>د ازموینې معلومات</h3>
+        <p>لومړی د صنف او مضمون معلومات انتخاب کړئ.</p>
+      </div>
     </div>
 
-    <div id="combinedFilters">
-        <h2 class="card-heading">د ازموینو ګډ راپور</h2>
+    <div class="form-grid">
 
-        <p class="description">
-            د کلنۍ او څلور نیم‌میاشتنۍ ازموینو نمرې،
-            فیصدي او مجموعه په یوه جدول کې وګورئ.
-        </p>
+      <div class="form-group">
+        <label for="classSelect">
+          صنف انتخاب کړئ <span class="required">*</span>
+        </label>
 
-        <div class="filters">
-            <div class="field">
-                <label for="classFilter">صنف انتخاب کړئ</label>
-                <select id="classFilter">
-                    <option value="">صنفونه لوډ کېږي...</option>
-                </select>
+        <select id="classSelect" required>
+          <option value="">صنفونه لوډ کېږي...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="subjectSelect">
+          مضمون انتخاب کړئ <span class="required">*</span>
+        </label>
+
+        <select id="subjectSelect" required disabled>
+          <option value="">لومړی صنف انتخاب کړئ</option>
+        </select>
+      </div>
+
+      <div class="form-group full">
+        <label>
+          د ازموینې ډول انتخاب کړئ <span class="required">*</span>
+        </label>
+
+        <div class="exam-options">
+
+          <div class="exam-option">
+            <input
+              type="radio"
+              name="examType"
+              id="halfExam"
+              value="څلور نیم میاشتنی"
+              checked
+            >
+
+            <label for="halfExam">
+              <span class="exam-icon">📝</span>
+              <strong>څلور نیم میاشتنی ازموینه</strong>
+              <span>له ۴۰ نمرو څخه</span>
+            </label>
+          </div>
+
+          <div class="exam-option">
+            <input
+              type="radio"
+              name="examType"
+              id="annualExam"
+              value="کلنۍ"
+            >
+
+            <label for="annualExam">
+              <span class="exam-icon">🎓</span>
+              <strong>کلنۍ ازموینه</strong>
+              <span>له ۶۰ نمرو څخه</span>
+            </label>
+          </div>
+
+        </div>
+
+        <div class="info-box">
+          <strong>یادونه:</strong>
+          د څلور نیم میاشتني ازموینې اعظمي نمرې ۴۰ دي
+          او د کلنۍ ازموینې اعظمي نمرې ۶۰ دي.
+          د ازموینې له انتخاب سره د نمرو حد په اتومات ډول بدلېږي.
+        </div>
+      </div>
+
+      <div class="form-group full">
+        <label for="studentSelect">
+          زده‌کوونکی انتخاب کړئ <span class="required">*</span>
+        </label>
+
+        <select id="studentSelect" required disabled>
+          <option value="">لومړی صنف انتخاب کړئ</option>
+        </select>
+      </div>
+
+      <div class="form-group full">
+        <div class="score-box">
+
+          <div class="score-title">
+            🔢 د زده‌کوونکي ترلاسه شوې نمرې
+          </div>
+
+          <div class="score-grid">
+
+            <div class="max-score">
+              د ازموینې ټولې نمرې
+              <strong id="maxMarks">40</strong>
+              اعظمي نمرې
             </div>
 
-            <div class="field">
-                <label for="subjectFilter">مضمون</label>
-                <select id="subjectFilter">
-                    <option value="">ټول مضمونونه</option>
-                </select>
+            <div class="score-input-wrap">
+              <input
+                type="number"
+                id="marksInput"
+                min="0"
+                max="40"
+                step="0.5"
+                placeholder="0"
+                inputmode="decimal"
+                required
+                disabled
+              >
+
+              <small>ترلاسه شوې نمرې ولیکئ</small>
             </div>
 
-            <div class="field">
-                <label>&nbsp;</label>
-                <button class="btn" onclick="loadCombined()">
-                    راپور ښکاره کړئ
-                </button>
-            </div>
+          </div>
+
+          <div class="score-preview">
+            <span>د زده‌کوونکي سلنه</span>
+            <strong id="percentagePreview">۰٪</strong>
+          </div>
+
         </div>
+      </div>
+
     </div>
 
-    <div id="studentFilters" class="hidden">
-        <h2 class="card-heading">د یوه زده‌کوونکي بشپړ راپور</h2>
+    <div class="actions">
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="saveButton"
+        disabled
+      >
+        💾 نمرې ثبت کړئ
+      </button>
 
-        <p class="description">
-            زده‌کوونکی انتخاب کړئ، د هغه ټول ثبت شوي امتحانونه،
-            نمرې، فیصدي او مجموعي پایله وګورئ.
-        </p>
-
-        <div class="filters">
-            <div class="field">
-                <label for="studentClass">صنف</label>
-                <select id="studentClass">
-                    <option value="">صنف انتخاب کړئ</option>
-                </select>
-            </div>
-
-            <div class="field">
-                <label for="studentSelect">زده‌کوونکی</label>
-                <select id="studentSelect">
-                    <option value="">لومړی صنف انتخاب کړئ</option>
-                </select>
-            </div>
-
-            <div class="field">
-                <label>&nbsp;</label>
-                <button class="btn" onclick="loadStudentReport()">
-                    بشپړ راپور
-                </button>
-            </div>
-        </div>
+      <button
+        type="button"
+        class="btn btn-light"
+        id="resetButton"
+      >
+        ↺ فورمه پاکه کړئ
+      </button>
     </div>
 
-    <div id="status" class="status"></div>
+  </section>
 
-</section>
-
-<section id="combinedPanel" class="card">
-
-    <div class="table-title">
-        <h2>د کلنۍ او څلور نیم‌میاشتنۍ ازموینو راپور</h2>
-    </div>
-
-    <div class="metrics">
-        <div class="metric">
-            <span class="metric-label">د زده‌کوونکو شمېر</span>
-            <span class="metric-value" id="countStudents">۰</span>
-        </div>
-
-        <div class="metric">
-            <span class="metric-label">بشپړ راپورونه</span>
-            <span class="metric-value" id="countComplete">۰</span>
-        </div>
-
-        <div class="metric">
-            <span class="metric-label">نیمګړي راپورونه</span>
-            <span class="metric-value" id="countMissing">۰</span>
-        </div>
-    </div>
-
-    <div class="table-wrap">
-        <table id="combinedTable">
-            <thead>
-                <tr>
-                    <th>شمېره</th>
-                    <th>د زده‌کوونکي نوم</th>
-                    <th>د پلار نوم</th>
-                    <th>صنف</th>
-                    <th>مضمون</th>
-                    <th>کلنۍ نمرې</th>
-                    <th>کلنۍ فیصدي</th>
-                    <th>څلور نیم‌میاشتنۍ نمرې</th>
-                    <th>د هغې فیصدي</th>
-                    <th>د نمرو مجموعه</th>
-                    <th>وروستۍ فیصدي</th>
-                    <th>حالت</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td colspan="12" class="empty">
-                        صنف انتخاب کړئ، بیا د راپور تڼۍ کېکاږئ.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="actions no-print">
-        <button class="btn" onclick="window.print()">
-            چاپ / PDF
-        </button>
-
-        <button class="btn secondary"
-                onclick="downloadTable('combinedTable','د-صنف-ګډ-راپور.csv')">
-            د راپور CSV فایل
-        </button>
-    </div>
-
-    <div class="note">
-        د کلنۍ او څلور نیم‌میاشتنۍ ازموینو ټولې نمرې
-        د ډیټابېس د ثبت شويو ارزښتونو پر بنسټ محاسبه کېږي.
-    </div>
-
-</section>
-
-<section id="studentPanel" class="card hidden">
-
-    <h2 class="card-heading" id="studentTitle">
-        د زده‌کوونکي بشپړ راپور
-    </h2>
-
-    <div class="metrics">
-        <div class="metric">
-            <span class="metric-label">ثبت شوې پایلې</span>
-            <span class="metric-value" id="studentExamCount">۰</span>
-        </div>
-
-        <div class="metric">
-            <span class="metric-label">ترلاسه شوې نمرې</span>
-            <span class="metric-value" id="studentMarksSum">۰</span>
-        </div>
-
-        <div class="metric">
-            <span class="metric-label">ټولې نمرې</span>
-            <span class="metric-value" id="studentTotalSum">۰</span>
-        </div>
-
-        <div class="metric">
-            <span class="metric-label">مجموعي فیصدي</span>
-            <span class="metric-value" id="studentPercent">—</span>
-        </div>
-    </div>
-
-    <div class="table-wrap">
-        <table id="studentTable">
-            <thead>
-                <tr>
-                    <th>شمېره</th>
-                    <th>د ازموینې نوم</th>
-                    <th>نېټه</th>
-                    <th>مضمون</th>
-                    <th>صنف</th>
-                    <th>ترلاسه شوې نمرې</th>
-                    <th>ټولې نمرې</th>
-                    <th>فیصدي</th>
-                    <th>درجه</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td colspan="9" class="empty">
-                        یو زده‌کوونکی انتخاب کړئ.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="actions no-print">
-        <button class="btn" onclick="window.print()">
-            چاپ / PDF
-        </button>
-
-        <button class="btn secondary"
-                onclick="downloadTable('studentTable','د-زده-کوونکي-راپور.csv')">
-            د راپور CSV فایل
-        </button>
-    </div>
-
-</section>
+  <footer class="footer">
+    <p>احمدزي ښوونځی</p>
+    <p>د زده‌کوونکو د نمرو او تحصیلي پایلو مدیریت</p>
+  </footer>
 
 </main>
 
-<footer class="footer">
-    احمدزي ښوونځی — د زده‌کړو او پایلو د مدیریت سیستم
-</footer>
-
- <script>
-/* =========================================
-   AHMADZAI SCHOOL
-   RESULTS REPORT SYSTEM
-========================================= */
+    <script>
+/* ==========================================
+   AHMADZAI SCHOOL - RESULTS SYSTEM
+========================================== */
 
 const SUPABASE_URL =
   "https://oaxmnfnaqhdvnykawvyh.supabase.co";
@@ -733,12 +667,43 @@ const headers = {
   "Content-Type": "application/json"
 };
 
-let allClasses = [];
-let allSubjects = [];
-let allStudents = [];
-let allResults = [];
+let classesData = [];
+let subjectsData = [];
+let studentsData = [];
+let resultsData = [];
 
-const $ = id => document.getElementById(id);
+let selectedMaxMarks = 40;
+let saving = false;
+
+/* ==========================================
+   HTML ELEMENTS
+========================================== */
+
+const classSelect = document.getElementById("classSelect");
+const subjectSelect = document.getElementById("subjectSelect");
+const studentSelect = document.getElementById("studentSelect");
+const marksInput = document.getElementById("marksInput");
+const maxMarksElement = document.getElementById("maxMarks");
+const percentagePreview = document.getElementById("percentagePreview");
+const saveButton = document.getElementById("saveButton");
+const resetButton = document.getElementById("resetButton");
+const messageBox = document.getElementById("message");
+
+/* ==========================================
+   HELPERS
+========================================== */
+
+function showMessage(message, type = "info") {
+  messageBox.textContent = message;
+  messageBox.className = "message " + type;
+  messageBox.style.display = "block";
+}
+
+function hideMessage() {
+  messageBox.textContent = "";
+  messageBox.className = "message";
+  messageBox.style.display = "none";
+}
 
 function escapeHTML(value) {
   return String(value ?? "").replace(/[&<>"']/g, char => ({
@@ -750,68 +715,142 @@ function escapeHTML(value) {
   })[char]);
 }
 
-function showMessage(message, type = "info") {
-  const box = $("message");
-
-  if (!box) {
-    alert(message);
-    return;
-  }
-
-  box.textContent = message;
-  box.className = "message " + type;
-  box.style.display = "block";
-}
-
-async function fetchTable(table, query = "") {
+async function getTable(table, query = "") {
   const response = await fetch(
     API + table + "?select=*" + query,
     { headers }
   );
 
   if (!response.ok) {
-    const errorText = await response.text();
+    const error = await response.text();
     throw new Error(
-      table + " جدول کې ستونزه: " + errorText
+      table + " جدول: " + error
     );
   }
 
-  return await response.json();
+  return response.json();
 }
 
-/* =========================================
-   LOAD DATABASE DATA
-========================================= */
+async function postResult(data) {
+  const response = await fetch(API + "results", {
+    method: "POST",
+    headers: {
+      ...headers,
+      "Prefer": "return=representation"
+    },
+    body: JSON.stringify(data)
+  });
 
-async function loadBase() {
-  showMessage("معلومات لوډ کېږي، مهرباني وکړئ انتظار وکړئ...");
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(error);
+  }
+
+  return response.json();
+}
+
+function getClassName(item) {
+  return String(
+    item.name ||
+    item.class_name ||
+    item.class ||
+    item.code ||
+    ""
+  ).trim();
+}
+
+function getSubjectName(item) {
+  return String(
+    item.name ||
+    item.subject_name ||
+    item.subject ||
+    item.code ||
+    ""
+  ).trim();
+}
+
+function getStudentName(item) {
+  return String(
+    item.name ||
+    item.student_name ||
+    ""
+  ).trim();
+}
+
+function getStudentClass(item) {
+  return String(
+    item.class ||
+    item.class_name ||
+    item.className ||
+    ""
+  ).trim();
+}
+
+function getSubjectClass(item) {
+  return String(
+    item.class ||
+    item.class_name ||
+    item.className ||
+    ""
+  ).trim();
+}
+
+function getExamType() {
+  const selected = document.querySelector(
+    'input[name="examType"]:checked'
+  );
+
+  return selected ? selected.value : "";
+}
+
+function getExamMaxMarks() {
+  return getExamType() === "کلنۍ" ? 60 : 40;
+}
+
+function normalize(value) {
+  return String(value ?? "")
+    .trim()
+    .toLowerCase();
+}
+
+function formatPercent(value) {
+  return Number(value).toLocaleString("en-US", {
+    maximumFractionDigits: 2
+  }) + "%";
+}
+
+/* ==========================================
+   LOAD DATABASE
+========================================== */
+
+async function loadDatabase() {
+  showMessage(
+    "د ښوونځي معلومات لوډ کېږي...",
+    "info"
+  );
 
   try {
-    const [
-      classes,
-      subjects,
-      students,
-      results
-    ] = await Promise.all([
-      fetchTable("classes"),
-      fetchTable("subjects"),
-      fetchTable("students"),
-      fetchTable("results")
-    ]);
+    const [classes, subjects, students, results] =
+      await Promise.all([
+        getTable("classes"),
+        getTable("subjects"),
+        getTable("students"),
+        getTable("results")
+      ]);
 
-    allClasses = classes || [];
-    allSubjects = subjects || [];
-    allStudents = (students || []).filter(
+    classesData = classes || [];
+    subjectsData = subjects || [];
+
+    studentsData = (students || []).filter(
       student => student.is_active !== false
     );
-    allResults = results || [];
 
-    fillClassDropdowns();
-    fillSubjectDropdown();
-    fillStudentDropdown();
+    resultsData = results || [];
+
+    fillClasses();
 
     showMessage(
-      "معلومات په بریالیتوب سره ترلاسه شول.",
+      "معلومات په بریالیتوب سره ترلاسه شول. صنف انتخاب کړئ.",
       "success"
     );
 
@@ -819,74 +858,23 @@ async function loadBase() {
     console.error(error);
 
     showMessage(
-      "د معلوماتو په ترلاسه کولو کې ستونزه راغله. " +
+      "د ډیټابېس د معلوماتو په لوډولو کې ستونزه ده. " +
       error.message,
       "error"
     );
   }
 }
 
-/* =========================================
-   DROPDOWN MENUS
-========================================= */
+/* ==========================================
+   CLASS DROPDOWN
+========================================== */
 
-function getClassName(classRecord) {
-  return (
-    classRecord.name ||
-    classRecord.class_name ||
-    classRecord.code ||
-    classRecord.class ||
-    ""
-  );
-}
+function fillClasses() {
+  classSelect.innerHTML =
+    '<option value="">صنف انتخاب کړئ</option>';
 
-function fillClassDropdowns() {
-  const ids = ["classFilter", "reportClass"];
-
-  ids.forEach(id => {
-    const select = $(id);
-    if (!select) return;
-
-    const oldValue = select.value;
-
-    select.innerHTML =
-      '<option value="">ټول صنفونه وټاکئ</option>';
-
-    allClasses.forEach(item => {
-      const name = getClassName(item);
-      if (!name) return;
-
-      const option = document.createElement("option");
-      option.value = name;
-      option.textContent = name;
-
-      select.appendChild(option);
-    });
-
-    if (
-      oldValue &&
-      [...select.options].some(
-        option => option.value === oldValue
-      )
-    ) {
-      select.value = oldValue;
-    }
-  });
-}
-
-function fillSubjectDropdown() {
-  const select = $("subjectFilter");
-  if (!select) return;
-
-  select.innerHTML =
-    '<option value="">ټول مضمونونه</option>';
-
-  allSubjects.forEach(subject => {
-    const name =
-      subject.name ||
-      subject.subject_name ||
-      subject.code ||
-      "";
+  classesData.forEach(item => {
+    const name = getClassName(item);
 
     if (!name) return;
 
@@ -894,44 +882,144 @@ function fillSubjectDropdown() {
     option.value = name;
     option.textContent = name;
 
-    select.appendChild(option);
+    classSelect.appendChild(option);
   });
+
+  subjectSelect.disabled = true;
+  studentSelect.disabled = true;
+  marksInput.disabled = true;
+  saveButton.disabled = true;
 }
 
-function fillStudentDropdown() {
-  const select = $("studentFilter");
-  if (!select) return;
+/* ==========================================
+   SUBJECT DROPDOWN
+========================================== */
 
-  select.innerHTML =
-    '<option value="">زده‌کوونکی وټاکئ</option>';
+function fillSubjects() {
+  const className = classSelect.value;
 
-  allStudents.forEach(student => {
-    const name =
-      student.name ||
-      student.student_name ||
-      "";
+  subjectSelect.innerHTML =
+    '<option value="">مضمون انتخاب کړئ</option>';
 
-    if (!name) return;
+  const filtered = subjectsData.filter(subject => {
+    const subjectClass = getSubjectClass(subject);
 
+    // که مضمون صنف ولري، باید له ټاکل شوي صنف سره برابر وي.
+    // که د مضمون صنف تش وي، د موجودو معلوماتو له مخې یې ښکاره کوو.
+    return (
+      !subjectClass ||
+      normalize(subjectClass) === normalize(className)
+    );
+  });
+
+  const uniqueSubjects = new Set();
+
+  filtered.forEach(subject => {
+    const name = getSubjectName(subject);
+
+    if (!name || uniqueSubjects.has(normalize(name))) {
+      return;
+    }
+
+    uniqueSubjects.add(normalize(name));
+
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+
+    subjectSelect.appendChild(option);
+  });
+
+  subjectSelect.disabled = filtered.length === 0;
+
+  if (!filtered.length) {
+    subjectSelect.innerHTML =
+      '<option value="">د دې صنف مضمونونه ونه موندل شول</option>';
+  }
+}
+
+/* ==========================================
+   STUDENT DROPDOWN
+========================================== */
+
+function fillStudents() {
+  const className = classSelect.value;
+
+  studentSelect.innerHTML =
+    '<option value="">زده‌کوونکی انتخاب کړئ</option>';
+
+  const filtered = studentsData.filter(student => {
+    return normalize(getStudentClass(student)) ===
+      normalize(className);
+  });
+
+  filtered.forEach(student => {
     const option = document.createElement("option");
 
     option.value = String(student.id);
 
     option.textContent =
-      name +
-      (student.father
-        ? " — د پلار نوم: " + student.father
-        : student.father_name
-        ? " — د پلار نوم: " + student.father_name
-        : "");
+      getStudentName(student) +
+      (
+        student.father ||
+        student.father_name
+          ? " — " + (student.father || student.father_name)
+          : ""
+      );
 
-    select.appendChild(option);
+    studentSelect.appendChild(option);
   });
+
+  studentSelect.disabled = filtered.length === 0;
+
+  if (!filtered.length) {
+    studentSelect.innerHTML =
+      '<option value="">په دې صنف کې زده‌کوونکي نشته</option>';
+  }
+
+  updateSaveState();
 }
 
-/* =========================================
-   FIELD HELPERS
-========================================= */
+/* ==========================================
+   EXAM TYPE AND MARKS
+========================================== */
+
+function updateExamType() {
+  selectedMaxMarks = getExamMaxMarks();
+
+  maxMarksElement.textContent = selectedMaxMarks;
+
+  marksInput.max = String(selectedMaxMarks);
+  marksInput.value = "";
+
+  updatePercentage();
+  updateSaveState();
+}
+
+function updatePercentage() {
+  const rawValue = marksInput.value;
+
+  if (rawValue === "") {
+    percentagePreview.textContent = "۰٪";
+    return;
+  }
+
+  const marks = Number(rawValue);
+
+  if (!Number.isFinite(marks) || marks < 0) {
+    percentagePreview.textContent = "۰٪";
+    return;
+  }
+
+  const percentage = (marks / selectedMaxMarks) * 100;
+
+  percentagePreview.textContent =
+    formatPercent(percentage);
+}
+
+/* ==========================================
+   CHECK EXISTING RESULTS
+========================================== */
 
 function resultStudentId(row) {
   return String(
@@ -941,7 +1029,7 @@ function resultStudentId(row) {
   );
 }
 
-function resultClass(row) {
+function resultClassName(row) {
   return String(
     row.class ||
     row.class_name ||
@@ -950,7 +1038,7 @@ function resultClass(row) {
   );
 }
 
-function resultSubject(row) {
+function resultSubjectName(row) {
   return String(
     row.subject ||
     row.subject_name ||
@@ -959,630 +1047,258 @@ function resultSubject(row) {
   );
 }
 
-function resultExam(row) {
+function resultExamName(row) {
   return String(
     row.exam_type ||
     row.exam ||
     row.exam_name ||
     row.examName ||
     ""
-  ).trim();
-}
-
-function resultMarks(row) {
-  return Number(
-    row.marks_obtained ??
-    row.obtained_marks ??
-    row.marks ??
-    row.obtained ??
-    0
   );
 }
 
-function resultTotal(row) {
-  return Number(
-    row.total_marks ??
-    row.total ??
-    100
-  );
-}
-
-function resultDate(row) {
-  return String(
-    row.exam_date ||
-    row.date ||
-    row.created_at ||
-    ""
-  ).slice(0, 10);
-}
-
-function studentName(student) {
+function isSameResult(row) {
   return (
-    student.name ||
-    student.student_name ||
-    "بې نومه زده‌کوونکی"
+    resultStudentId(row) === studentSelect.value &&
+    normalize(resultClassName(row)) === normalize(classSelect.value) &&
+    normalize(resultSubjectName(row)) === normalize(subjectSelect.value) &&
+    normalize(resultExamName(row)) === normalize(getExamType())
   );
 }
 
-function gradeFromPercentage(percentage) {
-  if (percentage >= 90) return "A";
-  if (percentage >= 80) return "B";
-  if (percentage >= 70) return "C";
-  if (percentage >= 60) return "D";
-  if (percentage >= 40) return "E";
-  return "F";
+/* ==========================================
+   SAVE BUTTON STATE
+========================================== */
+
+function updateSaveState() {
+  const marks = marksInput.value;
+
+  const validMarks =
+    marks !== "" &&
+    Number.isFinite(Number(marks)) &&
+    Number(marks) >= 0 &&
+    Number(marks) <= selectedMaxMarks;
+
+  const ready =
+    Boolean(classSelect.value) &&
+    Boolean(subjectSelect.value) &&
+    Boolean(studentSelect.value) &&
+    Boolean(getExamType()) &&
+    validMarks;
+
+  saveButton.disabled = !ready || saving;
 }
 
-function percentage(marks, total) {
-  if (!total || total <= 0) return 0;
+/* ==========================================
+   SAVE RESULT
+========================================== */
 
-  return (marks / total) * 100;
-}
+async function saveMarks() {
+  if (saving) return;
 
-function formatNumber(value) {
-  return Number(value || 0).toLocaleString(
-    "en-US",
-    { maximumFractionDigits: 2 }
-  );
-}
+  hideMessage();
 
-function isAnnualExam(exam) {
-  const value = exam.toLowerCase();
+  const className = classSelect.value;
+  const subjectName = subjectSelect.value;
+  const studentId = studentSelect.value;
+  const examType = getExamType();
+  const marks = Number(marksInput.value);
 
-  return (
-    value.includes("کلني") ||
-    value.includes("کلنۍ") ||
-    value.includes("annual") ||
-    value.includes("yearly")
-  );
-}
+  selectedMaxMarks = getExamMaxMarks();
 
-function isHalfExam(exam) {
-  const value = exam.toLowerCase();
-
-  return (
-    value.includes("څلورنیم") ||
-    value.includes("څلور نیم") ||
-    value.includes("منځنۍ") ||
-    value.includes("نیم") ||
-    value.includes("half") ||
-    value.includes("midterm")
-  );
-}
-
-/* =========================================
-   FILTER RESULTS
-========================================= */
-
-function getFilteredResults() {
-  const classValue =
-    $("classFilter")?.value || "";
-
-  const subjectValue =
-    $("subjectFilter")?.value || "";
-
-  return allResults.filter(row => {
-    const matchesClass =
-      !classValue ||
-      resultClass(row) === classValue;
-
-    const matchesSubject =
-      !subjectValue ||
-      resultSubject(row) === subjectValue;
-
-    return matchesClass && matchesSubject;
-  });
-}
-
-/* =========================================
-   COMBINED CLASS REPORT
-========================================= */
-
-function generateCombinedReport() {
-  const selectedClass =
-    $("reportClass")?.value ||
-    $("classFilter")?.value ||
-    "";
-
-  if (!selectedClass) {
+  if (!className || !subjectName || !studentId || !examType) {
     showMessage(
-      "مهرباني وکړئ لومړی صنف وټاکئ.",
+      "مهرباني وکړئ صنف، مضمون، ازموینه او زده‌کوونکی انتخاب کړئ.",
       "error"
     );
     return;
   }
 
-  const students = allStudents.filter(student => {
-    const className =
-      student.class ||
-      student.class_name ||
-      student.className ||
-      "";
-
-    return String(className) === selectedClass;
-  });
-
-  if (!students.length) {
+  if (
+    marksInput.value === "" ||
+    !Number.isFinite(marks) ||
+    marks < 0 ||
+    marks > selectedMaxMarks
+  ) {
     showMessage(
-      "په دې صنف کې فعال زده‌کوونکي ونه موندل شول.",
+      "نمرې باید له صفر څخه تر " +
+      selectedMaxMarks +
+      " پورې وي.",
       "error"
     );
     return;
   }
 
-  const subjects = allSubjects.filter(subject => {
-    const className =
-      subject.class ||
-      subject.class_name ||
-      subject.className ||
-      "";
-
-    return !className || className === selectedClass;
-  });
-
-  const classResults = allResults.filter(row => {
-    return resultClass(row) === selectedClass;
-  });
-
-  let html = `
-    <div class="report-heading">
-      <h2>احمدزي ښوونځی</h2>
-      <h3>د صنف د پایلو ګډ راپور</h3>
-      <p>صنف: ${escapeHTML(selectedClass)}</p>
-      <p>نېټه: ${new Date().toLocaleDateString()}</p>
-    </div>
-
-    <div class="table-wrapper">
-      <table class="report-table">
-        <thead>
-          <tr>
-            <th>شمېره</th>
-            <th>د زده‌کوونکي نوم</th>
-            <th>مضمون</th>
-            <th>کلنۍ نمرې</th>
-            <th>کلنۍ سلنه</th>
-            <th>منځنۍ نمرې</th>
-            <th>منځنۍ سلنه</th>
-            <th>ټولې نمرې</th>
-            <th>ټوله سلنه</th>
-            <th>درجه</th>
-          </tr>
-        </thead>
-        <tbody>
-  `;
-
-  let serial = 0;
-
-  students.forEach(student => {
-    const sid = String(student.id);
-
-    subjects.forEach(subject => {
-      const subjectName =
-        subject.name ||
-        subject.subject_name ||
-        subject.code ||
-        "";
-
-      const relevant = classResults.filter(row => {
-        return (
-          resultStudentId(row) === sid &&
-          resultSubject(row) === subjectName
-        );
-      });
-
-      const annual = relevant.find(row =>
-        isAnnualExam(resultExam(row))
-      );
-
-      const half = relevant.find(row =>
-        isHalfExam(resultExam(row))
-      );
-
-      if (!annual && !half) return;
-
-      serial++;
-
-      const annualMarks = annual
-        ? resultMarks(annual)
-        : 0;
-
-      const annualTotal = annual
-        ? resultTotal(annual)
-        : 0;
-
-      const halfMarks = half
-        ? resultMarks(half)
-        : 0;
-
-      const halfTotal = half
-        ? resultTotal(half)
-        : 0;
-
-      const totalMarks =
-        annualMarks + halfMarks;
-
-      const totalPossible =
-        annualTotal + halfTotal;
-
-      const annualPercent = annual
-        ? percentage(annualMarks, annualTotal)
-        : null;
-
-      const halfPercent = half
-        ? percentage(halfMarks, halfTotal)
-        : null;
-
-      const totalPercent = totalPossible
-        ? percentage(totalMarks, totalPossible)
-        : 0;
-
-      const grade = gradeFromPercentage(
-        totalPercent
-      );
-
-      html += `
-        <tr>
-          <td>${serial}</td>
-          <td>${escapeHTML(studentName(student))}</td>
-          <td>${escapeHTML(subjectName)}</td>
-          <td>${annual ? formatNumber(annualMarks) + "/" + formatNumber(annualTotal) : "—"}</td>
-          <td>${annual ? formatNumber(annualPercent) + "%" : "—"}</td>
-          <td>${half ? formatNumber(halfMarks) + "/" + formatNumber(halfTotal) : "—"}</td>
-          <td>${half ? formatNumber(halfPercent) + "%" : "—"}</td>
-          <td>${formatNumber(totalMarks)} / ${formatNumber(totalPossible)}</td>
-          <td>${formatNumber(totalPercent)}%</td>
-          <td>${grade}</td>
-        </tr>
-      `;
-    });
-  });
-
-  html += `
-        </tbody>
-      </table>
-    </div>
-  `;
-
-  if (serial === 0) {
+  if (isSameResultInDatabase()) {
     showMessage(
-      "د دې صنف لپاره کلنۍ یا منځنۍ پایلې ونه موندل شوې.",
+      "د دې زده‌کوونکي، مضمون او ازموینې نمرې مخکې ثبت شوې دي. د تکراري ثبت مخه ونیول شوه.",
       "error"
     );
     return;
   }
 
-  $("reportOutput").innerHTML = html;
-
-  showMessage(
-    "د صنف راپور جوړ شو.",
-    "success"
-  );
-}
-
-/* =========================================
-   INDIVIDUAL STUDENT REPORT
-========================================= */
-
-function generateStudentReport() {
-  const selectedId =
-    $("studentFilter")?.value || "";
-
-  if (!selectedId) {
-    showMessage(
-      "مهرباني وکړئ زده‌کوونکی وټاکئ.",
-      "error"
-    );
-    return;
-  }
-
-  const student = allStudents.find(
-    item => String(item.id) === selectedId
+  const student = studentsData.find(
+    item => String(item.id) === studentId
   );
 
   if (!student) {
     showMessage(
-      "زده‌کوونکی ونه موندل شو.",
+      "زده‌کوونکی ونه موندل شو. صنف بیا انتخاب کړئ.",
       "error"
     );
     return;
   }
 
-  const results = allResults.filter(row =>
-    resultStudentId(row) === selectedId
-  );
+  /*
+    د موجود results جدول لپاره عام کالمونه.
+    که ستاسو په جدول کې د کالمونو نومونه توپیر ولري،
+    د جدول د جوړښت له مخې یې باید بدل کړو.
+  */
 
-  if (!results.length) {
-    showMessage(
-      "د دې زده‌کوونکي پایلې نه دي ثبت شوې.",
-      "error"
-    );
-    return;
-  }
-
-  let sumMarks = 0;
-  let sumTotal = 0;
-
-  let html = `
-    <div class="report-heading">
-      <h2>احمدزي ښوونځی</h2>
-      <h3>د زده‌کوونکي د پایلو راپور</h3>
-      <p>نوم: ${escapeHTML(studentName(student))}</p>
-      <p>د پلار نوم: ${escapeHTML(student.father || student.father_name || "—")}</p>
-      <p>صنف: ${escapeHTML(student.class || student.class_name || "—")}</p>
-      <p>د راپور نېټه: ${new Date().toLocaleDateString()}</p>
-    </div>
-
-    <div class="table-wrapper">
-      <table class="report-table">
-        <thead>
-          <tr>
-            <th>شمېره</th>
-            <th>مضمون</th>
-            <th>د ازموینې ډول</th>
-            <th>نېټه</th>
-            <th>ترلاسه شوې نمرې</th>
-            <th>ټولې نمرې</th>
-            <th>سلنه</th>
-            <th>درجه</th>
-          </tr>
-        </thead>
-        <tbody>
-  `;
-
-  results.forEach((row, index) => {
-    const marks = resultMarks(row);
-    const total = resultTotal(row);
-    const percent = percentage(marks, total);
-    const grade = gradeFromPercentage(percent);
-
-    sumMarks += marks;
-    sumTotal += total;
-
-    html += `
-      <tr>
-        <td>${index + 1}</td>
-        <td>${escapeHTML(resultSubject(row) || "—")}</td>
-        <td>${escapeHTML(resultExam(row) || "—")}</td>
-        <td>${escapeHTML(resultDate(row) || "—")}</td>
-        <td>${formatNumber(marks)}</td>
-        <td>${formatNumber(total)}</td>
-        <td>${formatNumber(percent)}%</td>
-        <td>${grade}</td>
-      </tr>
-    `;
-  });
-
-  const overallPercent = percentage(
-    sumMarks,
-    sumTotal
-  );
-
-  html += `
-        </tbody>
-        <tfoot>
-          <tr>
-            <th colspan="4">ټولیزه پایله</th>
-            <th>${formatNumber(sumMarks)}</th>
-            <th>${formatNumber(sumTotal)}</th>
-            <th>${formatNumber(overallPercent)}%</th>
-            <th>${gradeFromPercentage(overallPercent)}</th>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-  `;
-
-  $("reportOutput").innerHTML = html;
-
-  showMessage(
-    "د زده‌کوونکي راپور جوړ شو.",
-    "success"
-  );
-}
-
-/* =========================================
-   PRINT REPORT
-========================================= */
-
-function printReport() {
-  const output = $("reportOutput");
-
-  if (!output || !output.innerHTML.trim()) {
-    showMessage(
-      "لومړی راپور جوړ کړئ، بیا یې چاپ کړئ.",
-      "error"
-    );
-    return;
-  }
-
-  const printWindow = window.open(
-    "",
-    "_blank",
-    "width=1100,height=800"
-  );
-
-  if (!printWindow) {
-    showMessage(
-      "د چاپ کړکۍ بنده ده. مهرباني وکړئ د براوزر اجازه فعاله کړئ.",
-      "error"
-    );
-    return;
-  }
-
-  printWindow.document.write(`
-    <!DOCTYPE html>
-    <html lang="ps" dir="rtl">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>د احمدزي ښوونځي پایلو راپور</title>
-      <style>
-        body {
-          font-family: Arial, sans-serif;
-          direction: rtl;
-          padding: 20px;
-          color: #111;
-        }
-
-        h2, h3, p {
-          text-align: center;
-        }
-
-        .table-wrapper {
-          width: 100%;
-          overflow: visible;
-        }
-
-        table {
-          width: 100%;
-          border-collapse: collapse;
-          margin-top: 20px;
-        }
-
-        th, td {
-          border: 1px solid #555;
-          padding: 8px;
-          text-align: center;
-          font-size: 12px;
-        }
-
-        th {
-          background: #e9eef5;
-        }
-
-        tr {
-          page-break-inside: avoid;
-        }
-
-        @media print {
-          body {
-            padding: 0;
-          }
-
-          @page {
-            size: landscape;
-            margin: 10mm;
-          }
-        }
-      </style>
-    </head>
-    <body>
-      ${output.innerHTML}
-    </body>
-    </html>
-  `);
-
-  printWindow.document.close();
-
-  printWindow.onload = function () {
-    printWindow.focus();
-    printWindow.print();
+  const data = {
+    student_id: Number(studentId),
+    class: className,
+    subject: subjectName,
+    exam_type: examType,
+    exam_date: new Date().toISOString().slice(0, 10),
+    marks_obtained: marks,
+    total_marks: selectedMaxMarks
   };
-}
 
-/* =========================================
-   EXPORT REPORT TO CSV
-========================================= */
+  saving = true;
+  saveButton.disabled = true;
+  saveButton.textContent = "⏳ نمرې ثبتېږي...";
 
-function exportCSV() {
-  const table = $("reportOutput")?.querySelector("table");
+  try {
+    const savedRows = await postResult(data);
 
-  if (!table) {
+    resultsData.push(
+      ...(Array.isArray(savedRows) ? savedRows : [data])
+    );
+
     showMessage(
-      "لومړی راپور جوړ کړئ، بیا یې ډاونلوډ کړئ.",
+      "✅ د " + getStudentName(student) +
+      " نمرې په بریالیتوب سره ثبت شوې.\n" +
+      "ازموینه: " + examType + "\n" +
+      "نمرې: " + marks + " / " + selectedMaxMarks + "\n" +
+      "سلنه: " + formatPercent(
+        (marks / selectedMaxMarks) * 100
+      ),
+      "success"
+    );
+
+    marksInput.value = "";
+    updatePercentage();
+
+  } catch (error) {
+    console.error(error);
+
+    showMessage(
+      "د نمرو ثبت ناکام شو. د results جدول کالمونه او د Supabase اجازه وګورئ.\n" +
+      error.message,
       "error"
     );
-    return;
+
+  } finally {
+    saving = false;
+    saveButton.textContent = "💾 نمرې ثبت کړئ";
+    updateSaveState();
   }
-
-  const rows = [...table.querySelectorAll("tr")];
-
-  const csv = rows.map(row => {
-    return [...row.querySelectorAll("th, td")]
-      .map(cell => {
-        const value = cell.innerText
-          .replace(/"/g, '""')
-          .replace(/\r?\n/g, " ");
-
-        return '"' + value + '"';
-      })
-      .join(",");
-  }).join("\r\n");
-
-  const blob = new Blob(
-    ["\uFEFF" + csv],
-    { type: "text/csv;charset=utf-8;" }
-  );
-
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-
-  link.href = url;
-  link.download = "ahmadzai-school-results.csv";
-
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-
-  URL.revokeObjectURL(url);
-
-  showMessage(
-    "د راپور CSV فایل ډاونلوډ شو.",
-    "success"
-  );
 }
 
-/* =========================================
-   BUTTON EVENTS
-========================================= */
+/* ==========================================
+   DUPLICATE CHECK
+========================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
-  const combinedButton = $("generateCombined");
-  const studentButton = $("generateStudent");
-  const printButton = $("printReport");
-  const csvButton = $("exportCSV");
+function isSameResultInDatabase() {
+  return resultsData.some(isSameResult);
+}
 
-  if (combinedButton) {
-    combinedButton.addEventListener(
-      "click",
-      generateCombinedReport
-    );
-  }
+/* ==========================================
+   RESET FORM
+========================================== */
 
-  if (studentButton) {
-    studentButton.addEventListener(
-      "click",
-      generateStudentReport
-    );
-  }
+function resetForm() {
+  classSelect.value = "";
 
-  if (printButton) {
-    printButton.addEventListener(
-      "click",
-      printReport
-    );
-  }
+  subjectSelect.innerHTML =
+    '<option value="">لومړی صنف انتخاب کړئ</option>';
 
-  if (csvButton) {
-    csvButton.addEventListener(
-      "click",
-      exportCSV
-    );
-  }
+  studentSelect.innerHTML =
+    '<option value="">لومړی صنف انتخاب کړئ</option>';
 
-  const classFilter = $("classFilter");
-  const subjectFilter = $("subjectFilter");
+  subjectSelect.disabled = true;
+  studentSelect.disabled = true;
+  marksInput.disabled = true;
 
-  if (classFilter) {
-    classFilter.addEventListener("change", () => {
-      if ($("reportClass")) {
-        $("reportClass").value = classFilter.value;
-      }
-    });
-  }
+  document.getElementById("halfExam").checked = true;
 
-  loadBase();
+  marksInput.value = "";
+
+  updateExamType();
+  updatePercentage();
+  updateSaveState();
+  hideMessage();
+}
+
+/* ==========================================
+   EVENT LISTENERS
+========================================== */
+
+classSelect.addEventListener("change", () => {
+  hideMessage();
+
+  marksInput.value = "";
+  subjectSelect.value = "";
+  studentSelect.value = "";
+
+  fillSubjects();
+  fillStudents();
+
+  marksInput.disabled = false;
+  updatePercentage();
+  updateSaveState();
 });
+
+subjectSelect.addEventListener("change", () => {
+  hideMessage();
+  marksInput.value = "";
+
+  updatePercentage();
+  updateSaveState();
+});
+
+studentSelect.addEventListener("change", () => {
+  hideMessage();
+  marksInput.value = "";
+
+  updatePercentage();
+  updateSaveState();
+});
+
+document.querySelectorAll(
+  'input[name="examType"]'
+).forEach(input => {
+  input.addEventListener("change", () => {
+    hideMessage();
+    updateExamType();
+  });
+});
+
+marksInput.addEventListener("input", () => {
+  updatePercentage();
+  updateSaveState();
+});
+
+saveButton.addEventListener("click", saveMarks);
+resetButton.addEventListener("click", resetForm);
+
+/* ==========================================
+   START
+========================================== */
+
+updateExamType();
+loadDatabase();
 </script>
 
 </body>
