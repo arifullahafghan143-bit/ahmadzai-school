@@ -895,46 +895,41 @@ function fillClasses() {
 ========================================== */
 
 function fillSubjects() {
-  const className = classSelect.value;
+    const selectedClass = document.getElementById("classSelect").value;
+    const subjectSelect = document.getElementById("subjectSelect");
 
-  subjectSelect.innerHTML =
-    '<option value="">مضمون انتخاب کړئ</option>';
+    subjectSelect.innerHTML =
+        '<option value="">مضمون انتخاب کړئ</option>';
 
-  const filtered = subjectsData.filter(subject => {
-    const subjectClass = getSubjectClass(subject);
-
-    // که مضمون صنف ولري، باید له ټاکل شوي صنف سره برابر وي.
-    // که د مضمون صنف تش وي، د موجودو معلوماتو له مخې یې ښکاره کوو.
-    return (
-      !subjectClass ||
-      normalize(subjectClass) === normalize(className)
-    );
-  });
-
-  const uniqueSubjects = new Set();
-
-  filtered.forEach(subject => {
-    const name = getSubjectName(subject);
-
-    if (!name || uniqueSubjects.has(normalize(name))) {
-      return;
+    if (!selectedClass) {
+        subjectSelect.disabled = true;
+        return;
     }
 
-    uniqueSubjects.add(normalize(name));
+    const normalize = value =>
+        String(value ?? "").trim().toLowerCase();
 
-    const option = document.createElement("option");
-    option.value = name;
-    option.textContent = name;
+    const filteredSubjects = subjectsData.filter(subject => {
+        return normalize(subject.class) === normalize(selectedClass);
+    });
 
-    subjectSelect.appendChild(option);
-  });
+    if (filteredSubjects.length === 0) {
+        subjectSelect.innerHTML =
+            '<option value="">په دې صنف کې مضمون نشته</option>';
+        subjectSelect.disabled = true;
+        return;
+    }
 
-  subjectSelect.disabled = filtered.length === 0;
+    filteredSubjects.forEach(subject => {
+        const option = document.createElement("option");
 
-  if (!filtered.length) {
-    subjectSelect.innerHTML =
-      '<option value="">د دې صنف مضمونونه ونه موندل شول</option>';
-  }
+        option.value = subject.name;
+        option.textContent = subject.name;
+
+        subjectSelect.appendChild(option);
+    });
+
+    subjectSelect.disabled = false;
 }
 
 /* ==========================================
