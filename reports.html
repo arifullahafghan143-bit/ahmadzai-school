@@ -873,9 +873,8 @@ async function loadReport(){
          */
 
         let path =
-            'attendance_report?select=attendance_date,student_id,student_name,father_name,class,subject,status' +
-            '&order=attendance_date.desc';
-
+'attendance_report?select=attendance_id,attendance_date,student_id,student_name,father_name,class,subject,status' +
+'&order=attendance_date.desc';
         if(start){
             path +=
                 '&attendance_date=gte.' +
