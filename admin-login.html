@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ps" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>د اډمین ننوتل | احمدزي ښوونځی</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    font-family:Tahoma,Arial,sans-serif;
+    background:linear-gradient(135deg,#071b36,#123e66,#087e8b);
+}
+.card{
+    width:100%;
+    max-width:420px;
+    background:white;
+    padding:32px 25px;
+    border-radius:22px;
+    box-shadow:0 15px 50px #0004;
+}
+.logo{
+    width:75px;height:75px;
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 15px;
+    border-radius:22px;
+    background:#e0f2fe;
+    font-size:38px;
+}
+h1{text-align:center;color:#123e66;font-size:25px}
+.subtitle{text-align:center;color:#64748b;line-height:1.9}
+label{display:block;margin:18px 0 8px;font-weight:bold;color:#26364b}
+input{
+    width:100%;padding:14px;
+    border:1px solid #cbd5e1;border-radius:11px;
+    font-size:16px;outline:none;
+}
+input:focus{border-color:#087e8b;box-shadow:0 0 0 3px #087e8b20}
+button{
+    width:100%;padding:14px;margin-top:22px;
+    border:0;border-radius:11px;
+    background:#087e8b;color:white;
+    font-size:17px;font-weight:bold;cursor:pointer;
+}
+button:disabled{opacity:.6;cursor:wait}
+#message{
+    display:none;margin-top:17px;padding:12px;
+    border-radius:9px;line-height:1.8;font-size:14px;
+    overflow-wrap:anywhere;
+}
+.footer{text-align:center;color:#64748b;font-size:12px;margin-top:25px}
+.back{display:block;text-align:center;margin-top:18px;color:#087e8b;text-decoration:none}
+</style>
+</head>
+
+<body>
+<div class="card">
+    <div class="logo">🏫</div>
+    <h1>احمدزي ښوونځی</h1>
+    <p class="subtitle">د ښوونځي د مدیریت سیستم<br>د اډمین خوندي ننوتل</p>
+
+    <form id="loginForm">
+        <label for="email">د اډمین ایمیل</label>
+        <input id="email" type="email"
+               value="arifullahafghan143@gmail.com"
+               autocomplete="username" required>
+
+        <label for="password">پټنوم</label>
+        <input id="password" type="password"
+               placeholder="خپل پټنوم ولیکئ"
+               autocomplete="current-password" required>
+
+        <button id="loginButton" type="submit">سیستم ته ننوتل</button>
+    </form>
+
+    <div id="message" role="status"></div>
+
+    <a class="back" href="index.html">اصلي پاڼې ته بېرته تلل</a>
+    <div class="footer">© احمدزي ښوونځی | د مدیریت سیستم</div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://oaxmnfnaqhdvnykawvyh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_I6B4jSPL1L88rYKbhpitzw_8erhz3L7";
+
+const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+const form = document.getElementById("loginForm");
+const button = document.getElementById("loginButton");
+const message = document.getElementById("message");
+
+function showMessage(text, success = false) {
+    message.style.display = "block";
+    message.style.background = success ? "#dcfce7" : "#fee2e2";
+    message.style.color = success ? "#166534" : "#991b1b";
+    message.textContent = text;
+}
+
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    button.disabled = true;
+    button.textContent = "مهرباني وکړئ، انتظار وکړئ...";
+    message.style.display = "none";
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    try {
+        const { data, error } = await db.auth.signInWithPassword({
+            email,
+            password
+        });
+
+        if (error) throw error;
+
+        if (!data.user) {
+            throw new Error("د کاروونکي معلومات ترلاسه نه شول.");
+        }
+
+        const { data: isAdmin, error: adminError } =
+            await db.rpc("is_school_admin");
+
+        if (adminError) {
+            await db.auth.signOut();
+            throw new Error(
+                "د اډمین صلاحیت تایید نه شو. د ډیټابېس پالیسۍ او Function permissions باید وکتل شي."
+            );
+        }
+
+        if (isAdmin !== true) {
+            await db.auth.signOut();
+            throw new Error(
+                "دا حساب د ښوونځي د اډمین صلاحیت نه لري."
+            );
+        }
+
+        showMessage("ننوتل بریالي شول! ډشبورډ ته انتقالېږئ...", true);
+
+        setTimeout(function() {
+            window.location.href = "dashboard.html";
+        }, 1000);
+
+    } catch (error) {
+        showMessage(error.message || "ننوتل ناکام شول.");
+    } finally {
+        button.disabled = false;
+        button.textContent = "سیستم ته ننوتل";
+    }
+});
+</script>
+</body>
+</html>
