@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ps" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#075c46">
+<title>احمدزي عالي لېسه</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Tahoma,Arial,sans-serif;background:#fff;color:#19352d;line-height:1.9}
+a{text-decoration:none;color:inherit}
+.container{width:92%;max-width:1120px;margin:auto}
+header{background:#fff;position:sticky;top:0;z-index:10;box-shadow:0 3px 15px #0001}
+.nav{min-height:75px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.brand{display:flex;align-items:center;gap:10px;color:#075c46}
+.logo{background:#075c46;color:white;padding:8px 12px;border-radius:12px;font-size:27px}
+.brand h1{font-size:18px}
+.brand small{font-size:11px;color:#687b71}
+nav{display:flex;align-items:center;gap:16px;font-size:13px;font-weight:bold}
+nav a:hover{color:#087f5b}
+.admin{background:#075c46;color:white;padding:8px 12px;border-radius:8px}
+.menu{display:none;border:0;padding:8px 12px;font-size:22px;background:#eff7f1;border-radius:8px}
+.hero{background:linear-gradient(100deg,#063d2df2,#087f5bd9),url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80') center/cover;color:white;padding:100px 0}
+.hero-content{max-width:680px}
+.badge{display:inline-block;border:1px solid #ffffff55;border-radius:30px;padding:4px 13px;font-size:12px;margin-bottom:16px}
+.hero h2{font-size:clamp(30px,5vw,48px);line-height:1.6;margin-bottom:15px}
+.hero h2 span{color:#f5c45e}
+.hero p{font-size:14px;color:#e3eee8;margin-bottom:25px}
+.btn{display:inline-block;padding:11px 19px;border-radius:9px;font-weight:bold;font-size:13px;border:0;cursor:pointer}
+.gold{background:#f5c45e;color:#263d30}
+.outline{border:1px solid #ffffff90;color:white;margin-right:8px}
+.stats{margin-top:-28px;position:relative}
+.stats-grid{background:white;border-radius:16px;box-shadow:0 8px 30px #0001;display:grid;grid-template-columns:repeat(4,1fr);padding:22px 10px}
+.stat{text-align:center;border-left:1px solid #e1ebe5;padding:8px}
+.stat:last-child{border:0}
+.stat strong{display:block;font-size:23px;color:#075c46}
+.stat span{font-size:12px;color:#65776f}
+section{padding:70px 0}
+.heading{text-align:center;max-width:650px;margin:0 auto 35px}
+.heading small{color:#087f5b;font-weight:bold}
+.heading h2{font-size:28px;margin:8px 0}
+.heading p{font-size:13px;color:#65776f}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center}
+.about-img{min-height:330px;border-radius:18px;background:url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=900&q=80') center/cover}
+.about h2{font-size:27px;margin:8px 0 15px}
+.about p{font-size:14px;color:#65776f;margin-bottom:12px}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}
+.feature{background:#f3f8f5;padding:12px;border-radius:9px;font-size:13px;font-weight:bold}
+.feature span{color:#087f5b}
+.light{background:#f3f8f5}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:white;border:1px solid #e1ebe5;border-radius:14px;overflow:hidden;transition:.2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 25px #0001}
+.card-img{height:185px;background-position:center;background-size:cover}
+.card-body{padding:20px}
+.card h3{font-size:17px;color:#075c46;margin-bottom:8px}
+.card p{font-size:13px;color:#65776f}
+.tag{display:inline-block;background:#e9f6ef;color:#087f5b;padding:3px 9px;border-radius:5px;font-size:11px;margin-bottom:10px}
+.notice{background:white;border:1px solid #e1ebe5;border-radius:12px;padding:20px;margin-top:22px;text-align:center;font-size:13px;color:#65776f}
+.results{max-width:620px;margin:auto;background:white;padding:28px;border-radius:17px;box-shadow:0 8px 30px #0001;border:1px solid #e1ebe5}
+.results h3{text-align:center;color:#075c46;font-size:22px}
+.results>p{text-align:center;color:#65776f;font-size:13px;margin:8px 0 20px}
+.form-group{margin-bottom:15px}
+label{display:block;font-size:13px;font-weight:bold;margin-bottom:6px}
+input{width:100%;padding:12px;border:1px solid #d6e3db;border-radius:8px;font-family:inherit;font-size:14px}
+.results button{width:100%;background:#075c46;color:white}
+#message{display:none;background:#fff4df;color:#79510a;padding:12px;border-radius:8px;margin-top:14px;font-size:12px}
+.contacts{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.contact{background:#f3f8f5;padding:23px;border-radius:13px;text-align:center}
+.contact div{font-size:27px}
+.contact h3{font-size:16px;color:#075c46}
+.contact p{font-size:12px;color:#65776f}
+footer{background:#063d2d;color:white;padding:40px 0 15px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:25px;margin-bottom:25px}
+footer h3{color:#f5c45e;margin-bottom:12px;font-size:16px}
+footer p,footer a{display:block;color:#d2e2da;font-size:12px;margin-bottom:6px}
+.copyright{text-align:center;border-top:1px solid #ffffff22;padding-top:14px;font-size:11px;color:#c0d4c9}
+@media(max-width:850px){
+.menu{display:block}
+nav{display:none;position:absolute;top:75px;right:0;left:0;background:white;padding:18px 5%;box-shadow:0 8px 20px #0001;flex-direction:column;align-items:stretch}
+nav.open{display:flex}
+.about{grid-template-columns:1fr}
+.about-img{min-height:270px}
+.cards{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+.brand h1{font-size:15px}
+.brand small{font-size:10px}
+.hero{padding:70px 0}
+.hero p{font-size:13px}
+.stats-grid{grid-template-columns:1fr 1fr;padding:10px}
+.stat{border-bottom:1px solid #e1ebe5}
+.stat:nth-child(2){border-left:0}
+.stat:nth-child(n+3){border-bottom:0}
+section{padding:50px 0}
+.heading h2,.about h2{font-size:23px}
+.cards,.contacts,.footer-grid{grid-template-columns:1fr}
+.features{grid-template-columns:1fr}
+.results{padding:20px 15px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="container nav">
+<a class="brand" href="#home">
+<div class="logo">🏫</div>
+<div>
+<h1>احمدزي عالي لېسه</h1>
+<small>علم، اخلاق او روښانه راتلونکی</small>
+</div>
+</a>
+
+<button class="menu" id="menuBtn" aria-label="مینو">☰</button>
+
+<nav id="nav">
+<a href="#home">کور</a>
+<a href="#about">زموږ په اړه</a>
+<a href="#programs">ښوونیزې برخې</a>
+<a href="#news">خبرونه</a>
+<a href="#results">د پایلو کتنه</a>
+<a href="#contact">اړیکه</a>
+<a class="admin" href="admin-login.html">د ادارې ننوتل 🔐</a>
+</nav>
+</div>
+</header>
+
+<main>
+<section class="hero" id="home">
+<div class="container hero-content">
+<span class="badge">🎓 د پوهې او پرمختګ کور</span>
+<h2>ښه زده کړه، <span>روښانه راتلونکی</span></h2>
+<p>احمدزي عالي لېسې ته ښه راغلاست! زموږ موخه د زده‌کوونکو د علمي وړتیاوو، ښو اخلاقو او راتلونکي پرمختګ لپاره د زده کړې مناسب چاپېریال برابرول دي.</p>
+<a href="#about" class="btn gold">زموږ په اړه</a>
+<a href="#results" class="btn outline">د پایلو کتنه</a>
+</div>
+</section>
+
+<div class="stats">
+<div class="container">
+<div class="stats-grid">
+<div class="stat"><strong>📚</strong><span>کیفیت لرونکې زده کړه</span></div>
+<div class="stat"><strong>👨‍🏫</strong><span>ښوونیز چاپېریال</span></div>
+<div class="stat"><strong>🌱</strong><span>د وړتیاوو وده</span></div>
+<div class="stat"><strong>🏆</strong><span>د بریا هڅونه</span></div>
+</div>
+</div>
+</div>
+
+<section id="about">
+<div class="container about">
+<div class="about-img" role="img" aria-label="د زده کړې چاپېریال"></div>
+<div>
+<small style="color:#087f5b;font-weight:bold">زموږ پېژندنه</small>
+<h2>د احمدزي عالي لېسې په اړه</h2>
+<p>احمدزي عالي لېسه د زده‌کوونکو د علمي پرمختګ او شخصیت جوړونې لپاره د زده کړې پر ارزښت، نظم، مسؤلیت او ښو اخلاقو ټینګار کوي.</p>
+<p>موږ هڅه کوو چې زده‌کوونکي د پوهې، مهارتونو او سالم فکر له لارې د خپلې ټولنې په پرمختګ کې مثبت رول ولوبوي.</p>
+<div class="features">
+<div class="feature"><span>✓</span> منظم ښوونیز چاپېریال</div>
+<div class="feature"><span>✓</span> د زده‌کوونکو هڅونه</div>
+<div class="feature"><span>✓</span> علمي پرمختګ</div>
+<div class="feature"><span>✓</span> ښه اخلاق او نظم</div>
+</div>
+<a href="#contact" class="btn" style="background:#075c46;color:white">اړیکه ونیسئ</a>
+</div>
+</div>
+</section>
+
+<section class="light" id="programs">
+<div class="container">
+<div class="heading">
+<small>زموږ خدمتونه</small>
+<h2>ښوونیزې برخې</h2>
+<p>د زده‌کوونکو د علمي پرمختګ لپاره مهمې برخې.</p>
+</div>
+<div class="cards">
+<article class="card">
+<div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80')"></div>
+<div class="card-body"><h3>📖 درسي زده کړې</h3><p>د ښوونیز نصاب له مخې د زده‌کوونکو د پوهې او درسي مهارتونو پیاوړتیا.</p></div>
+</article>
+<article class="card">
+<div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=800&q=80')"></div>
+<div class="card-body"><h3>📚 کتابتون او مطالعه</h3><p>د مطالعې، خپلواکې زده کړې او د معلوماتو ترلاسه کولو هڅونه.</p></div>
+</article>
+<article class="card">
+<div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=800&q=80')"></div>
+<div class="card-body"><h3>🌟 شخصیت جوړونه</h3><p>د مسؤلیت، همکارۍ، درناوي او ښو اخلاقو د ودې ملاتړ.</p></div>
+</article>
+</div>
+</div>
+</section>
+
+<section id="news">
+<div class="container">
+<div class="heading">
+<small>تازه معلومات</small>
+<h2>خبرونه او اعلانونه</h2>
+<p>د ښوونځي د مهمو خبرونو او اعلانونو برخه.</p>
+</div>
+<div class="cards">
+<article class="card"><div class="card-body"><span class="tag">📢 اعلان</span><h3>د ښوونځي خبرونه</h3><p>د ښوونځي رسمي خبرونه او نوي اعلانونه به په دې برخه کې خپرېږي.</p></div></article>
+<article class="card"><div class="card-body"><span class="tag">🗓️ ښوونیز معلومات</span><h3>د ازموینو خبرتیاوې</h3><p>د ازموینو مهالوېش او اړوند خبرتیاوې به دلته خپرېږي.</p></div></article>
+<article class="card"><div class="card-body"><span class="tag">🎓 زده‌کوونکي</span><h3>د زده‌کوونکو لاسته راوړنې</h3><p>د زده‌کوونکو د علمي بریاوو او ښوونیزو فعالیتونو معلومات.</p></div></article>
+</div>
+<div class="notice"><strong>مهمه یادونه</strong><br>دا د خبرونو لومړنۍ نمونه ده؛ اتومات خبرونه لا نه دي نښلول شوي.</div>
+</div>
+</section>
+
+<section class="light" id="results">
+<div class="container">
+<div class="heading">
+<small>د زده‌کوونکو خدمت</small>
+<h2>د پایلو کتنه</h2>
+<p>د زده‌کوونکي د پایلو د کتلو لپاره ځانګړې برخه.</p>
+</div>
+<div class="results">
+<h3>🔎 د ازموینې پایلې</h3>
+<p>د زده‌کوونکي کوډ او شخصي PIN ولیکئ.</p>
+<form id="resultsForm">
+<div class="form-group">
+<label for="studentCode">د زده‌کوونکي کوډ</label>
+<input id="studentCode" type="text" placeholder="لکه ST-001" required autocomplete="off">
+</div>
+<div class="form-group">
+<label for="studentPin">شخصي PIN</label>
+<input id="studentPin" type="password" placeholder="خپل PIN ولیکئ" required autocomplete="off">
+</div>
+<button class="btn" type="submit">د پایلو کتنه</button>
+<div id="message" role="status" aria-live="polite"></div>
+</form>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="container">
+<div class="heading">
+<small>له موږ سره اړیکه</small>
+<h2>د اړیکو معلومات</h2>
+<p>د ښوونځي رسمي معلومات به په دې برخه کې ثبت شي.</p>
+</div>
+<div class="contacts">
+<div class="contact"><div>📍</div><h3>پته</h3><p>د ښوونځي بشپړه پته لا نه ده ثبت شوې.</p></div>
+<div class="contact"><div>📞</div><h3>د اړیکې شمېره</h3><p>د ادارې رسمي شمېره لا نه ده ثبت شوې.</p></div>
+<div class="contact"><div>✉️</div><h3>برېښنالیک</h3><p>رسمي برېښنالیک لا نه دی ثبت شوی.</p></div>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div><h3>احمدزي عالي لېسه</h3><p>علم، اخلاق او روښانه راتلونکی. زموږ موخه د زده‌کوونکو د علمي او شخصي پرمختګ ملاتړ دی.</p></div>
+<div><h3>چټک لینکونه</h3><a href="#home">کور</a><a href="#about">زموږ په اړه</a><a href="#programs">ښوونیزې برخې</a><a href="#news">خبرونه</a></div>
+<div><h3>د ښوونځي سیستم</h3><a href="#results">د پایلو کتنه</a><a href="admin-login.html">د ادارې ننوتل 🔐</a></div>
+</div>
+<div class="copyright">© <span id="year"></span> احمدزي عالي لېسه — ټول حقوق خوندي دي.</div>
+</div>
+</footer>
+
+<script>
+"use strict";
+
+const menuBtn = document.getElementById("menuBtn");
+const nav = document.getElementById("nav");
+
+menuBtn.addEventListener("click", function () {
+  nav.classList.toggle("open");
+});
+
+nav.querySelectorAll("a").forEach(function (link) {
+  link.addEventListener("click", function () {
+    nav.classList.remove("open");
+  });
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+document.getElementById("resultsForm").addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const message = document.getElementById("message");
+  message.style.display = "block";
+  message.textContent =
+    "د پایلو خوندي خدمت لا نه دی فعال شوی. ستاسو معلومات نه دي لېږل شوي او پایلې نه دي لوستل شوې. د ښوونځي له ادارې سره اړیکه ونیسئ.";
+});
+</script>
+
+</body>
+  </html>
